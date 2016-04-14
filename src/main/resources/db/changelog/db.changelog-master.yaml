@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0
+      author: Hank Wu
+      changes:
+        - createTable:
+            tableName: user
+            columns:
+              - column:
+                  name: user_account
+                  type: varchar(50)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_password
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_name
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_type
+                  type: int
+                  constraints:
+                    nullable: false
