@@ -19,9 +19,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/{userAccount}", method = RequestMethod.GET)
-    public User get(@PathVariable("userAccount") String userAccount) {
-        return userService.findByUserAccount(userAccount);
+    @RequestMapping(method = RequestMethod.GET)
+    public User get(String userEmail) {
+        return userService.findByUserEmail(userEmail);
     }
 
 }

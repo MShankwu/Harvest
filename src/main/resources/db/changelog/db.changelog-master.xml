@@ -14,7 +14,25 @@
             `user_type` int(11) NOT NULL,
             PRIMARY KEY (`user_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-           ]]>
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="1" author="Hank Wu" context="ALTER">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `bachelor_harvest`.`user`
+            ADD UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="2" author="Hank Wu" context="ALTER">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `bachelor_harvest`.`user`
+            CHANGE COLUMN `user_id` `user_id` INT(11) NOT NULL AUTO_INCREMENT;
+            ]]>
         </sql>
     </changeSet>
 </databaseChangeLog>
