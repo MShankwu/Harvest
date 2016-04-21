@@ -42,6 +42,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <form action="/register" method="get" class="navbar-form navbar-right" role="form">
+                    <button type="submit" class="btn btn-danger">注册</button>
+                </form>
+
                 <form class="navbar-form navbar-right" role="form">
                     <div class="form-group">
                         <input type="text" placeholder="账号" class="form-control"/>
@@ -50,7 +54,6 @@
                         <input type="password" placeholder="密码" class="form-control"/>
                     </div>
                     <button type="submit" class="btn btn-success">登录</button>
-                    <button type="submit" class="btn btn-danger">注册</button>
                 </form>
             </ul>
         </div><!--/.nav-collapse -->
@@ -58,6 +61,7 @@
 </div>
 
 <div class="container">
+
 
 </div>
 <!-- /.container -->
@@ -68,5 +72,6 @@
 <script src="../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
 <script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
 </body>
 </html>
