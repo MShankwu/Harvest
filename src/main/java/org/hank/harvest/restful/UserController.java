@@ -1,10 +1,9 @@
-package org.hank.harvest.controller;
+package org.hank.harvest.restful;
 
 import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserRepository;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public User getByEmail(String userEmail) {
@@ -25,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public User post(User user) {
+    public User post(@RequestBody User user) {
         return userService.save(user);
     }
 
