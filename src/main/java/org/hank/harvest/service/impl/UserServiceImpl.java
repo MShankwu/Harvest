@@ -22,4 +22,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserEmail(userEmail);
     }
 
+    @Transactional
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+
 }

@@ -20,8 +20,13 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public User get(String userEmail) {
+    public User getByEmail(String userEmail) {
         return userService.findByUserEmail(userEmail);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public User post(User user) {
+        return userService.save(user);
     }
 
 }
