@@ -1,9 +1,6 @@
 package org.hank.harvest.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -14,7 +11,11 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    private String userAccount;
+    @GeneratedValue
+    private Integer userId;
+
+    @Column(nullable = false, unique = true)
+    private String userEmail;
 
     @Column(nullable = false)
     private String userPassword;
@@ -29,12 +30,20 @@ public class User implements Serializable {
 
     }
 
-    public String getUserAccount() {
-        return userAccount;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getUserPassword() {

@@ -7,6 +7,8 @@ import org.hank.harvest.domain.User;
  */
 public interface UserService {
 
-    User findByUserAccount(String userAccount);
+    User findByUserEmail(String userEmail);
+
+    User save(User user);
 
 }
