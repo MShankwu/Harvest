@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Harvest——登录</title>
+
+    <!-- Loading Bootstrap -->
+    <link href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+
+    <link href="../static/dist/css/demo.css"
+          th:href="@{/dist/css/demo.css}" rel="stylesheet"/>
+
+    <!-- Loading Flat UI -->
+    <link href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}" rel="stylesheet"/>
+
+    <link href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}" rel="shortcut icon"/>
+
+    <style>
+        .login {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="login">
+        <div class="login-screen">
+            <div class="login-icon">
+                <img src="../static/dist/img/harvest.ico"
+                     th:src="@{/dist/img/harvest.ico}" alt="Welcome to Harvest Online"/>
+                <h4>欢迎来到
+                    <small>Harvest Online</small>
+                </h4>
+            </div>
+
+            <form class="login-form" id="login" action="/login.do" method="get">
+                <div class="form-group">
+                    <input type="text" class="form-control login-field" th:value="${userEmail}"
+                           placeholder="输入邮箱" id="login-mail" name="userEmail" />
+                    <label class="login-field-icon fui-mail" for="login-mail"></label>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-control login-field" th:value="${userPassword}"
+                           placeholder="输入密码" id="login-pass" name="userPassword" />
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                </div>
+
+                <div class="form-group has-error" th:if="${errorMessage}">
+                    <label class="form-control login-field" th:text="${errorMessage}"></label>
+                    <label class="login-field-icon fui-alert-circle"></label>
+                </div>
+
+                <a class="btn btn-primary btn-lg btn-block" href="#" id="login-submit">登录</a>
+                <a class="login-link" href="#">忘记密码?</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
+<script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
+</body>
+</html>

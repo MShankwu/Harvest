@@ -25,6 +25,9 @@
         .login-form {
             margin-top: -50px;
         }
+        .margin-top {
+            margin-top: 30px;
+        }
     </style>
 </head>
 <body>
@@ -39,7 +42,16 @@
                 </h4>
             </div>
 
-            <form class="login-form" id="login" action="/register.do" method="post">
+            <div class="login-form margin-top" th:if="${hasRegisted}">
+                <div class="form-group has-success">
+                    <label class="form-control login-field">恭喜你，注册成功！</label>
+                    <label class="login-field-icon fui-star"></label>
+                </div>
+
+                <a class="btn btn-primary btn-lg btn-block" href="/">返回首页</a>
+            </div>
+
+            <form class="login-form" id="register" action="/register.do" method="post" th:unless="${hasRegisted}">
                 <div class="form-group">
                     <input type="text" class="form-control login-field" value="" placeholder="邮箱地址"
                            id="login-email" name="userEmail"/>

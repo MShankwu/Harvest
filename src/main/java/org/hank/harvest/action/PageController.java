@@ -20,4 +20,9 @@ public class PageController {
         return "register";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLogin() {
+        return "login";
+    }
+
 }
