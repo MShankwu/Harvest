@@ -1,4 +1,4 @@
-package org.hank.harvest.action;
+package org.hank.harvest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +18,11 @@ public class PageController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegister() {
         return "register";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String showLogin() {
+        return "login";
     }
 
 }

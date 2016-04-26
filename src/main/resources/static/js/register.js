@@ -65,7 +65,7 @@
                 $("#login-message").addClass("hidden");
                 $("#login-message").find(">label:first-child").html("");
 
-                $("#login").submit();
+                $("#register").submit();
             }
         });
 

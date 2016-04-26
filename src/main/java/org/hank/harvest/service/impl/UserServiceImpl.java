@@ -26,6 +26,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUserEmail(userEmail);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public User findByUserEmailAndUserPassword(String userEmail, String userPassword) {
+        return userRepository.findByUserEmailAndUserPassword(userEmail, userPassword);
+    }
+
     @Transactional
     @Override
     public User save(User user) {

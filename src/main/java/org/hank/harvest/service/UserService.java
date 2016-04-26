@@ -9,6 +9,8 @@ public interface UserService {
 
     User findByUserEmail(String userEmail);
 
+    User findByUserEmailAndUserPassword(String userEmail, String userPassword);
+
     User save(User user);
 
 }
