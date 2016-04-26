@@ -1,4 +1,4 @@
-package org.hank.harvest.action;
+package org.hank.harvest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

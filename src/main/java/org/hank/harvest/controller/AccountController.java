@@ -1,4 +1,4 @@
-package org.hank.harvest.action;
+package org.hank.harvest.controller;
 
 import org.hank.harvest.domain.User;
 import org.hank.harvest.service.UserService;
