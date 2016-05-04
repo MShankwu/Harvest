@@ -295,4 +295,35 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="25" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user_detail`
+            DROP COLUMN `User_ID`,
+            DROP INDEX `User_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="26" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `process`
+            CHANGE COLUMN `User_ID` `Employee_ID` INT(11) NULL DEFAULT NULL ,
+            ADD COLUMN `HR_ID` INT NULL AFTER `Employee_ID`,
+            ADD INDEX `HR_ID_idx` (`HR_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="27" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user`
+            DROP COLUMN `Resume_ID`,
+            DROP INDEX `Resume_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>
