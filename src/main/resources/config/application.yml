@@ -5,8 +5,6 @@ spring:
     password: DEBUG
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
-  thymeleaf:
-    cache: false
 
 liquibase:
   enabled: true
