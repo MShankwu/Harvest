@@ -326,4 +326,28 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="28" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `process`
+            DROP COLUMN `HR_ID`,
+            DROP COLUMN `Employee_ID`,
+            DROP INDEX `HR_ID_idx` ,
+            DROP INDEX `User_ID_idx` ;
+            ADD COLUMN `User_ID` INT NULL AFTER `Job_ID`;
+            ADD INDEX `User_ID_idx` (`User_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="29" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag_mark`
+            DROP COLUMN `ID`,
+            DROP PRIMARY KEY;
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

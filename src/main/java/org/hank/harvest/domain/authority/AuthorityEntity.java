@@ -1,25 +1,26 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.authority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2016/5/4.
  */
 @Entity
 @Table(name = "authority", schema = "harvest")
-public class AuthorityEntity {
+public class AuthorityEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String type;
 
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -32,5 +33,7 @@ public class AuthorityEntity {
     public void setType(String type) {
         this.type = type;
     }
+
+
 
 }

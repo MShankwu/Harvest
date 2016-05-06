@@ -1,15 +1,20 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.job;
+
+import org.hank.harvest.domain.company.CompanyEntity;
+import org.hank.harvest.domain.tag.TagEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/4.
  */
 @Entity
 @Table(name = "job", schema = "harvest")
-public class JobEntity {
+public class JobEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String name;
     private String category;
     private String salary;
@@ -18,15 +23,17 @@ public class JobEntity {
     private String experienceLevel;
     private String description;
     private CompanyEntity company;
+    private Set<TagEntity> tags;
+
 
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,8 +97,9 @@ public class JobEntity {
         this.experienceLevel = experienceLevel;
     }
 
-    @Basic
-    @Column(name = "Description")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "Description", columnDefinition = "CLOB")
     public String getDescription() {
         return description;
     }
@@ -108,6 +116,17 @@ public class JobEntity {
 
     public void setCompany(CompanyEntity company) {
         this.company = company;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "tag_mark", joinColumns = { @JoinColumn(name = "Job_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "Tag_ID") })
+    public Set<TagEntity> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<TagEntity> tags) {
+        this.tags = tags;
     }
 
 }

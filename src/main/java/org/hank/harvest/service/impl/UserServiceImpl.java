@@ -1,7 +1,7 @@
 package org.hank.harvest.service.impl;
 
 import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserRepository;
+import org.hank.harvest.domain.user.UserRepository;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

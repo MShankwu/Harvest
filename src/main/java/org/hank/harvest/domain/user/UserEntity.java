@@ -1,33 +1,43 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.user;
+
+import org.hank.harvest.domain.authority.AuthorityEntity;
+import org.hank.harvest.domain.company.CompanyEntity;
+import org.hank.harvest.domain.message.MessageEntity;
+import org.hank.harvest.domain.process.ProcessEntity;
+import org.hank.harvest.domain.resume.ResumeEntity;
+import org.hank.harvest.domain.userdetail.UserDetailEntity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/4.
  */
 @Entity
 @Table(name = "user", schema = "harvest")
-public class UserEntity {
+public class UserEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String email;
     private String password;
     private String name;
     private UserDetailEntity detail;
     private CompanyEntity company;
     private AuthorityEntity authority;
-    private List<ResumeEntity> resumes;
-    private List<MessageEntity> messages;
+    private Set<ResumeEntity> resumes = new HashSet<>();
+    private Set<MessageEntity> messages = new HashSet<>();
+    private Set<ProcessEntity> processes = new HashSet<>();
 
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,22 +101,31 @@ public class UserEntity {
         this.authority = authority;
     }
 
-    @OneToMany(mappedBy = "user")
-    public List<ResumeEntity> getResumes() {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Set<ResumeEntity> getResumes() {
         return resumes;
     }
 
-    public void setResumes(List<ResumeEntity> resumes) {
+    public void setResumes(Set<ResumeEntity> resumes) {
         this.resumes = resumes;
     }
 
-    @OneToMany(mappedBy = "user")
-    public List<MessageEntity> getMessages() {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Set<MessageEntity> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<MessageEntity> messages) {
+    public void setMessages(Set<MessageEntity> messages) {
         this.messages = messages;
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Set<ProcessEntity> getProcesses() {
+        return processes;
+    }
+
+    public void setProcesses(Set<ProcessEntity> processes) {
+        this.processes = processes;
     }
 
 }

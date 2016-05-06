@@ -5,6 +5,8 @@ spring:
     password: DEBUG
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
+  jpa:
+    show-sql: true
 
 liquibase:
   enabled: true

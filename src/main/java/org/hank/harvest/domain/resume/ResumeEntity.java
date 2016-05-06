@@ -1,15 +1,18 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.resume;
+
+import org.hank.harvest.domain.user.UserEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2016/5/4.
  */
 @Entity
 @Table(name = "resume", schema = "harvest")
-public class ResumeEntity {
+public class ResumeEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String name;
     private String graduation;
     private String education;
@@ -22,11 +25,11 @@ public class ResumeEntity {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -60,8 +63,9 @@ public class ResumeEntity {
         this.education = education;
     }
 
-    @Basic
-    @Column(name = "Job_Intention")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "Job_Intention", columnDefinition = "CLOB")
     public String getJobIntention() {
         return jobIntention;
     }
@@ -70,8 +74,9 @@ public class ResumeEntity {
         this.jobIntention = jobIntention;
     }
 
-    @Basic
-    @Column(name = "Experience")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "Experience", columnDefinition = "CLOB")
     public String getExperience() {
         return experience;
     }
@@ -80,8 +85,9 @@ public class ResumeEntity {
         this.experience = experience;
     }
 
-    @Basic
-    @Column(name = "Skills")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "Skills", columnDefinition = "CLOB")
     public String getSkills() {
         return skills;
     }

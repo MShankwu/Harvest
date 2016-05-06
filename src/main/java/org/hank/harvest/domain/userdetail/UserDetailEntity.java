@@ -1,15 +1,16 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.userdetail;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Administrator on 2016/5/4.
  */
 @Entity
 @Table(name = "user_detail", schema = "harvest")
-public class UserDetailEntity {
+public class UserDetailEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String sex;
     private String phone;
     private String qq;
@@ -17,11 +18,11 @@ public class UserDetailEntity {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -1,6 +1,9 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.message;
+
+import org.hank.harvest.domain.user.UserEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 
 /**
@@ -8,9 +11,9 @@ import java.sql.Time;
  */
 @Entity
 @Table(name = "message", schema = "harvest")
-public class MessageEntity {
+public class MessageEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String title;
     private Time createTime;
     private String content;
@@ -19,11 +22,11 @@ public class MessageEntity {
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,6 +40,7 @@ public class MessageEntity {
         this.title = title;
     }
 
+    @Temporal(value = TemporalType.TIME)
     @Basic
     @Column(name = "Create_Time")
     public Time getCreateTime() {
@@ -47,8 +51,9 @@ public class MessageEntity {
         this.createTime = createTime;
     }
 
-    @Basic
-    @Column(name = "Content")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "Content", columnDefinition = "CLOB")
     public String getContent() {
         return content;
     }

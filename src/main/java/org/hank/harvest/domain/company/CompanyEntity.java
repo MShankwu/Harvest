@@ -1,29 +1,33 @@
-package org.hank.harvest.domain;
+package org.hank.harvest.domain.company;
+
+import org.hank.harvest.domain.job.JobEntity;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/4.
  */
 @Entity
 @Table(name = "company", schema = "harvest")
-public class CompanyEntity {
+public class CompanyEntity implements Serializable {
 
-    private int id;
+    private Integer id;
     private String name;
     private String type;
     private String description;
-    private List<JobEntity> jobs;
+    private Set<JobEntity> jobs = new HashSet<>();
 
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,8 +51,9 @@ public class CompanyEntity {
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "Description")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "Description", columnDefinition = "CLOB")
     public String getDescription() {
         return description;
     }
@@ -57,12 +62,12 @@ public class CompanyEntity {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "company")
-    public List<JobEntity> getJobs() {
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    public Set<JobEntity> getJobs() {
         return jobs;
     }
 
-    public void setJobs(List<JobEntity> jobs) {
+    public void setJobs(Set<JobEntity> jobs) {
         this.jobs = jobs;
     }
 
