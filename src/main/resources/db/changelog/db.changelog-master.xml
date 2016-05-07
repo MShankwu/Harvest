@@ -3,35 +3,350 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
-    <changeSet id="0" author="Hank Wu" context="CREATE">
+    <changeSet id="0" author="Hank Wu">
         <sql>
             <![CDATA[
             CREATE TABLE `user` (
-            `user_id` int(11) NOT NULL,
-            `user_email` varchar(100) NOT NULL,
-            `user_password` varchar(20) NOT NULL,
-            `user_name` varchar(50) NOT NULL,
-            `user_type` int(11) NOT NULL,
-            PRIMARY KEY (`user_id`)
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Email` varchar(100) NOT NULL,
+            `Password` varchar(20) NOT NULL,
+            `Name` varchar(20) NOT NULL,
+            `Authority_ID` int(11) DEFAULT NULL,
+            `Detail_ID` int(11) DEFAULT NULL,
+            `Resume_ID` int(11) DEFAULT NULL,
+            `Company_ID` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ID`),
+            UNIQUE KEY `EMAIL_UNIQUE` (`Email`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             ]]>
         </sql>
     </changeSet>
 
-    <changeSet id="1" author="Hank Wu" context="ALTER">
+    <changeSet id="1" author="Hank Wu">
         <sql>
             <![CDATA[
-            ALTER TABLE `bachelor_harvest`.`user`
-            ADD UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC);
+            CREATE TABLE `authority` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Type` varchar(20) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
             ]]>
         </sql>
     </changeSet>
 
-    <changeSet id="2" author="Hank Wu" context="ALTER">
+    <changeSet id="2" author="Hank Wu">
         <sql>
             <![CDATA[
-            ALTER TABLE `bachelor_harvest`.`user`
-            CHANGE COLUMN `user_id` `user_id` INT(11) NOT NULL AUTO_INCREMENT;
+            CREATE TABLE `resume` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Name` varchar(50) NOT NULL,
+            `Graduation` varchar(100) DEFAULT NULL,
+            `Education` varchar(50) DEFAULT NULL,
+            `Job_Intention` text,
+            `Experience` text,
+            `Skills` text,
+            `Remark` varchar(200) DEFAULT NULL,
+            `User_ID` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="3" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `company` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Name` varchar(100) DEFAULT NULL,
+            `Type` varchar(100) DEFAULT NULL,
+            `Description` text,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="4" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `message` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Title` varchar(200) DEFAULT NULL,
+            `Create_Time` time DEFAULT NULL,
+            `Content` text,
+            `User_ID` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="5" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `job` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Name` varchar(200) DEFAULT NULL,
+            `Category` varchar(200) DEFAULT NULL,
+            `Salary` varchar(200) DEFAULT NULL,
+            `City` varchar(50) DEFAULT NULL,
+            `Graduation_Level` varchar(50) DEFAULT NULL,
+            `Experience_Level` varchar(50) DEFAULT NULL,
+            `Description` text,
+            `Company_ID` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `tag` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Name` varchar(100) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="7" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `tag_mark` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Job_ID` int(11) DEFAULT NULL,
+            `Tag_ID` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="8" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `process` (
+            `ID` int(11) NOT NULL AUTO_INCREMENT,
+            `Status` varchar(50) DEFAULT NULL,
+            `Job_ID` int(11) DEFAULT NULL,
+            `User_ID` int(11) DEFAULT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="9" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `user_detail` (
+            `ID` INT NOT NULL AUTO_INCREMENT,
+            `Sex` VARCHAR(10) NULL,
+            `Phone` VARCHAR(20) NULL,
+            `QQ` VARCHAR(20) NULL,
+            `User_ID` INT NULL,
+            PRIMARY KEY (`ID`));
+            ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet id="10" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user`
+            ADD INDEX `Authority_ID_idx` (`Authority_ID` ASC),
+            ADD INDEX `Detail_ID_idx` (`Detail_ID` ASC),
+            ADD INDEX `Resume_ID_idx` (`Resume_ID` ASC),
+            ADD INDEX `Company_ID_idx` (`Company_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="11" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD INDEX `Company_ID_idx` (`Company_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="12" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            ADD INDEX `User_ID_idx` (`User_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="13" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `process`
+            ADD INDEX `Job_ID_idx` (`Job_ID` ASC),
+            ADD INDEX `User_ID_idx` (`User_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="14" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `resume`
+            ADD INDEX `User_ID_idx` (`User_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="15" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag_mark`
+            ADD INDEX `Job_ID_idx` (`Job_ID` ASC),
+            ADD INDEX `Tag_ID_idx` (`Tag_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="16" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user_detail`
+            ADD INDEX `User_ID_idx` (`User_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="17" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `authority` (`Type`) VALUES ('管理员');
+            INSERT INTO `authority` (`Type`) VALUES ('求职者');
+            INSERT INTO `authority` (`Type`) VALUES ('招聘者');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="18" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `company` (`Name`, `Type`, `Description`) VALUES ('上海云熵网络科技有限公司', '专业CDN服务商', '上海云熵网络科技有限公司，于2014年5月份成立，总部上海，是一家利用编码技术, 提供低价CDN服务的企业。');
+            INSERT INTO `company` (`Name`, `Type`, `Description`) VALUES ('上海幸福摩托车有限公司', '摩托车生产销售供应商', '上海幸福摩托车有限公司是上海汽车工业（集团）总公司下属全资摩托车制造企业，主要开发、生产和销售上海市著名品牌“幸福”各大系列摩托车和相配套的发动机。原上海幸福摩托车总厂幸福摩托车自1964年起在中国最早批量生产两轮摩托车，其幸福品牌闻名遐迩，也是海外知名的摩托车品牌，1985年技术引进日本本田工业技研株式会社的CG125产品，并自主开发、生产CG系列产品。曾多次被评为“上海市先进技术企业”、“上海市名牌产品”、“中国对外经济合作部名牌出口产品”，在中国已累计生产销售“幸福”牌摩托车455多万辆。');
+            INSERT INTO `company` (`Name`, `Type`, `Description`) VALUES ('爱立信（中国）通信有限公司', '网络、电信专业服务和多媒体', '爱立信公司 1876 年成立于瑞典的斯德哥尔摩，业务遍布全球 140 多个国家，是全球领先的提供端到端全面通信解决方案以及专业服务的供应商。目前，爱立信的核心业务包括：网络、电信专业服务和多媒体，其中多媒体业务包括爱立信移动平台技术授权，企业解决方案和移动终端业务（拥有索尼爱立信移动通信公司 50 %的股份）。');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="19" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `job` (`Name`, `Salary`, `City`, `Description`, `Company_ID`) VALUES ('美工', '100元/天 完工结算', '上海', '应项目需要，招聘一名临时兼职，美工。 ', '3');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="20" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `user` (`Email`, `Password`, `Name`, `Authority_ID`) VALUES ('MS.hankwu@outlook.com', 'DEBUG', '吴国华', '2');
+            INSERT INTO `user_detail` (`Sex`, `Phone`, `QQ`, `User_ID`) VALUES ('男', '18964528417', '1223231054', '1');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="21" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `resume` (`Name`, `Graduation`, `Education`, `Job_Intention`, `Experience`, `Skills`, `Remark`, `User_ID`) VALUES ('吴国华个人简历', '2012.09 - 至今  同济大学  软件工程  本科', '学士', 'Web后端  上海', '无', '算法与数据结构
+            C/C++编程基础
+            Java语言与OOP编程
+            Maven项目构建与管理
+            轻量级JavaEE框架Spring、Mybatis等', '无', '1');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="22" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `tag` (`Name`) VALUES ('IT');
+            INSERT INTO `tag_mark` (`Job_ID`, `Tag_ID`) VALUES ('1', '1');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="23" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `message` (`Title`, `Create_Time`, `Content`, `User_ID`) VALUES ('你收到一份邀请', '', '如题', '1');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="24" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            INSERT INTO `process` (`Status`, `Job_ID`, `User_ID`) VALUES ('面试通过', '1', '1');
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="25" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user_detail`
+            DROP COLUMN `User_ID`,
+            DROP INDEX `User_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="26" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `process`
+            CHANGE COLUMN `User_ID` `Employee_ID` INT(11) NULL DEFAULT NULL ,
+            ADD COLUMN `HR_ID` INT NULL AFTER `Employee_ID`,
+            ADD INDEX `HR_ID_idx` (`HR_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="27" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user`
+            DROP COLUMN `Resume_ID`,
+            DROP INDEX `Resume_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="28" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `process`
+            DROP COLUMN `HR_ID`,
+            DROP COLUMN `Employee_ID`,
+            DROP INDEX `HR_ID_idx` ,
+            DROP INDEX `User_ID_idx`,
+            ADD COLUMN `User_ID` INT NULL AFTER `Job_ID`,
+            ADD INDEX `User_ID_idx` (`User_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="29" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag_mark`
+            DROP COLUMN `ID`,
+            DROP PRIMARY KEY;
             ]]>
         </sql>
     </changeSet>
