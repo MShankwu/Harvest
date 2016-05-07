@@ -1,10 +1,11 @@
 package org.hank.harvest.domain.message;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.user.UserEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
+import java.util.Date;
 
 /**
  * Created by Administrator on 2016/5/4.
@@ -15,7 +16,7 @@ public class MessageEntity implements Serializable {
 
     private Integer id;
     private String title;
-    private Time createTime;
+    private Date createTime;
     private String content;
     private UserEntity user;
 
@@ -26,7 +27,7 @@ public class MessageEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -43,11 +44,11 @@ public class MessageEntity implements Serializable {
     @Temporal(value = TemporalType.TIME)
     @Basic
     @Column(name = "Create_Time")
-    public Time getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Time createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -64,6 +65,7 @@ public class MessageEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "User_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public UserEntity getUser() {
         return user;
     }

@@ -1,5 +1,6 @@
 package org.hank.harvest.domain.process;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.job.JobEntity;
 import org.hank.harvest.domain.user.UserEntity;
 
@@ -25,7 +26,7 @@ public class ProcessEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,6 +42,7 @@ public class ProcessEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Job_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public JobEntity getJob() {
         return job;
     }
@@ -51,6 +53,7 @@ public class ProcessEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "User_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public UserEntity getUser() {
         return user;
     }

@@ -1,5 +1,6 @@
 package org.hank.harvest.domain.job;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.company.CompanyEntity;
 import org.hank.harvest.domain.tag.TagEntity;
 
@@ -33,7 +34,7 @@ public class JobEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -110,6 +111,7 @@ public class JobEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public CompanyEntity getCompany() {
         return company;
     }
@@ -121,6 +123,7 @@ public class JobEntity implements Serializable {
     @ManyToMany
     @JoinTable(name = "tag_mark", joinColumns = { @JoinColumn(name = "Job_ID") },
             inverseJoinColumns = { @JoinColumn(name = "Tag_ID") })
+    @JsonIgnore
     public Set<TagEntity> getTags() {
         return tags;
     }

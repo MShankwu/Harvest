@@ -1,5 +1,6 @@
 package org.hank.harvest.domain.resume;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.user.UserEntity;
 
 import javax.persistence.*;
@@ -29,7 +30,7 @@ public class ResumeEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -108,6 +109,7 @@ public class ResumeEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "User_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public UserEntity getUser() {
         return user;
     }

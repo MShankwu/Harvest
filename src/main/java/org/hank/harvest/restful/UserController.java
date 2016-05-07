@@ -1,6 +1,6 @@
 package org.hank.harvest.restful;
 
-import org.hank.harvest.domain.User;
+import org.hank.harvest.domain.user.UserEntity;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +23,12 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public User getByEmail(String userEmail) {
-        return userService.findByUserEmail(userEmail);
+    public UserEntity getByEmail(String email) {
+        return userService.findByEmail(email);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public User post(@RequestBody User user) {
+    public UserEntity post(@RequestBody UserEntity user) {
         return userService.save(user);
     }
 

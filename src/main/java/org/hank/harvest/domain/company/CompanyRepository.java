@@ -1,9 +1,11 @@
 package org.hank.harvest.domain.company;
 
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * Created by Administrator on 2016/5/6.
  */
-public interface CompanyRepository extends Repository<CompanyEntity, Integer> {
+@Repository
+public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer> {
 }

@@ -1,5 +1,6 @@
 package org.hank.harvest.domain.company;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.job.JobEntity;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class CompanyEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -63,6 +64,7 @@ public class CompanyEntity implements Serializable {
     }
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<JobEntity> getJobs() {
         return jobs;
     }

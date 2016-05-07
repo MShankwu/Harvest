@@ -1,5 +1,6 @@
 package org.hank.harvest.domain.tag;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.job.JobEntity;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class TagEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -39,6 +40,7 @@ public class TagEntity implements Serializable {
     }
 
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    @JsonIgnore
     public Set<JobEntity> getJobs() {
         return jobs;
     }

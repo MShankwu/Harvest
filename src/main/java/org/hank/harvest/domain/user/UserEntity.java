@@ -1,5 +1,6 @@
 package org.hank.harvest.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hank.harvest.domain.authority.AuthorityEntity;
 import org.hank.harvest.domain.company.CompanyEntity;
 import org.hank.harvest.domain.message.MessageEntity;
@@ -37,7 +38,7 @@ public class UserEntity implements Serializable {
         return id;
     }
 
-    public void setId(Integer id) {
+    private void setId(Integer id) {
         this.id = id;
     }
 
@@ -73,6 +74,7 @@ public class UserEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "Detail_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public UserDetailEntity getDetail() {
         return detail;
     }
@@ -83,6 +85,7 @@ public class UserEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Company_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public CompanyEntity getCompany() {
         return company;
     }
@@ -93,6 +96,7 @@ public class UserEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "Authority_ID", referencedColumnName = "ID")
+    @JsonIgnore
     public AuthorityEntity getAuthority() {
         return authority;
     }
@@ -102,6 +106,7 @@ public class UserEntity implements Serializable {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<ResumeEntity> getResumes() {
         return resumes;
     }
@@ -111,6 +116,7 @@ public class UserEntity implements Serializable {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<MessageEntity> getMessages() {
         return messages;
     }
@@ -120,6 +126,7 @@ public class UserEntity implements Serializable {
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
     public Set<ProcessEntity> getProcesses() {
         return processes;
     }

@@ -1,8 +1,7 @@
 package org.hank.harvest.controller;
 
-import org.hank.harvest.domain.User;
+import org.hank.harvest.domain.user.UserEntity;
 import org.hank.harvest.service.UserService;
-import org.hank.harvest.utils.CurrentUserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,29 +25,26 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/login.do", method = RequestMethod.GET)
-    public String doLogin(String userEmail, String userPassword, RedirectAttributes redirect, HttpSession httpSession) {
-        User currentUser = userService.findByUserEmailAndUserPassword(userEmail, userPassword);
+    public String doLogin(String email, String password, RedirectAttributes redirect, HttpSession httpSession) {
+        UserEntity currentUser = userService.findByEmailAndPassword(email, password);
         if (currentUser == null) {
             redirect.addFlashAttribute("errorMessage", "登录失败：邮箱地址或者密码不正确！");
-            redirect.addFlashAttribute("userEmail", userEmail);
-            redirect.addFlashAttribute("userPassword", userPassword);
+            redirect.addFlashAttribute("userEmail", email);
+            redirect.addFlashAttribute("userPassword", password);
             return "redirect:/login";
         } else {
-            CurrentUserUtils.getInstance().setCurrentUser(currentUser);
             return "redirect:/";
         }
     }
 
     @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
     public String doLogout() {
-        CurrentUserUtils.getInstance().removeCurrentUser();
         return "redirect:/";
     }
 
     @RequestMapping(value = "/register.do", method = RequestMethod.POST)
-    public String doRegister(@ModelAttribute User user, RedirectAttributes redirect) {
-        User currentUser = userService.save(user);
-        CurrentUserUtils.getInstance().setCurrentUser(currentUser);
+    public String doRegister(@ModelAttribute UserEntity user, RedirectAttributes redirect) {
+        UserEntity currentUser = userService.save(user);
         redirect.addFlashAttribute("hasRegisted", true);
         return "redirect:/register";
     }
