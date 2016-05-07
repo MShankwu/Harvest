@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by Administrator on 2016/4/15.
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/1/users")
 public class UserController {
 
     private UserService userService;

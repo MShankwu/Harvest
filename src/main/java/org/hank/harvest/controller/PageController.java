@@ -11,8 +11,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PageController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String welcome() {
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String showIndex() {
         return "index";
+    }
+
+    @RequestMapping(value = "/job", method = RequestMethod.GET)
+    public String showJob() {
+        return "job";
+    }
+
+    @RequestMapping(value = "/company", method = RequestMethod.GET)
+    public String showCompany() {
+        return "company";
+    }
+
+    @RequestMapping(value = "/talent", method = RequestMethod.GET)
+    public String showTalent() {
+        return "talent";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)

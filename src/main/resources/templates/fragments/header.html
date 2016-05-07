@@ -4,70 +4,42 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Loading Bootstrap -->
-    <link href="../../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
-          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
 
-    <!-- Loading Flat UI -->
-    <link href="../../static/dist/css/flat-ui.min.css" th:href="@{/dist/css/flat-ui.min.css}" rel="stylesheet"/>
-
-    <link rel="shortcut icon" href="../../static/dist/img/harvest.ico" th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="shortcut icon" href="../../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-lg navbar-static-top" role="navigation" th:fragment="header">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
             </button>
-            <a class="navbar-brand" href="#">Harvest Online</a>
+            <a class="navbar-brand">Harvest Online</a>
         </div>
+
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">首页</a></li>
-                <li><a href="#">我的档案</a></li>
-                <li><a href="#">公司</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">待定<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
+            <ul id="navbar" class="nav navbar-nav">
+                <li><a href="../index.html" th:href="@{/index}">首页</a></li>
+                <li><a href="../job.html" th:href="@{/job}">职位</a></li>
+                <li><a href="../company.html" th:href="@{/company}">公司</a></li>
+                <li><a href="../talent.html" th:href="@{/talent}">人才</a></li>
             </ul>
 
             <div class="nav navbar-nav navbar-form navbar-right" th:unless="${session.currentUser}">
-                <button class="btn" onclick="window.location.href='/login'">登录</button>
-                <button class="btn" onclick="window.location.href='/register'">注册</button>
+                <a class="btn" href="../login.html" th:href="@{/login}">登录</a>
+                <a class="btn" href="../register.html" th:href="@{/register}">注册</a>
             </div>
 
             <div class="nav navbar-nav navbar-form navbar-right" th:if="${session.currentUser}">
-                <div class="btn-group">
-                    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" th:text="你好 + ${session.currentUser.userName}"><span class="caret"></span></button>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </div>
-                <button class="btn" onclick="window.location.href='/logout.do'">退出登录</button>
+                <a class="btn" th:text="|您好, ${session.currentUser.getName()}|"></a>
+                <a class="btn" th:href="@{/action/logout}">注销</a>
             </div>
-        </div><!--/.nav-collapse -->
+        </div>
     </div>
 </nav>
-
-<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-<script src="../../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
-<script src="../../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
-<script src="../../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 </body>
 </html>

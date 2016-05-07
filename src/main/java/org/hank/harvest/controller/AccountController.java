@@ -1,6 +1,8 @@
 package org.hank.harvest.controller;
 
+import org.hank.harvest.domain.authority.AuthorityEntity;
 import org.hank.harvest.domain.user.UserEntity;
+import org.hank.harvest.service.AuthorityService;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,37 +17,51 @@ import javax.servlet.http.HttpSession;
  * Created by Administrator on 2016/4/23.
  */
 @Controller
+@RequestMapping("/action")
 public class AccountController {
 
     private UserService userService;
+    private AuthorityService authorityService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/login.do", method = RequestMethod.GET)
-    public String doLogin(String email, String password, RedirectAttributes redirect, HttpSession httpSession) {
+    @Autowired
+    public void setAuthorityService(AuthorityService authorityService) {
+        this.authorityService = authorityService;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String doLogin(String email, String password,
+                          RedirectAttributes redirect, HttpSession httpSession) {
         UserEntity currentUser = userService.findByEmailAndPassword(email, password);
         if (currentUser == null) {
-            redirect.addFlashAttribute("errorMessage", "登录失败：邮箱地址或者密码不正确！");
-            redirect.addFlashAttribute("userEmail", email);
-            redirect.addFlashAttribute("userPassword", password);
+            redirect.addFlashAttribute("loginError", "登录失败：邮箱地址或者密码不正确！");
+            redirect.addFlashAttribute("email", email);
+            redirect.addFlashAttribute("password", password);
             return "redirect:/login";
         } else {
-            return "redirect:/";
+            httpSession.setAttribute("currentUser", currentUser);
+            return "redirect:/index";
         }
     }
 
-    @RequestMapping(value = "/logout.do", method = RequestMethod.GET)
-    public String doLogout() {
-        return "redirect:/";
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String doLogout(HttpSession httpSession) {
+        httpSession.removeAttribute("currentUser");
+        return "redirect:/index";
     }
 
-    @RequestMapping(value = "/register.do", method = RequestMethod.POST)
-    public String doRegister(@ModelAttribute UserEntity user, RedirectAttributes redirect) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String doRegister(@ModelAttribute UserEntity user, Integer type,
+                             RedirectAttributes redirect, HttpSession httpSession) {
+        AuthorityEntity authority = authorityService.findById(type);
+        user.setAuthority(authority);
         UserEntity currentUser = userService.save(user);
-        redirect.addFlashAttribute("hasRegisted", true);
+        httpSession.setAttribute("currentUser", currentUser);
+        redirect.addFlashAttribute("hasRegistered", true);
         return "redirect:/register";
     }
 
