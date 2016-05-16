@@ -1,33 +1,25 @@
-package org.hank.harvest.domain.userdetail;
+package org.hank.harvest.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2016/5/4.
+ * Created by Administrator on 2016/5/16.
  */
-@Entity
-@Table(name = "user_detail", schema = "harvest")
-public class UserDetailEntity implements Serializable {
+public class UserDetail implements Serializable {
 
     private Integer id;
     private String sex;
     private String phone;
     private String qq;
 
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
 
-    private void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Sex")
     public String getSex() {
         return sex;
     }
@@ -36,8 +28,6 @@ public class UserDetailEntity implements Serializable {
         this.sex = sex;
     }
 
-    @Basic
-    @Column(name = "Phone")
     public String getPhone() {
         return phone;
     }
@@ -46,8 +36,6 @@ public class UserDetailEntity implements Serializable {
         this.phone = phone;
     }
 
-    @Basic
-    @Column(name = "QQ")
     public String getQq() {
         return qq;
     }

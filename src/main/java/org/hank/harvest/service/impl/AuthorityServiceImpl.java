@@ -1,30 +1,30 @@
 package org.hank.harvest.service.impl;
 
-import org.hank.harvest.domain.authority.AuthorityEntity;
-import org.hank.harvest.domain.authority.AuthorityRepository;
+import org.hank.harvest.domain.Authority;
+import org.hank.harvest.mapper.AuthorityMapper;
 import org.hank.harvest.service.AuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/16.
  */
-@Transactional
 @Service
+@Transactional
 public class AuthorityServiceImpl implements AuthorityService {
 
-    private AuthorityRepository authorityRepository;
+    private AuthorityMapper authorityMapper;
 
     @Autowired
-    public void setAuthorityRepository(AuthorityRepository authorityRepository) {
-        this.authorityRepository = authorityRepository;
+    public void setAuthorityMapper(AuthorityMapper authorityMapper) {
+        this.authorityMapper = authorityMapper;
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public AuthorityEntity findById(Integer id) {
-        return authorityRepository.findOne(id);
+    @Transactional(readOnly = true)
+    public Authority find(Integer id) {
+        return authorityMapper.find(id);
     }
 
 }

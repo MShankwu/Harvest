@@ -1,41 +1,36 @@
 package org.hank.harvest.service.impl;
 
-import org.hank.harvest.domain.user.UserEntity;
-import org.hank.harvest.domain.user.UserRepository;
+import org.hank.harvest.domain.User;
+import org.hank.harvest.mapper.UserMapper;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/16.
  */
-@Transactional
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private UserMapper userMapper;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
+    @Override
     @Transactional(readOnly = true)
-    @Override
-    public UserEntity findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public UserEntity findByEmailAndPassword(String email, String password) {
-        return userRepository.findByEmailAndPassword(email, password);
+    public User findOne(User user) {
+        return userMapper.findOne(user);
     }
 
     @Override
-    public UserEntity save(UserEntity user) {
-        return userRepository.save(user);
+    public User save(User user) {
+        userMapper.save(user);
+        return user;
     }
 
 }

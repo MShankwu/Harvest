@@ -1,7 +1,7 @@
 package org.hank.harvest.controller;
 
-import org.hank.harvest.domain.authority.AuthorityEntity;
-import org.hank.harvest.domain.user.UserEntity;
+import org.hank.harvest.domain.Authority;
+import org.hank.harvest.domain.User;
 import org.hank.harvest.service.AuthorityService;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +34,13 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String doLogin(String email, String password,
+    public String doLogin(@ModelAttribute User user,
                           RedirectAttributes redirect, HttpSession httpSession) {
-        UserEntity currentUser = userService.findByEmailAndPassword(email, password);
+        User currentUser = userService.findOne(user);
         if (currentUser == null) {
             redirect.addFlashAttribute("loginError", "登录失败：邮箱地址或者密码不正确！");
-            redirect.addFlashAttribute("email", email);
-            redirect.addFlashAttribute("password", password);
+            redirect.addFlashAttribute("email", user.getEmail());
+            redirect.addFlashAttribute("password", user.getPassword());
             return "redirect:/login";
         } else {
             httpSession.setAttribute("currentUser", currentUser);
@@ -55,11 +55,11 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String doRegister(@ModelAttribute UserEntity user, Integer type,
+    public String doRegister(@ModelAttribute User user, Integer type,
                              RedirectAttributes redirect, HttpSession httpSession) {
-        AuthorityEntity authority = authorityService.findById(type);
+        Authority authority = authorityService.find(type);
         user.setAuthority(authority);
-        UserEntity currentUser = userService.save(user);
+        User currentUser = userService.save(user);
         httpSession.setAttribute("currentUser", currentUser);
         redirect.addFlashAttribute("hasRegistered", true);
         return "redirect:/register";

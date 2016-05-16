@@ -1,17 +1,11 @@
-package org.hank.harvest.domain.resume;
+package org.hank.harvest.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hank.harvest.domain.user.UserEntity;
-
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2016/5/4.
+ * Created by Administrator on 2016/5/16.
  */
-@Entity
-@Table(name = "resume", schema = "harvest")
-public class ResumeEntity implements Serializable {
+public class Resume implements Serializable {
 
     private Integer id;
     private String name;
@@ -21,21 +15,16 @@ public class ResumeEntity implements Serializable {
     private String experience;
     private String skills;
     private String remark;
-    private UserEntity user;
+    private User user;
 
-    @Id
-    @GeneratedValue
-    @Column(name = "ID")
     public Integer getId() {
         return id;
     }
 
-    private void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "Name")
     public String getName() {
         return name;
     }
@@ -44,8 +33,6 @@ public class ResumeEntity implements Serializable {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "Graduation")
     public String getGraduation() {
         return graduation;
     }
@@ -54,8 +41,6 @@ public class ResumeEntity implements Serializable {
         this.graduation = graduation;
     }
 
-    @Basic
-    @Column(name = "Education")
     public String getEducation() {
         return education;
     }
@@ -64,9 +49,6 @@ public class ResumeEntity implements Serializable {
         this.education = education;
     }
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "Job_Intention", columnDefinition = "CLOB")
     public String getJobIntention() {
         return jobIntention;
     }
@@ -75,9 +57,6 @@ public class ResumeEntity implements Serializable {
         this.jobIntention = jobIntention;
     }
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "Experience", columnDefinition = "CLOB")
     public String getExperience() {
         return experience;
     }
@@ -86,9 +65,6 @@ public class ResumeEntity implements Serializable {
         this.experience = experience;
     }
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "Skills", columnDefinition = "CLOB")
     public String getSkills() {
         return skills;
     }
@@ -97,8 +73,6 @@ public class ResumeEntity implements Serializable {
         this.skills = skills;
     }
 
-    @Basic
-    @Column(name = "Remark")
     public String getRemark() {
         return remark;
     }
@@ -107,14 +81,11 @@ public class ResumeEntity implements Serializable {
         this.remark = remark;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "User_ID", referencedColumnName = "ID")
-    @JsonIgnore
-    public UserEntity getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -1,12 +1,14 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.job.JobEntity;
+import org.hank.harvest.domain.Job;
+
+import java.util.List;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/16.
  */
 public interface JobService {
 
-    JobEntity findById(Integer id);
+    List<Job> findLatest(Integer limit);
 
 }

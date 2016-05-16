@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.JobMapper">
+
+    <resultMap id="baseMap" type="org.hank.harvest.domain.Job">
+        <id property="id" column="ID"/>
+        <result property="name" column="Name"/>
+        <result property="category" column="Category"/>
+        <result property="salary" column="Salary"/>
+        <result property="city" column="City"/>
+        <result property="graduationLevel" column="Graduation_Level"/>
+        <result property="experienceLevel" column="Experience_Level"/>
+        <result property="description" column="Description" javaType="java.lang.String" jdbcType="LONGVARCHAR"/>
+        <result property="publishDate" column="Publish_Date" javaType="java.util.Date" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="findLatest" resultMap="baseMap">
+        SELECT *
+        FROM job
+        ORDER BY Publish_Date
+        LIMIT #{limit}
+    </select>
+
+</mapper>

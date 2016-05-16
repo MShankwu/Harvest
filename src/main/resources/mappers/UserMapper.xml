@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.hank.harvest.mapper.UserMapper">
+
+    <resultMap id="basicMap" type="org.hank.harvest.domain.User">
+        <id property="id" column="ID"/>
+        <result property="email" column="Email"/>
+        <result property="password" column="Password"/>
+        <result property="name" column="Name"/>
+    </resultMap>
+
+    <resultMap id="wholeMap" type="org.hank.harvest.domain.User">
+        <id property="id" column="ID"/>
+        <result property="email" column="Email"/>
+        <result property="password" column="Password"/>
+        <result property="name" column="Name"/>
+        <association property="authority" javaType="org.hank.harvest.domain.Authority">
+            <id property="id" column="Authority_ID"/>
+            <id property="type" column="Authority_Type"/>
+        </association>
+    </resultMap>
+
+    <sql id="basicColumns">
+        ID,
+        Email,
+        Password,
+        Name
+    </sql>
+
+    <sql id="wholeColumns">
+        Email,
+        Password,
+        Name
+    </sql>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="org.hank.harvest.domain.User">
+        INSERT INTO user(Email, Password, Name, Authority_ID)
+        VALUES (#{email}, #{password}, #{name}, #{authority.id})
+    </insert>
+
+    <select id="findOne" resultMap="basicMap">
+        SELECT <include refid="basicColumns"/>
+        FROM user
+        WHERE Email = #{user.email}
+        <if test="user.password != null">
+            AND Password = #{user.password}
+        </if>
+    </select>
+
+</mapper>

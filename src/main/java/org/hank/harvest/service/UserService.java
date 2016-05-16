@@ -1,16 +1,14 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.user.UserEntity;
+import org.hank.harvest.domain.User;
 
 /**
- * Created by Administrator on 2016/4/15.
+ * Created by Administrator on 2016/5/16.
  */
 public interface UserService {
 
-    UserEntity findByEmail(String email);
+    User findOne(User user);
 
-    UserEntity findByEmailAndPassword(String email, String password);
-
-    UserEntity save(UserEntity user);
+    User save(User user);
 
 }
