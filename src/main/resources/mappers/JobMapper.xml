@@ -2,21 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.hank.harvest.mapper.JobMapper">
 
-    <resultMap id="baseMap" type="org.hank.harvest.domain.Job">
-        <id property="id" column="ID"/>
+    <resultMap id="summaryMap" type="org.hank.harvest.domain.Job">
         <result property="name" column="Name"/>
-        <result property="category" column="Category"/>
         <result property="salary" column="Salary"/>
-        <result property="city" column="City"/>
-        <result property="graduationLevel" column="Graduation_Level"/>
-        <result property="experienceLevel" column="Experience_Level"/>
-        <result property="description" column="Description" javaType="java.lang.String" jdbcType="LONGVARCHAR"/>
-        <result property="publishDate" column="Publish_Date" javaType="java.util.Date" jdbcType="DATE"/>
+        <result property="publishDate" column="Publish_Date"/>
+        <association property="company" javaType="org.hank.harvest.domain.Company">
+            <result property="name" column="Company_Name"/>
+        </association>
     </resultMap>
 
-    <select id="findLatest" resultMap="baseMap">
-        SELECT *
-        FROM job
+    <select id="findLatest" resultMap="summaryMap">
+        SELECT job.Name, Salary, Publish_Date, company.Name as Company_Name
+        FROM job, company
+        WHERE job.Company_ID = company.ID
         ORDER BY Publish_Date
         LIMIT #{limit}
     </select>

@@ -359,4 +359,13 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="31" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD COLUMN `Deadline` DATE NULL AFTER `Company_ID`;
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

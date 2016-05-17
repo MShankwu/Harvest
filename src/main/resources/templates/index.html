@@ -13,6 +13,11 @@
           th:href="@{/dist/img/harvest.ico}"/>
 
     <title>Harvest——收获你的职场人生</title>
+
+    <link rel="stylesheet" href="../static/css/index.css"
+          th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -41,14 +46,29 @@
            data-slide="next">&rsaquo;</a>
     </div>
 
-    <div class="row" style="margin-top: 15px">
+    <div class="row move_down">
         <div class="col-md-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Panel title</h3>
+                    <h3 class="panel-title">最新职位</h3>
                 </div>
-                <div class="panel-body">
-                    This is a Basic panel
+
+                <div class="panel-body" th:each="job : ${latestJobs}">
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" th:text="|职位名称 ：${job.name}|"></h3>
+                            </div>
+
+                            <div class="panel-body">
+                                <p>
+                                    <span th:text="|发布公司 ：${job.company.name}|"></span><br/>
+                                    <span class="font_red" th:text="|薪资 ：${job.salary}|"></span><br/>
+                                    <span class="font_green" th:text="|截止日期 ：${#dates.format(job.publishDate, 'yyyy-MM-dd')}|"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
