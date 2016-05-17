@@ -10,6 +10,7 @@ public class Tag implements Serializable {
 
     private Integer id;
     private String name;
+    private Integer rating;
     private Set<Job> jobs;
 
     public Integer getId() {
@@ -26,6 +27,14 @@ public class Tag implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public Set<Job> getJobs() {

@@ -368,4 +368,31 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="32" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            CHANGE COLUMN `Deadline` `Deadline` DATE NULL DEFAULT NULL AFTER `Publish_Date`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="33" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company`
+            ADD COLUMN `Rating` INT NULL DEFAULT 0 AFTER `Description`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="34" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag`
+            ADD COLUMN `Rating` INT NULL DEFAULT 0 AFTER `Name`;
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

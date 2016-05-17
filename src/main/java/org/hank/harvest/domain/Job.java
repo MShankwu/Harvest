@@ -18,6 +18,7 @@ public class Job implements Serializable {
     private String experienceLevel;
     private String description;
     private Date publishDate;
+    private Date deadline;
     private Company company;
     private Set<Tag> tags;
 
@@ -91,6 +92,14 @@ public class Job implements Serializable {
 
     public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
     }
 
     public Company getCompany() {

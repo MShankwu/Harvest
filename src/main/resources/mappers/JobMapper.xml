@@ -6,16 +6,17 @@
         <result property="name" column="Name"/>
         <result property="salary" column="Salary"/>
         <result property="publishDate" column="Publish_Date"/>
+        <result property="deadline" column="Deadline"/>
         <association property="company" javaType="org.hank.harvest.domain.Company">
             <result property="name" column="Company_Name"/>
         </association>
     </resultMap>
 
     <select id="findLatest" resultMap="summaryMap">
-        SELECT job.Name, Salary, Publish_Date, company.Name as Company_Name
+        SELECT job.Name, Salary, Publish_Date, Deadline, company.Name as Company_Name
         FROM job, company
         WHERE job.Company_ID = company.ID
-        ORDER BY Publish_Date
+        ORDER BY Publish_Date DESC
         LIMIT #{limit}
     </select>
 

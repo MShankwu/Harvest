@@ -12,6 +12,7 @@ public class Company implements Serializable {
     private String name;
     private String type;
     private String description;
+    private Integer rating;
     private Set<Job> jobs;
 
     public Integer getId() {
@@ -44,6 +45,14 @@ public class Company implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 
     public Set<Job> getJobs() {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.CompanyMapper">
+
+    <resultMap id="basicMap" type="org.hank.harvest.domain.Company">
+        <id property="id" column="ID"/>
+        <result property="name" column="Name"/>
+        <result property="type" column="Type"/>
+        <result property="description" column="Description" jdbcType="LONGVARCHAR"/>
+        <result property="rating" column="Rating"/>
+    </resultMap>
+
+    <sql id="basicColumns">
+        Name,
+        Type,
+        Description,
+        Rating
+    </sql>
+
+    <select id="findTopRating" resultMap="basicMap">
+        SELECT ID, <include refid="basicColumns"/>
+        FROM company
+        ORDER BY Rating DESC
+        LIMIT #{topNum}
+    </select>
+</mapper>
