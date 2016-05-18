@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by Administrator on 2016/4/17.
+ * Created by Administrator on 2016/5/18.
  */
 @Controller
-public class PageController {
+public class IndexPageController {
 
     private JobService jobService;
     private CompanyService companyService;
@@ -45,26 +45,6 @@ public class PageController {
         model.addAttribute("topRatingCompanies", companyService.findTopRating(10));
         model.addAttribute("topRatingTags", tagService.findTopRating(10));
         return "index";
-    }
-
-    @RequestMapping(value = "/company", method = RequestMethod.GET)
-    public String showCompany() {
-        return "company";
-    }
-
-    @RequestMapping(value = "/talent", method = RequestMethod.GET)
-    public String showTalent() {
-        return "talent";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String showRegister() {
-        return "register";
-    }
-
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String showLogin() {
-        return "login";
     }
 
 }

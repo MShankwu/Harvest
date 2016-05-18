@@ -36,5 +36,4 @@ public class JobPageController {
         return "job";
     }
 
-
 }

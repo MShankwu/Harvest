@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("/action")
-public class AccountController {
+public class AccountAction {
 
     private UserService userService;
     private AuthorityService authorityService;
