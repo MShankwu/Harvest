@@ -7,6 +7,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
 
 mybatis:
+  config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:/mappers/*Mapper.xml
 
 liquibase:
