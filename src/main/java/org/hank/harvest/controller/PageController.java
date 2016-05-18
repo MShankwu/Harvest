@@ -47,11 +47,6 @@ public class PageController {
         return "index";
     }
 
-    @RequestMapping(value = "/job", method = RequestMethod.GET)
-    public String showJob() {
-        return "job";
-    }
-
     @RequestMapping(value = "/company", method = RequestMethod.GET)
     public String showCompany() {
         return "company";

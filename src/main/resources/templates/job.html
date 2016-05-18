@@ -23,74 +23,68 @@
 
 <div class="container">
     <div class="col-md-4">
-        <div class="panel-group" id="accordion">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseOne">
-                            点击我进行展开，再次点击我进行折叠。第 1 部分--hide 方法
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo.
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">条件筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="panel-group" id="job-choose">
+                    <div class="panel panel-success" th:each="jobChoice : ${jobChoices}">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#job-choose"
+                                   th:href="@{'#' + ${jobChoicesIDs[__${jobChoiceStat.index}__]}}" th:text="${jobChoice}">
+                                    月薪范围
+                                </a>
+                            </h4>
+                        </div>
+
+                        <div th:id="${jobChoicesIDs[__${jobChoiceStat.index}__]}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <label class="radio" th:each="jobChoicesContent : ${jobChoicesContents[__${jobChoiceStat.index}__]}">
+                                    <input type="radio" th:name="${jobChoicesIDs[__${jobChoiceStat.index}__]}" th:value="${jobChoicesContentStat.count}" data-toggle="radio"/>
+                                    <span th:text="${jobChoicesContent}"></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseTwo">
-                            点击我进行展开，再次点击我进行折叠。第 2 部分--show 方法
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo.
-                    </div>
-                </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">职位列表</h3>
             </div>
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseThree">
-                            点击我进行展开，再次点击我进行折叠。第 3 部分--toggle 方法
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo.
-                    </div>
-                </div>
+
+            <div class="panel-body">
+
             </div>
-            <div class="panel panel-warning">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion"
-                           href="#collapseFour">
-                            点击我进行展开，再次点击我进行折叠。第 4 部分--options 方法
+
+            <div>
+                <ul class="pagination">
+                    <li class="previous">
+                        <a href="#" class="fui-arrow-left"></a>
+                    </li>
+
+                    <li class="pagination-dropdown dropup">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fui-triangle-up"></i>
                         </a>
-                    </h4>
-                </div>
-                <div id="collapseFour" class="panel-collapse collapse">
-                    <div class="panel-body">
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
-                        lomo.
-                    </div>
-                </div>
+
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">10-20</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="next">
+                        <a href="#" class="fui-arrow-right"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -99,15 +93,8 @@
 <script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 
+<script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
 <script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
-
-<script type="text/javascript">
-    $(function () { $('#collapseFour').collapse({
-        toggle: false
-    })});
-    $(function () { $('#collapseTwo').collapse('show')});
-    $(function () { $('#collapseThree').collapse('toggle')});
-    $(function () { $('#collapseOne').collapse('hide')});
-</script>
+<script src="../static/js/job.js" th:src="@{/js/job.js}"></script>
 </body>
 </html>

@@ -4,13 +4,7 @@
 (function ($) {
 
     $(function () {
-        $('#collapseFour').collapse({
-            toggle: false
-        });
-
-        $('#collapseTwo').collapse('show');
-        $('#collapseThree').collapse('toggle');
-        $('#collapseOne').collapse('hide');
+        $("#job-choose").find(".panel-collapse").collapse("show");
     });
 
 })(jQuery);
