@@ -22,7 +22,7 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<div class="container">
+<div class="container" id="index">
     <div id="indexCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
         <ol class="carousel-indicators">
             <li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
@@ -46,7 +46,7 @@
            data-slide="next">&rsaquo;</a>
     </div>
 
-    <div class="row move_down">
+    <div class="row">
         <div class="col-md-8">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -63,11 +63,12 @@
                             <div class="panel-body">
                                 <p>
                                     <span th:text="|发布公司 ：${job.company.name}|"></span><br/>
-                                    <span class="font_red" th:text="|薪资 ：${job.salary}|"></span><br/>
-                                    <span class="font_green" th:text="|有效日期 ：${#dates.format(job.publishDate, 'yyyy-MM-dd')}
-                                        ~ ${#dates.format(job.deadline, 'yyyy-MM-dd')}|"></span>
+                                    <span class="font_red" th:text="|月薪范围 ：| + ((${job.originSalary} != null)? |${job.originSalary}K ~ ${job.terminalSalary}K| : '面议')"></span><br/>
+                                    <span class="font_green" th:text="|发布日期 ：${#dates.format(job.publish, 'yyyy-MM-dd')}|"></span><br/>
+                                    <span class="font_green" th:text="|截止日期 ：| + ((${job.deadline} != null)? |${#dates.format(job.deadline, 'yyyy-MM-dd')}| : '暂无')"></span><br/>
+                                    <span class="font_blue" th:text="|所在城市 ：${job.city.name}|"></span><br/>
                                 </p>
-                                <a class="btn btn-primary btn-block">查看详情</a>
+                                <a class="btn btn-primary btn-block" th:href="@{/job/{id}/(id = ${job.id})}">查看详情</a>
                             </div>
                         </div>
                     </div>
@@ -135,6 +136,5 @@
 <script src="../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
 <script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
 <script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
-<script src="../static/js/index.js" th:src="@{/js/index.js}"></script>
 </body>
 </html>

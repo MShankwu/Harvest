@@ -4,18 +4,34 @@
 
     <resultMap id="basicMap" type="org.hank.harvest.domain.Authority">
         <id property="id" column="ID"/>
-        <result property="type" column="Type"/>
+        <result property="name" column="Name"/>
     </resultMap>
 
-    <sql id="basicColumns">
-        ID,
-        TYPE
-    </sql>
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Authority" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO authority(Name)
+        VALUES (#{name})
+    </insert>
 
-    <select id="find" resultMap="basicMap">
-        SELECT <include refid="basicColumns"/>
+    <update id="updateOne" parameterType="org.hank.harvest.domain.Authority">
+        UPDATE authority
+        SET Name = #{name}
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteOne">
+        DELETE FROM authority
+        WHERE ID = #{id}
+    </delete>
+
+    <select id="selectOne" resultMap="basicMap">
+        SELECT ID, Name
         FROM authority
         WHERE ID = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="basicMap">
+        SELECT ID, Name
+        FROM authority
     </select>
 
 </mapper>

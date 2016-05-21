@@ -13,6 +13,7 @@ public class Company implements Serializable {
     private String type;
     private String description;
     private Integer rating;
+    private Set<City> cities;
     private Set<Job> jobs;
 
     public Integer getId() {
@@ -53,6 +54,14 @@ public class Company implements Serializable {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public Set<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(Set<City> cities) {
+        this.cities = cities;
     }
 
     public Set<Job> getJobs() {

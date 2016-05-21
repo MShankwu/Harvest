@@ -8,16 +8,17 @@
         <result property="rating" column="Rating"/>
     </resultMap>
 
-    <sql id="basicColumns">
-        Name,
-        Rating
-    </sql>
-
-    <select id="findTopRating" resultMap="basicMap">
-        SELECT ID, <include refid="basicColumns"/>
+    <select id="selectTopRating" resultMap="basicMap">
+        SELECT ID, Name, Rating
         FROM tag
         ORDER BY Rating DESC
         LIMIT #{topNum}
+    </select>
+
+    <select id="selectByJobID" resultMap="basicMap">
+        SELECT tag.ID as ID, tag.Name as Name, tag.Rating as Rating
+        FROM tag, job_tag, job
+        WHERE tag.ID = job_tag.Tag_ID AND job.ID = job_tag.Job_ID AND job.ID = #{jobID}
     </select>
 
 </mapper>

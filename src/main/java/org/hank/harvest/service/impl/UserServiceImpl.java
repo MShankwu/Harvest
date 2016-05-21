@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findOne(User user) {
-        return userMapper.findOne(user);
+        return userMapper.selectOne(user);
     }
 
     @Override
     public User save(User user) {
-        userMapper.save(user);
+        userMapper.insertOne(user);
         return user;
     }
 

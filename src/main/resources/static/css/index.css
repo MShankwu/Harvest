@@ -1,3 +1,7 @@
-.move_down {
+.container .row {
     margin-top: 15px;
+}
+
+#index {
+    margin-bottom: 60px;
 }

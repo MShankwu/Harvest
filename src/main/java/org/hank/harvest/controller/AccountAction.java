@@ -57,7 +57,7 @@ public class AccountAction {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String doRegister(@ModelAttribute User user, Integer type,
                              RedirectAttributes redirect, HttpSession httpSession) {
-        Authority authority = authorityService.find(type);
+        Authority authority = authorityService.findOne(type);
         user.setAuthority(authority);
         User currentUser = userService.save(user);
         httpSession.setAttribute("currentUser", currentUser);

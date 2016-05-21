@@ -12,10 +12,10 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String name;
+    private Authority authority;
     private UserDetail detail;
     private Company company;
-    private Authority authority;
-    private Set<Resume> resumes;
+    private Resume resume;
     private Set<Message> messages;
     private Set<Process> processes;
 
@@ -75,12 +75,12 @@ public class User implements Serializable {
         this.authority = authority;
     }
 
-    public Set<Resume> getResumes() {
-        return resumes;
+    public Resume getResume() {
+        return resume;
     }
 
-    public void setResumes(Set<Resume> resumes) {
-        this.resumes = resumes;
+    public void setResume(Resume resume) {
+        this.resume = resume;
     }
 
     public Set<Message> getMessages() {

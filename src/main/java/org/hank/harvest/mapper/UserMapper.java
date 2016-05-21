@@ -10,8 +10,8 @@ import org.hank.harvest.domain.User;
 @Mapper
 public interface UserMapper {
 
-    User findOne(@Param("user") User user);
+    User selectOne(@Param("user") User user);
 
-    void save(User user);
+    void insertOne(User user);
 
 }

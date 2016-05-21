@@ -26,7 +26,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     @Transactional(readOnly = true)
     public List<Company> findTopRating(Integer topNum) {
-        return companyMapper.findTopRating(topNum);
+        return companyMapper.selectTopRating(topNum);
     }
 
 }

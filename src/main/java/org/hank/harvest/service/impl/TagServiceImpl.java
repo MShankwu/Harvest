@@ -26,7 +26,7 @@ public class TagServiceImpl implements TagService {
     @Override
     @Transactional(readOnly = true)
     public List<Tag> findTopRating(Integer topNum) {
-        return tagMapper.findTopRating(topNum);
+        return tagMapper.selectTopRating(topNum);
     }
 
 }

@@ -12,6 +12,6 @@ import java.util.List;
 @Mapper
 public interface CompanyMapper {
 
-    List<Company> findTopRating(@Param("topNum") Integer topNum);
+    List<Company> selectTopRating(@Param("topNum") Integer topNum);
 
 }

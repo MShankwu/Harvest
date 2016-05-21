@@ -3,9 +3,9 @@ package org.hank.harvest.domain;
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2016/5/16.
+ * Created by Administrator on 2016/5/19.
  */
-public class Authority implements Serializable {
+public class City implements Serializable {
 
     private Integer id;
     private String name;
@@ -25,5 +25,5 @@ public class Authority implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
+    
 }

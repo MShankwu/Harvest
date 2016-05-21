@@ -12,14 +12,15 @@ public class Job implements Serializable {
     private Integer id;
     private String name;
     private String category;
-    private String salary;
-    private String city;
-    private String graduationLevel;
-    private String experienceLevel;
+    private Integer originSalary;
+    private Integer terminalSalary;
+    private String graduation;
+    private String experience;
     private String description;
-    private Date publishDate;
+    private Date publish;
     private Date deadline;
     private Company company;
+    private City city;
     private Set<Tag> tags;
 
     public Integer getId() {
@@ -46,36 +47,36 @@ public class Job implements Serializable {
         this.category = category;
     }
 
-    public String getSalary() {
-        return salary;
+    public Integer getOriginSalary() {
+        return originSalary;
     }
 
-    public void setSalary(String salary) {
-        this.salary = salary;
+    public void setOriginSalary(Integer originSalary) {
+        this.originSalary = originSalary;
     }
 
-    public String getCity() {
-        return city;
+    public Integer getTerminalSalary() {
+        return terminalSalary;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setTerminalSalary(Integer terminalSalary) {
+        this.terminalSalary = terminalSalary;
     }
 
-    public String getGraduationLevel() {
-        return graduationLevel;
+    public String getGraduation() {
+        return graduation;
     }
 
-    public void setGraduationLevel(String graduationLevel) {
-        this.graduationLevel = graduationLevel;
+    public void setGraduation(String graduation) {
+        this.graduation = graduation;
     }
 
-    public String getExperienceLevel() {
-        return experienceLevel;
+    public String getExperience() {
+        return experience;
     }
 
-    public void setExperienceLevel(String experienceLevel) {
-        this.experienceLevel = experienceLevel;
+    public void setExperience(String experience) {
+        this.experience = experience;
     }
 
     public String getDescription() {
@@ -86,12 +87,12 @@ public class Job implements Serializable {
         this.description = description;
     }
 
-    public Date getPublishDate() {
-        return publishDate;
+    public Date getPublish() {
+        return publish;
     }
 
-    public void setPublishDate(Date publishDate) {
-        this.publishDate = publishDate;
+    public void setPublish(Date publish) {
+        this.publish = publish;
     }
 
     public Date getDeadline() {
@@ -110,6 +111,14 @@ public class Job implements Serializable {
         this.company = company;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public Set<Tag> getTags() {
         return tags;
     }
@@ -117,5 +126,4 @@ public class Job implements Serializable {
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
-
 }

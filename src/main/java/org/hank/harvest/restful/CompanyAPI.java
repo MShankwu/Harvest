@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -24,8 +25,18 @@ public class CompanyAPI {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    List<Company> getTopRating(Integer topNum) {
-        return companyService.findTopRating(topNum);
+    List<Company> getSome(HttpServletRequest request) {
+        if (request.getParameter("service") != null) {
+            String service = request.getParameter("service");
+            switch (service) {
+                case "topRating":
+                    Integer topNum = Integer.valueOf(request.getParameter("topNum"));
+                    return companyService.findTopRating(topNum);
+                default:
+                    break;
+            }
+        }
+        return null;
     }
 
 }

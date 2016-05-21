@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+
+<body>
+
+<div class="col-md-12" th:each="job : ${jobList}">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="|职位名称 ：${job.name}|"></h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-6">
+                <p>
+                    <span th:text="|发布公司 ：${job.company.name} (${job.company.type})|"></span><br/>
+                    <span class="font_red"
+                          th:text="|月薪范围 ：| + ((${job.originSalary} != null)? |${job.originSalary}K ~ ${job.terminalSalary}K| : '面议')"></span><br/>
+                    <span class="font_green" th:text="|发布日期 ：${#dates.format(job.publish, 'yyyy-MM-dd')}|"></span><br/>
+                    <span class="font_green"
+                          th:text="|截止日期 ：| + ((${job.deadline} != null)? |${#dates.format(job.deadline, 'yyyy-MM-dd')}| : '暂无')"></span><br/>
+                    <span class="font_blue" th:text="|所在城市 ：${job.city.name}|"></span><br/>
+                </p>
+                <a class="btn btn-primary btn-block" th:href="@{/job/{id}/(id = ${job.id})}">查看详情</a>
+            </div>
+
+            <div class="col-md-6">
+                <p>
+                    <span class="font_orange" th:text="|工作性质 ：${job.category}|"></span><br/>
+                    <span class="font_orange" th:text="|工作经验要求 ：${job.experience}|"></span><br/>
+                    <span class="font_orange" th:text="|最低学历要求 ：${job.graduation}|"></span><br/>
+                </p>
+                <label class="label label-info" th:each="tag : ${job.tags}" th:text="${tag.name}"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+</body>
+</html>

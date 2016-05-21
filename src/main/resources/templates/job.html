@@ -19,9 +19,8 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div th:replace="fragments/footer :: footer"></div>
 
-<div class="container">
+<div class="container" id="job">
     <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
@@ -29,12 +28,13 @@
             </div>
 
             <div class="panel-body">
-                <div class="panel-group" id="job-choose">
+                <div class="panel-group" id="job-choices">
                     <div class="panel panel-success" th:each="jobChoice : ${jobChoices}">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#job-choose"
-                                   th:href="@{'#' + ${jobChoicesIDs[__${jobChoiceStat.index}__]}}" th:text="${jobChoice}">
+                                <a data-toggle="collapse" data-parent="#job-choices"
+                                   th:href="@{'#' + ${jobChoicesIDs[__${jobChoiceStat.index}__]}}"
+                                   th:text="${jobChoice}">
                                     月薪范围
                                 </a>
                             </h4>
@@ -42,53 +42,50 @@
 
                         <div th:id="${jobChoicesIDs[__${jobChoiceStat.index}__]}" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <label class="radio" th:each="jobChoicesContent : ${jobChoicesContents[__${jobChoiceStat.index}__]}">
-                                    <input type="radio" th:name="${jobChoicesIDs[__${jobChoiceStat.index}__]}" th:value="${jobChoicesContentStat.count}" data-toggle="radio"/>
+                                <label class="radio"
+                                       th:each="jobChoicesContent : ${jobChoicesContents[__${jobChoiceStat.index}__]}">
+                                    <input type="radio" th:name="${jobChoicesIDs[__${jobChoiceStat.index}__]}"
+                                           th:value="${jobChoicesContentStat.index}" data-toggle="radio"/>
                                     <span th:text="${jobChoicesContent}"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
+                <a class="btn btn-default btn-block" href="/job">重置条件</a>
+                <a class="btn btn-primary btn-block" id="job-choices-submit">开始检索</a>
             </div>
         </div>
     </div>
     <div class="col-md-8">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">职位列表</h3>
+                <h3 class="panel-title">关键字筛选</h3>
             </div>
 
             <div class="panel-body">
+                <div class="input-group">
+                    <input id="keyword" class="form-control" type="search" placeholder="输入关键字：比如职位名称、职位类别或职位所在城市"/>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn" id="job-keyword-submit"><span class="fui-search"></span></button>
+                    </span>
+                </div>
+            </div>
+        </div>
 
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">职位列表</h3>
             </div>
 
-            <div>
-                <ul class="pagination">
-                    <li class="previous">
-                        <a href="#" class="fui-arrow-left"></a>
-                    </li>
+            <div class="panel-body" id="job-list">
 
-                    <li class="pagination-dropdown dropup">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fui-triangle-up"></i>
-                        </a>
-
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">10-20</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="next">
-                        <a href="#" class="fui-arrow-right"></a>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
 </div>
+
+<div th:replace="fragments/footer :: footer"></div>
 
 <script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>

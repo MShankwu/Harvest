@@ -11,6 +11,8 @@ public class UserDetail implements Serializable {
     private String sex;
     private String phone;
     private String qq;
+    private String address;
+    private String postcode;
 
     public Integer getId() {
         return id;
@@ -44,4 +46,19 @@ public class UserDetail implements Serializable {
         this.qq = qq;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
 }

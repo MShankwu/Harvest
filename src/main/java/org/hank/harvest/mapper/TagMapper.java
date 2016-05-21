@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.hank.harvest.domain.Tag;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/17.
@@ -12,6 +13,8 @@ import java.util.List;
 @Mapper
 public interface TagMapper {
 
-    List<Tag> findTopRating(@Param("topNum") Integer topNum);
+    List<Tag> selectTopRating(@Param("topNum") Integer topNum);
+
+    Set<Tag> selectByJobID(@Param("jobID") Integer jobID);
 
 }

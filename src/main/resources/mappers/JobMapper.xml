@@ -3,21 +3,120 @@
 <mapper namespace="org.hank.harvest.mapper.JobMapper">
 
     <resultMap id="summaryMap" type="org.hank.harvest.domain.Job">
+        <id property="id" column="ID"/>
         <result property="name" column="Name"/>
-        <result property="salary" column="Salary"/>
-        <result property="publishDate" column="Publish_Date"/>
+        <result property="originSalary" column="Origin_Salary"/>
+        <result property="terminalSalary" column="Terminal_Salary"/>
+        <result property="publish" column="Publish"/>
         <result property="deadline" column="Deadline"/>
         <association property="company" javaType="org.hank.harvest.domain.Company">
+            <id property="id" column="Company_ID"/>
             <result property="name" column="Company_Name"/>
+        </association>
+        <association property="city" javaType="org.hank.harvest.domain.City">
+            <id property="id" column="City_ID"/>
+            <result property="name" column="City_Name"/>
+        </association>
+    </resultMap>
+    
+    <resultMap id="displayMap" type="org.hank.harvest.domain.Job">
+        <result property="id" column="ID"/>
+        <result property="name" column="Name"/>
+        <result property="category" column="Category"/>
+        <result property="originSalary" column="Origin_Salary"/>
+        <result property="terminalSalary" column="Terminal_Salary"/>
+        <result property="graduation" column="Graduation"/>
+        <result property="experience" column="Experience"/>
+        <result property="description" column="Description" jdbcType="LONGVARCHAR"/>
+        <result property="publish" column="Publish"/>
+        <result property="deadline" column="Deadline"/>
+        <association property="company" javaType="org.hank.harvest.domain.Company">
+            <id property="id" column="Company_ID"/>
+            <result property="name" column="Company_Name"/>
+            <result property="type" column="Company_Type"/>
+        </association>
+        <association property="city" javaType="org.hank.harvest.domain.City">
+            <id property="id" column="City_ID"/>
+            <result property="name" column="City_Name"/>
         </association>
     </resultMap>
 
-    <select id="findLatest" resultMap="summaryMap">
-        SELECT job.Name, Salary, Publish_Date, Deadline, company.Name as Company_Name
-        FROM job, company
-        WHERE job.Company_ID = company.ID
-        ORDER BY Publish_Date DESC
-        LIMIT #{limit}
+    <sql id="summaryColumns">
+        job.ID as ID,
+        job.Name as Name,
+        job.Origin_Salary as Origin_Salary,
+        job.Terminal_Salary as Terminal_Salary,
+        job.Publish as Publish,
+        job.Deadline as Deadline,
+        company.ID as Company_ID,
+        company.Name as Company_Name,
+        city.ID as City_ID,
+        city.Name as City_Name
+    </sql>
+
+    <sql id="displayColumns">
+        job.ID as ID,
+        job.Name as NAME,
+        job.Category as Category,
+        job.Origin_Salary as Origin_Salary,
+        job.Terminal_Salary as Terminal_Salary,
+        job.Graduation as Graduation,
+        job.Experience as Experience,
+        job.Description as Description,
+        job.Publish as Publish,
+        job.Deadline as Deadline,
+        company.ID as Company_ID,
+        company.Name as Company_Name,
+        company.Type as Company_Type,
+        city.ID as City_ID,
+        city.Name as City_Name
+    </sql>
+
+    <select id="selectLatest" resultMap="summaryMap">
+        SELECT <include refid="summaryColumns"/>
+        FROM job, company, city
+        WHERE job.Company_ID = company.ID AND job.City_ID = city.ID
+        ORDER BY Publish DESC
+        LIMIT #{latest}
+    </select>
+
+    <select id="selectAll" resultMap="displayMap">
+        SELECT <include refid="displayColumns"/>
+        FROM job, company, city
+        WHERE job.Company_ID = company.ID AND job.City_ID = city.ID
+    </select>
+
+    <select id="selectByConditions" resultMap="displayMap">
+        SELECT <include refid="displayColumns"/>
+        FROM job, company, city
+        WHERE job.Company_ID = company.ID AND job.City_ID = city.ID
+        <if test="jobConditions.originSalary != null">
+            <![CDATA[
+            AND job.Origin_Salary <= #{jobConditions.terminalSalary} AND job.Terminal_Salary >= #{jobConditions.originSalary}
+            ]]>
+        </if>
+        <if test="jobConditions.experience != null">
+            AND job.Experience = #{jobConditions.experience}
+        </if>
+        <if test="jobConditions.category != null">
+            AND job.Category = #{jobConditions.category}
+        </if>
+        <if test="jobConditions.graduation != null">
+            AND job.Graduation = #{jobConditions.graduation}
+        </if>
+        <if test="jobConditions.keyword != null">
+            <bind name="keyword" value="'%' + jobConditions.keyword + '%'"/>
+            <![CDATA[
+            AND (job.Name LIKE #{keyword} OR city.Name LIKE #{keyword})
+            ]]>
+        </if>
+    </select>
+
+    <select id="selectOne" resultMap="displayMap">
+        SELECT <include refid="displayColumns"/>
+        FROM job, company, city
+        WHERE job.Company_ID = company.ID AND job.City_ID = city.ID
+        AND job.ID = #{id}
     </select>
 
 </mapper>
