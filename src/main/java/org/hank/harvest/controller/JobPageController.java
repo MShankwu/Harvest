@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by Administrator on 2016/5/18.
  */
 @Controller
+@RequestMapping("/job")
 public class JobPageController {
 
     private JobService jobService;
@@ -23,7 +24,7 @@ public class JobPageController {
         this.jobService = jobService;
     }
 
-    @RequestMapping(value = "/job", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String showJob(Model model) {
         model.addAttribute("jobChoicesIDs", JobConditionUtil.JOB_CHOICES_IDS);
         model.addAttribute("jobChoices", JobConditionUtil.JOB_CHOICES);
@@ -31,18 +32,18 @@ public class JobPageController {
         return "job";
     }
 
-    @RequestMapping(value = "/job/search", method = RequestMethod.GET)
-    public String showJobList(Integer salaryID, Integer experienceID,
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String showJobSearch(Integer salaryID, Integer experienceID,
                               Integer graduationID, Integer categoryID,
                               String keyword, Integer pageNum, Integer pageSize,
                               Model model) {
         JobConditionUtil jobConditions = new JobConditionUtil(salaryID, experienceID,
                 graduationID, categoryID, keyword);
-        model.addAttribute("jobList", jobService.findByConditions(jobConditions));
+        model.addAttribute("jobList", jobService.findByConditions(jobConditions, pageNum, pageSize));
         return "job_list";
     }
 
-    @RequestMapping(value = "/job/{id}")
+    @RequestMapping(value = "/{id}")
     public String showJobID(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("job", jobService.findOne(id));
         return "job_id";

@@ -14,7 +14,7 @@ public interface JobService {
 
     List<Job> findLatest(Integer latest);
 
-    List<Job> findByConditions(JobConditionUtil jobConditions);
+    List<Job> findByConditions(JobConditionUtil jobConditions, Integer pageNum, Integer pageSize);
 
     List<Job> findAll(Integer pageNum, Integer pageSize);
 

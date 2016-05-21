@@ -42,7 +42,10 @@ public class JobServiceImpl implements JobService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Job> findByConditions(JobConditionUtil jobConditions) {
+    public List<Job> findByConditions(JobConditionUtil jobConditions, Integer pageNum, Integer pageSize) {
+        if (pageNum != null) {
+            PageHelper.startPage(pageNum, pageSize);
+        }
         List<Job> jobList = jobMapper.selectByConditions(jobConditions);
         for (Job job : jobList) {
             job.setTags(tagMapper.selectByJobID(job.getId()));
@@ -66,6 +69,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Job findOne(Integer id) {
         Job job = jobMapper.selectOne(id);
         job.setTags(tagMapper.selectByJobID(job.getId()));

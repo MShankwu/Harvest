@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+
+    <title th:text="|Harvest——公司/${company.name}|"></title>
+
+    <link rel="stylesheet" href="../static/css/company_id.css"
+          th:href="@{/css/company_id.css}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container" id="company-id">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">公司详细</h3>
+        </div>
+
+        <div class="panel-body" id="company-id-body">
+            <h1 th:text="${company.name}"></h1>
+            <label class="label label-info" th:each="city : ${company.cities}" th:text="${city.name}"></label>
+            <h4 class="font_blue" th:text="|公司类别 ：${company.type}|"></h4>
+            <h4 th:text="|公司描述 ：|"></h4>
+            <pre id="company-description" th:text="${company.description}"></pre>
+            <h4 class="font_red">招聘职位 ：</h4>
+            <table class="table table-responsive">
+                <thead>
+                <tr>
+                    <th class="font_red">序号</th>
+                    <th class="font_red">职位名称</th>
+                </tr>
+                </thead>
+
+                <thead>
+                <tr th:each="job : ${company.jobs}">
+                    <th th:text="${jobStat.count}"></th>
+                    <th><a th:href="@{/job/{id}/(id = ${job.id})}" th:text="${job.name}"></a></th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

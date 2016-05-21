@@ -86,15 +86,17 @@
                     <table class="table table-responsive">
                         <thead>
                         <tr>
-                            <th class="font_blue">序号</th>
-                            <th class="font_blue">热门公司排行榜</th>
+                            <th class="font_red">序号</th>
+                            <th class="font_red">热门公司排行榜</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <tr th:each="company : ${topRatingCompanies}">
-                            <th th:class="${companyStat.first}? font_red" th:text="${companyStat.count}"></th>
-                            <th th:class="${companyStat.first}? font_red" th:text="${company.name}"></th>
+                            <th th:text="${companyStat.count}"></th>
+                            <th th:class="${companyStat.first}? font_red">
+                                <a th:href="@{/company/{id}(id = ${company.id})}" th:text="${company.name}"></a>
+                            </th>
                         </tr>
                         </tbody>
                     </table>
@@ -110,15 +112,15 @@
                     <table class="table table-responsive">
                         <thead>
                         <tr>
-                            <th class="font_blue">序号</th>
-                            <th class="font_blue">热门职位标签</th>
+                            <th class="font_red">序号</th>
+                            <th class="font_red">热门职位标签</th>
                         </tr>
                         </thead>
 
                         <tbody>
                         <tr th:each="tag : ${topRatingTags}">
-                            <th th:class="${tagStat.first}? font_red" th:text="${tagStat.count}"></th>
-                            <th th:class="${tagStat.first}? font_red" th:text="${tag.name}"></th>
+                            <th th:text="${tagStat.count}"></th>
+                            <th th:text="${tag.name}"></th>
                         </tr>
                         </tbody>
                     </table>

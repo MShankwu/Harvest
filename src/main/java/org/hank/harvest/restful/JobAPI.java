@@ -43,7 +43,7 @@ public class JobAPI {
                     Integer categoryID = request.getParameter("categoryID") != null? Integer.valueOf(request.getParameter("categoryID")) : null;
                     String keyword = request.getParameter("keyword") != null && !request.getParameter("keyword").equals("")? request.getParameter("keyword") : null;
                     JobConditionUtil jobConditions = new JobConditionUtil(salaryID, experienceID, graduationID, categoryID, keyword);
-                    return jobService.findByConditions(jobConditions);
+                    return jobService.findByConditions(jobConditions, pageNum, pageSize);
                 default:
                     break;
             }

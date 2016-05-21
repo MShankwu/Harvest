@@ -13,14 +13,76 @@
           th:href="@{/dist/img/harvest.ico}"/>
 
     <title>Harvest——公司</title>
+
+    <link rel="stylesheet" href="../static/css/company.css"
+          th:href="@{/css/company.css}"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
+<div class="container" id="company">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">条件筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#type">薪资范围</a>
+                        </h4>
+                    </div>
+
+                    <div class="panel-collapse collapse in" id="type">
+                        <div class="panel-body">
+                            <label class="radio" th:each="type : ${types}">
+                                <input type="radio" name="type" th:value="${typeStat.index}" data-toggle="radio"/>
+                                <span th:text="${type}"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-default btn-block" href="/company">重置条件</a>
+                <a class="btn btn-primary btn-block" id="company-choices-submit">开始检索</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">关键字筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="input-group">
+                    <input id="keyword" class="form-control" type="search" placeholder="输入关键字：比如公司名称或者公司所在城市"/>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn" id="company-keyword-submit"><span class="fui-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">职位列表</h3>
+            </div>
+
+            <div class="panel-body" id="company-list">
+
+            </div>
+        </div>
+    </div>
+</div>
 <div th:replace="fragments/footer :: footer"></div>
 
 <script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 
+<script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
 <script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+<script src="../static/js/company.js" th:src="@{/js/company.js}"></script>
 </body>
 </html>

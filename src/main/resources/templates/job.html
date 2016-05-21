@@ -28,27 +28,24 @@
             </div>
 
             <div class="panel-body">
-                <div class="panel-group" id="job-choices">
-                    <div class="panel panel-success" th:each="jobChoice : ${jobChoices}">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#job-choices"
-                                   th:href="@{'#' + ${jobChoicesIDs[__${jobChoiceStat.index}__]}}"
-                                   th:text="${jobChoice}">
-                                    月薪范围
-                                </a>
-                            </h4>
-                        </div>
+                <div class="panel panel-success" th:each="jobChoice : ${jobChoices}">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse"
+                               th:href="@{'#' + ${jobChoicesIDs[__${jobChoiceStat.index}__]}}"
+                               th:text="${jobChoice}">
+                            </a>
+                        </h4>
+                    </div>
 
-                        <div th:id="${jobChoicesIDs[__${jobChoiceStat.index}__]}" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <label class="radio"
-                                       th:each="jobChoicesContent : ${jobChoicesContents[__${jobChoiceStat.index}__]}">
-                                    <input type="radio" th:name="${jobChoicesIDs[__${jobChoiceStat.index}__]}"
-                                           th:value="${jobChoicesContentStat.index}" data-toggle="radio"/>
-                                    <span th:text="${jobChoicesContent}"></span>
-                                </label>
-                            </div>
+                    <div th:id="${jobChoicesIDs[__${jobChoiceStat.index}__]}" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <label class="radio"
+                                   th:each="jobChoicesContent : ${jobChoicesContents[__${jobChoiceStat.index}__]}">
+                                <input type="radio" th:name="${jobChoicesIDs[__${jobChoiceStat.index}__]}"
+                                       th:value="${jobChoicesContentStat.index}" data-toggle="radio"/>
+                                <span th:text="${jobChoicesContent}"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -67,7 +64,8 @@
                 <div class="input-group">
                     <input id="keyword" class="form-control" type="search" placeholder="输入关键字：比如职位名称、职位类别或职位所在城市"/>
                     <span class="input-group-btn">
-                        <button type="submit" class="btn" id="job-keyword-submit"><span class="fui-search"></span></button>
+                        <button type="submit" class="btn" id="job-keyword-submit"><span class="fui-search"></span>
+                        </button>
                     </span>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 package org.hank.harvest.service;
 
 import org.hank.harvest.domain.Company;
+import org.hank.harvest.utils.CompanyConditionUtil;
 
 import java.util.List;
 
@@ -10,5 +11,9 @@ import java.util.List;
 public interface CompanyService {
 
     List<Company> findTopRating(Integer topNum);
+
+    List<Company> findByConditions(CompanyConditionUtil companyConditions, Integer pageNum, Integer pageSize);
+
+    Company findOne(Integer id);
 
 }

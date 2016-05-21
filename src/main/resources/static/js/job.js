@@ -19,9 +19,8 @@
     }
 
     $(function () {
-        $("#job-choices").find(".panel-collapse").collapse("show");
 
-        loadJobList();
+        loadJobList(1, 3);
 
         $("#job-choices-submit").click(function() {
             loadJobList(1, 10);

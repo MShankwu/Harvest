@@ -22,6 +22,7 @@ public class UserDetailServiceImpl implements UserDetailService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetail findOne(Integer id) {
         return userDetailMapper.selectOne(id);
     }

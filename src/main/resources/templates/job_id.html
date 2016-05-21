@@ -11,7 +11,9 @@
 
     <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
           th:href="@{/dist/img/harvest.ico}"/>
+
     <title th:text="|Harvest——职位/${job.name}|"></title>
+
     <link rel="stylesheet" href="../static/css/job_id.css"
           th:href="@{/css/job_id.css}"/>
     <link rel="stylesheet" href="../static/css/font.css"
@@ -28,10 +30,9 @@
         <div class="panel-body" id="job-id-body">
             <h1 th:text="${job.name}"></h1>
             <label class="label label-info" th:each="tag : ${job.tags}" th:text="${tag.name}"></label>
-
             <div>
                 <div class="col-md-6">
-                    <h4>发布公司 ：<a th:text="|${job.company.name}(${job.company.type})|"></a></h4>
+                    <h4>发布公司 ：<a th:href="@{/company/{id}/(id = ${job.company.id})}" th:text="|${job.company.name}(${job.company.type})|"></a></h4>
                     <h4 class="font_red"
                         th:text="|月薪范围 ：| + ((${job.originSalary} != null)? |${job.originSalary}K ~ ${job.terminalSalary}K| : '面议')"></h4>
                     <h4 class="font_green"
