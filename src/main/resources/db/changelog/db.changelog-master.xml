@@ -605,4 +605,38 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="56" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user_detail`
+            ADD COLUMN `Age` INT NULL AFTER `ID`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="57" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `resume`
+            DROP COLUMN `Name`,
+            CHANGE COLUMN `Education` `School` VARCHAR(50) NULL DEFAULT NULL ,
+            CHANGE COLUMN `Job_Intention` `Job_Intention` VARCHAR(100) NULL ,
+            CHANGE COLUMN `Experience` `Experience` VARCHAR(100) NULL DEFAULT NULL ,
+            ADD COLUMN `Category` VARCHAR(100) NULL AFTER `Experience`,
+            ADD COLUMN `Education_Experience` TEXT NULL AFTER `Category`,
+            ADD COLUMN `Intern_Experience` TEXT NULL AFTER `Education_Experience`,
+            ADD COLUMN `Project_Experience` TEXT NULL AFTER `Intern_Experience`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="58" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `resume`
+            ADD COLUMN `Type` VARCHAR(20) NULL AFTER `Job_Intention`;
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

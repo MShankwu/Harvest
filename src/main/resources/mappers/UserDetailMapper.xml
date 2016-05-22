@@ -4,6 +4,7 @@
 
     <resultMap id="basicMap" type="org.hank.harvest.domain.UserDetail">
         <id property="id" column="ID"/>
+        <result property="age" column="Age"/>
         <result property="sex" column="Sex"/>
         <result property="phone" column="Phone"/>
         <result property="qq" column="QQ"/>
@@ -12,6 +13,7 @@
     </resultMap>
 
     <sql id="basicColumns">
+        Age,
         Sex,
         Phone,
         QQ,
@@ -23,6 +25,13 @@
         SELECT ID, <include refid="basicColumns"/>
         FROM user_detail
         WHERE ID = #{id}
+    </select>
+
+    <select id="selectOneIndirectByUserID" resultMap="basicMap">
+        SELECT user.ID, <include refid="basicColumns"/>
+        FROM user, user_detail
+        WHERE user.Detail_ID = user_detail.ID
+        AND user.ID = #{userID}
     </select>
 
 </mapper>

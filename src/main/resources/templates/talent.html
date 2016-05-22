@@ -15,14 +15,82 @@
           th:href="@{/dist/img/harvest.ico}"/>
 
     <title>Harvest——人才</title>
+
+    <link rel="stylesheet" href="../static/css/talent.css"
+          th:href="@{/css/talent.css}"/>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
+<div class="container" id="talent">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">条件筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="panel panel-success" th:each="talentChoice : ${talentChoices}">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse"
+                               th:href="@{'#' + ${talentChoicesIDs[__${talentChoiceStat.index}__]}}"
+                               th:text="${talentChoice}">
+                            </a>
+                        </h4>
+                    </div>
+
+                    <div th:id="${talentChoicesIDs[__${talentChoiceStat.index}__]}" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <label class="radio"
+                                   th:each="talentChoicesContent : ${talentChoicesContents[__${talentChoiceStat.index}__]}">
+                                <input type="radio" th:name="${talentChoicesIDs[__${talentChoiceStat.index}__]}"
+                                       th:value="${talentChoicesContentStat.index}" data-toggle="radio"/>
+                                <span th:text="${talentChoicesContent}"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-default btn-block" href="/talent">重置条件</a>
+                <a class="btn btn-primary btn-block" id="talent-choices-submit">开始检索</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">关键字筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="input-group">
+                    <input id="keyword" class="form-control" type="search" placeholder="输入关键字：比如求职者姓名，毕业院校名或者招聘者公司名"/>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn" id="talent-keyword-submit"><span class="fui-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">职位列表</h3>
+            </div>
+
+            <div class="panel-body" id="talent-list">
+
+            </div>
+        </div>
+    </div>
+</div>
 <div th:replace="fragments/footer :: footer"></div>
 
 <script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 
 <script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+<script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
+<script src="../static/js/talent.js" th:src="@{/js/talent.js}"></script>
 </body>
 </html>

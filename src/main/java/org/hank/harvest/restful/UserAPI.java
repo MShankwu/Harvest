@@ -5,6 +5,9 @@ import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/5/16.
  */
@@ -20,12 +23,28 @@ public class UserAPI {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public User get(@ModelAttribute User user) {
-        return userService.findOne(user);
+    public List<User> getSome(HttpServletRequest request, @ModelAttribute User user) {
+        if (request.getParameter("service") != null) {
+            String service = request.getParameter("service");
+            switch (service) {
+                case "indirectOne":
+                    return userService.findIndirect(user);
+                case "":
+                    return null;
+                default:
+                    break;
+            }
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public User getOne(@PathVariable("id") Integer id) {
+        return userService.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public Integer post(@RequestBody User user) {
+    public Integer postOne(@RequestBody User user) {
         return userService.save(user).getId();
     }
 

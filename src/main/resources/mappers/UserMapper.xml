@@ -9,10 +9,36 @@
         <result property="name" column="Name"/>
     </resultMap>
 
+    <resultMap id="wholeMap" type="org.hank.harvest.domain.User">
+        <id property="id" column="ID"/>
+        <result property="email" column="Email"/>
+        <result property="password" column="Password"/>
+        <result property="name" column="Name"/>
+        <association property="authority" javaType="org.hank.harvest.domain.Authority">
+            <id property="id" column="Authority_ID"/>
+            <result property="name" column="Authority_Name"/>
+        </association>
+        <association property="company" javaType="org.hank.harvest.domain.Company">
+            <id property="id" column="Company_ID"/>
+            <result property="name" column="Company_Name"/>
+        </association>
+    </resultMap>
+
     <sql id="basicColumns">
-        Email,
-        Password,
-        Name
+        user.Email,
+        user.Password,
+        user.Name
+    </sql>
+
+    <sql id="wholeColumns">
+        user.ID as ID,
+        user.Email as Email,
+        user.Password as Password,
+        user.Name as Name,
+        authority.ID as Authority_ID,
+        authority.Name as Authority_Name,
+        company.ID as Company_ID,
+        company.Name as Company_Name
     </sql>
 
     <insert id="insertOne" useGeneratedKeys="true" keyProperty="id" parameterType="org.hank.harvest.domain.User">
@@ -20,13 +46,48 @@
         VALUES (#{email}, #{password}, #{name}, #{authority.id})
     </insert>
 
-    <select id="selectOne" resultMap="basicMap">
+    <select id="selectOneIndirect" resultMap="basicMap">
         SELECT ID, <include refid="basicColumns"/>
         FROM user
         WHERE Email = #{user.email}
         <if test="user.password != null">
             AND Password = #{user.password}
         </if>
+    </select>
+
+    <select id="selectByConditions" resultMap="basicMap">
+        SELECT user.ID, <include refid="basicColumns"/>
+        FROM user LEFT JOIN resume ON user.Resume_ID = resume.ID
+             LEFT JOIN company ON user.Company_ID = company.ID, authority
+        WHERE user.Authority_ID = authority.ID AND authority.Name != '管理员'
+        <if test="talentConditions.authority != null">
+            AND authority.Name = #{talentConditions.authority}
+        </if>
+        <if test="talentConditions.category != null">
+            AND resume.Category = #{talentConditions.category}
+        </if>
+        <if test="talentConditions.experience != null">
+            AND resume.Experience = #{talentConditions.experience}
+        </if>
+        <if test="talentConditions.type != null">
+            AND resume.Type = #{talentConditions.type}
+        </if>
+        <if test="talentConditions.graduation != null">
+            AND resume.graduation = #{talentConditions.graduation}
+        </if>
+        <if test="talentConditions.keyword != null">
+            <bind name="keyword" value="'%' + talentConditions.keyword + '%'"/>
+            AND (user.Name LIKE #{keyword} OR resume.School LIKE #{keyword}
+            OR company.Name LIKE #{keyword})
+        </if>
+    </select>
+
+    <select id="selectOne" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM
+            user LEFT JOIN company ON user.Company_ID = company.ID, authority
+        WHERE user.Authority_ID = authority.ID
+        AND user.ID = #{id}
     </select>
 
 </mapper>

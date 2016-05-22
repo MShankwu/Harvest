@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+    <div class="col-md-12" th:each="talent : ${talentList}">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title" th:text="|姓名 ：${talent.name}|"></h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="col-md-6">
+                    <div th:switch="${talent.authority.id}">
+                        <div th:case="2">
+                            <p class="font_orange" th:object="${talent.resume}">
+                                <span th:text="|学历 ：| + (*{graduation} != null ? *{graduation} : ' ')"></span><br/>
+                                <span th:text="|毕业高校 ：| + (*{school} != null ? *{school} : ' ')"></span><br/>
+                                <span th:text="|岗位意向 ：| + (*{jobIntention} != null ? *{jobIntention} : ' ')"></span><br/>
+                                <span th:text="|求职类别 ：| + (*{type} != null ? *{type} : ' ')"></span><br/>
+                                <span th:text="|求职职位性质 ：| + (*{category} != null ? *{category} : ' ')"></span><br/>
+                                <span th:text="|工作经验 ：| + (*{experience} != null ? *{experience} : ' ')"></span><br/>
+                            </p>
+                        </div>
+                        <div th:case="3">
+                            <div class="font_blue">所属公司：
+                                <a th:text="${talent.company.name}" th:href="@{/company/{id}/(id = ${talent.company.id})}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="btn btn-primary btn-block" th:href="@{/talent/{id}/(id = ${talent.id})}">查看详情</a>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="label label-info" th:text="${talent.authority.name}"></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

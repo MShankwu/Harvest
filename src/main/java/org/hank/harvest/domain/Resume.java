@@ -8,14 +8,17 @@ import java.io.Serializable;
 public class Resume implements Serializable {
 
     private Integer id;
-    private String name;
     private String graduation;
-    private String education;
+    private String school;
     private String jobIntention;
+    private String type;
     private String experience;
+    private String category;
+    private String educationExperience;
+    private String internExperience;
+    private String projectExperience;
     private String skills;
     private String remark;
-    private User user;
 
     public Integer getId() {
         return id;
@@ -23,14 +26,6 @@ public class Resume implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getGraduation() {
@@ -41,12 +36,12 @@ public class Resume implements Serializable {
         this.graduation = graduation;
     }
 
-    public String getEducation() {
-        return education;
+    public String getSchool() {
+        return school;
     }
 
-    public void setEducation(String education) {
-        this.education = education;
+    public void setSchool(String school) {
+        this.school = school;
     }
 
     public String getJobIntention() {
@@ -57,12 +52,52 @@ public class Resume implements Serializable {
         this.jobIntention = jobIntention;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getExperience() {
         return experience;
     }
 
     public void setExperience(String experience) {
         this.experience = experience;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getEducationExperience() {
+        return educationExperience;
+    }
+
+    public void setEducationExperience(String educationExperience) {
+        this.educationExperience = educationExperience;
+    }
+
+    public String getInternExperience() {
+        return internExperience;
+    }
+
+    public void setInternExperience(String internExperience) {
+        this.internExperience = internExperience;
+    }
+
+    public String getProjectExperience() {
+        return projectExperience;
+    }
+
+    public void setProjectExperience(String projectExperience) {
+        this.projectExperience = projectExperience;
     }
 
     public String getSkills() {
@@ -79,14 +114,6 @@ public class Resume implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

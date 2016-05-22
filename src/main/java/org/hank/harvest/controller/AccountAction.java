@@ -36,7 +36,7 @@ public class AccountAction {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String doLogin(@ModelAttribute User user,
                           RedirectAttributes redirect, HttpSession httpSession) {
-        User currentUser = userService.findOne(user);
+        User currentUser = userService.findIndirect(user).get(0);
         if (currentUser == null) {
             redirect.addFlashAttribute("loginError", "登录失败：邮箱地址或者密码不正确！");
             redirect.addFlashAttribute("email", user.getEmail());

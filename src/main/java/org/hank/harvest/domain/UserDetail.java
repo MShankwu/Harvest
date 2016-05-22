@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class UserDetail implements Serializable {
 
     private Integer id;
+    private Integer age;
     private String sex;
     private String phone;
     private String qq;
@@ -20,6 +21,14 @@ public class UserDetail implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getSex() {
