@@ -45,7 +45,12 @@ public class UserAPI {
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public Integer postOne(@RequestBody User user) {
-        return userService.save(user).getId();
+        return userService.saveOne(user).getId();
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
+    public User putOne(@RequestBody User user) {
+        return userService.editOne(user);
     }
 
 }

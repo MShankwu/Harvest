@@ -46,6 +46,12 @@
         VALUES (#{email}, #{password}, #{name}, #{authority.id})
     </insert>
 
+    <update id="updateOne" parameterType="org.hank.harvest.domain.User">
+        UPDATE user
+        SET Password = #{password}
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectOneIndirect" resultMap="basicMap">
         SELECT ID, <include refid="basicColumns"/>
         FROM user

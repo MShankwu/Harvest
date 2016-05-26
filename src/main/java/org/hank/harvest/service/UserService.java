@@ -17,6 +17,8 @@ public interface UserService {
 
     User findOne(Integer id);
 
-    User save(User user);
+    User saveOne(User user);
+
+    User editOne(User user);
 
 }

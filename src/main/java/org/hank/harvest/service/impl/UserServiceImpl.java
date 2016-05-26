@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         }
         List<User> userList = userMapper.selectByConditions(talentConditions);
         for (int i = 0; i < userList.size(); ++i) {
-            userList.set(i, findOne(userList.get(i).getId()));
+            userList.set(i, userMapper.selectOne(userList.get(i).getId()));
         }
         return userList;
     }
@@ -68,9 +68,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public User saveOne(User user) {
         userMapper.insertOne(user);
         return user;
+    }
+
+    @Override
+    public User editOne(User user) {
+        userMapper.updateOne(user);
+        return userMapper.selectOne(user.getId());
     }
 
 }

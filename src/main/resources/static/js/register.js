@@ -27,6 +27,7 @@
                 url: "/api/1/users",
                 type: "get",
                 data: {
+                    service: "indirectOne",
                     email: $("#login-email").val()
                 },
                 success: function (result) {

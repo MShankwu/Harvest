@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/4/23.
@@ -36,7 +37,8 @@ public class AccountAction {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String doLogin(@ModelAttribute User user,
                           RedirectAttributes redirect, HttpSession httpSession) {
-        User currentUser = userService.findIndirect(user).get(0);
+        List<User> userList = userService.findIndirect(user);
+        User currentUser = userList.size() > 0 ? userList.get(0) : null;
         if (currentUser == null) {
             redirect.addFlashAttribute("loginError", "登录失败：邮箱地址或者密码不正确！");
             redirect.addFlashAttribute("email", user.getEmail());
@@ -59,7 +61,7 @@ public class AccountAction {
                              RedirectAttributes redirect, HttpSession httpSession) {
         Authority authority = authorityService.findOne(type);
         user.setAuthority(authority);
-        User currentUser = userService.save(user);
+        User currentUser = userService.saveOne(user);
         httpSession.setAttribute("currentUser", currentUser);
         redirect.addFlashAttribute("hasRegistered", true);
         return "redirect:/register";

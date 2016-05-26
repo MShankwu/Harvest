@@ -5,12 +5,14 @@ import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * Created by Administrator on 2016/4/26.
  */
 @Configuration
+@EnableTransactionManagement
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class JobPageController {
 
     private JobService jobService;
-    private String id;
 
     @Autowired
     public void setJobService(JobService jobService) {
