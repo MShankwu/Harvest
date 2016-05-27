@@ -36,7 +36,8 @@
                         </div>
                         <div th:case="3">
                             <div class="font_blue">所属公司：
-                                <a th:text="${talent.company.name}" th:href="@{/company/{id}/(id = ${talent.company.id})}"></a>
+                                <a th:if="${talent.company} != null" th:text="${talent.company.name}" th:href="@{/company/{id}/(id = ${talent.company.id})}"></a>
+                                <span th:unless="${talent.company} != null" class="font_red">暂无公司信息</span>
                             </div>
                         </div>
                     </div>
