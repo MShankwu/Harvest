@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class AccountAction {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String doLogin(@ModelAttribute User user,
-                          RedirectAttributes redirect, HttpSession httpSession) {
+                          RedirectAttributes redirect, HttpSession httpSession, HttpServletResponse response) {
         List<User> userList = userService.findIndirect(user);
         User currentUser = userList.size() > 0 ? userList.get(0) : null;
         if (currentUser == null) {
@@ -46,6 +48,9 @@ public class AccountAction {
             return "redirect:/login";
         } else {
             httpSession.setAttribute("currentUser", currentUser);
+            Cookie cookie = new Cookie("currentUserID", currentUser.getId().toString());
+            cookie.setPath("/");
+            response.addCookie(cookie);
             return "redirect:/index";
         }
     }
@@ -58,11 +63,14 @@ public class AccountAction {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String doRegister(@ModelAttribute User user, Integer type,
-                             RedirectAttributes redirect, HttpSession httpSession) {
+                             RedirectAttributes redirect, HttpSession httpSession, HttpServletResponse response) {
         Authority authority = authorityService.findOne(type);
         user.setAuthority(authority);
         User currentUser = userService.saveOne(user);
         httpSession.setAttribute("currentUser", currentUser);
+        Cookie cookie = new Cookie("currentUserID", currentUser.getId().toString());
+        cookie.setPath("/");
+        response.addCookie(cookie);
         redirect.addFlashAttribute("hasRegistered", true);
         return "redirect:/register";
     }

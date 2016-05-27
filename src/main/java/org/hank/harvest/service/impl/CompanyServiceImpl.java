@@ -39,7 +39,7 @@ public class CompanyServiceImpl implements CompanyService {
         }
         List<Company> companyList = companyMapper.selectByConditions(companyConditions);
         for (int i = 0; i < companyList.size(); ++i) {
-            companyList.set(i, findOne(companyList.get(i).getId()));
+            companyList.set(i, companyMapper.selectOne(companyList.get(i).getId()));
         }
         return companyList;
     }

@@ -1,5 +1,6 @@
 package org.hank.harvest.controller;
 
+import org.hank.harvest.domain.User;
 import org.hank.harvest.service.UserService;
 import org.hank.harvest.utils.TalentConditionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/18.
@@ -45,6 +48,7 @@ public class TalentPageController {
                                    Model model) {
         TalentConditionUtil talentConditions = new TalentConditionUtil(authorityID, categoryID,
                 experienceID, typeID, graduationID, keyword);
+        List<User> userList = userService.findByConditions(talentConditions, pageNum, pageSize);
         model.addAttribute("talentList", userService.findByConditions(talentConditions, pageNum, pageSize));
         return "talent_list";
     }

@@ -35,7 +35,7 @@
             </div>
 
             <div class="nav navbar-nav navbar-form navbar-right" th:if="${session.currentUser}">
-                <a class="btn" th:text="|您好, ${session.currentUser.getName()}|"></a>
+                <a class="btn" href="/management/password" th:text="|您好, ${session.currentUser.getName()}|"></a>
                 <a class="btn" th:href="@{/action/logout}">注销</a>
             </div>
         </div>

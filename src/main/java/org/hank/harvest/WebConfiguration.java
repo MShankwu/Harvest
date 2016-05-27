@@ -23,4 +23,9 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
         });
     }
 
+    @Bean
+    public LoginFilter addLoginFilter() {
+        return new LoginFilter();
+    }
+
 }

@@ -32,7 +32,7 @@
                 },
                 success: function (result) {
                     var message = $("#login-message");
-                    if (result) {
+                    if (result.length > 0) {
                         message.removeClass("hidden");
                         message.find(">label:first-child").html("警告：该邮箱地址已经被注册过！");
                         isExist = true;
