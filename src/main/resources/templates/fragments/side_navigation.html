@@ -21,12 +21,33 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav">
             <li>
-                <a><i class="fa fa-user fa-fw"></i>个人信息</a>
                 <a href="/management/password"><i class="fa fa-lock fa-fw"></i>修改密码</a>
-                <a><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                <a><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                <a><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                <a><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="/management/detail"><i class="fa fa-user fa-fw"></i>个人信息</a>
+            </li>
+            <li>
+                <a href="/management/message"><i class="fa fa-envelope fa-fw"></i>消息中心</a>
+            </li>
+            <li>
+                <a href="/management/authority"><i class="fa fa-certificate fa-fw"></i>个人权限</a>
+                <div th:if="${authority}" th:switch="${authority.id}">
+                    <ul class="nav" th:case="1" style="padding-left: 37px">
+                        <li><a>公司管理</a></li>
+                        <li><a>备份数据库</a></li>
+                        <li><a>员工管理</a></li>
+                        <li><a>职位管理</a></li>
+                    </ul>
+                    <ul class="nav" th:case="2" style="padding-left: 37px">
+                        <li><a>简历档案</a></li>
+                        <li><a>求职进度查询</a></li>
+                    </ul>
+                    <ul class="nav" th:case="3" style="padding-left: 37px">
+                        <li><a>公司认证</a></li>
+                        <li><a>发布职位</a></li>
+                        <li><a>求职进度跟进</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
     </div>

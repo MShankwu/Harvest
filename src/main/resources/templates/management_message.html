@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/dist/css/sb-admin-2.css"
+          th:href="@{/sb-admin2/dist/css/sb-admin-2.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css}"/>
+    <title>Harvest——管理中心/消息中心</title>
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container" style="margin-bottom: 60px">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">管理中心</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-4">
+                <div th:include="fragments/side_navigation :: side_navigation"></div>
+            </div>
+            <div class="col-md-8">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#write" data-toggle="tab">编写邮件</a></li>
+                    <li><a href="#receive" data-toggle="tab">收件箱</a></li>
+                    <li><a href="#send" data-toggle="tab">发件箱</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="write">
+                        <form class="login-form" action="/action/management/message" method="post">
+                            <div class="form-group">
+                                <label class="label label-default">邮件标题</label>
+                                <input class="form-control login-field" name="title" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="label label-default">发送目标</label>
+                                <input class="form-control login-field" name="email" type="text" th:value="${targetEmail}"/>
+                            </div>
+                            <div class="form-group">
+                                <label class="label label-default">邮件内容</label>
+                                <textarea class="form-control login-field" name="content"></textarea>
+                            </div>
+                            <div class="form-group has-error">
+                                <label class="form-control login-field hidden" id="error-message"></label>
+                                <label class="login-field-icon fui-alert-circle"></label>
+                            </div>
+                            <div class="form-group" th:if="${resultMsg}" th:classappend="(${resultMsg} == '发送成功！'? has-success : has-error)">
+                                <label class="form-control login-field" th:text="${resultMsg}"></label>
+                                <label class="login-field-icon fui-alert-circle"></label>
+                            </div>
+                            <a class="btn btn-primary btn-block" id="message-submit">发送邮件</a>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="receive">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>标题</th>
+                                <th>收件时间</th>
+                                <th>寄件来源</th>
+                                <th>寄件人</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="message : ${receiveMessages}">
+                                <th th:text="${messageStat.index}"></th>
+                                <th><a th:href="@{/management/message/{id}/(id = ${message.id})}" th:text="${message.title}"></a></th>
+                                <th th:text="${#calendars.format(message.createTime, 'yyyy年MM月dd日HH时mm分ss秒')}"></th>
+                                <th><a th:href="@{/talent/{id}/(id = ${message.sender.id})}" th:text="${message.sender.email}"></a></th>
+                                <th th:text="${message.sender.name}"></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="send">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>标题</th>
+                                <th>发送时间</th>
+                                <th>发送目标</th>
+                                <th>目标姓名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="message : ${sendMessages}">
+                                <th th:text="${messageStat.index}"></th>
+                                <th><a th:href="@{/management/message/{id}/(id = ${message.id})}" th:text="${message.title}"></a></th>
+                                <th th:text="${#calendars.format(message.createTime, 'yyyy年MM月dd日HH时mm分ss秒')}"></th>
+                                <th><a th:href="@{/talent/{id}/(id = ${message.receiver.id})}" th:text="${message.receiver.email}"></a></th>
+                                <th th:text="${message.receiver.name}"></th>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/vendor/jquery.cookie.js" th:src="@{/dist/js/vendor/jquery.cookie.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+<script src="../static/js/management_message.js" th:src="@{/js/management_message.js}"></script>
+</body>
+</html>

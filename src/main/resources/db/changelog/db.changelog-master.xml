@@ -639,4 +639,34 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="59" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            CHANGE COLUMN `Create_Time` `Create_Time` DATETIME NULL DEFAULT NULL ,
+            CHANGE COLUMN `User_ID` `Receieve_ID` INT(11) NULL DEFAULT NULL ,
+            ADD COLUMN `Sent_ID` INT NULL AFTER `Receieve_ID`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="60" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            ADD INDEX `Sent_ID_idx` (`Sent_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="61" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            CHANGE COLUMN `Receieve_ID` `Receiver_ID` INT(11) NULL DEFAULT NULL ,
+            CHANGE COLUMN `Sent_ID` `Sender_ID` INT(11) NULL DEFAULT NULL ;
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

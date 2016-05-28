@@ -12,7 +12,7 @@
           th:href="@{/sb-admin2/dist/css/sb-admin-2.css}"/>
     <link rel="stylesheet" href="../static/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css"
           th:href="@{/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css}"/>
-    <title>Harvest——管理中心/修改密码</title>
+    <title>Harvest——管理中心/个人信息</title>
     <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
           th:href="@{/dist/img/harvest.ico}"/>
     <link rel="stylesheet" href="../static/css/font.css"
@@ -20,7 +20,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
+<div class="container" style="margin-bottom: 60px">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">管理中心</h3>
@@ -31,28 +31,41 @@
                 <div th:include="fragments/side_navigation :: side_navigation"></div>
             </div>
             <div class="col-md-8">
-                <form class="login-form" action="/action/management/password" method="post" id="password-change-form">
+                <form class="login-form" action="/action/management/userDetail" method="post">
                     <div class="form-group">
-                        <input type="password" class="form-control login-field" placeholder="输入原密码" id="origin-pass" name="originPass"/>
-                        <label class="login-field-icon fui-lock" for="origin-pass"></label>
+                        <label class="label label-default">年龄</label>
+                        <input class="form-control login-field" type="number" name="age" th:value="${detail.age}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">性别</label>
+                        <select class="form-control login-field" name="sex">
+                            <option value="男" th:selected="${detail.sex} == '男'">男</option>
+                            <option value="女" th:selected="${detail.sex} == '女'">女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                            <label class="label label-default">手机号码</label>
+                            <input class="form-control login-field" type="number" name="phone" th:value="${detail.phone}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">QQ号码</label>
+                        <input class="form-control login-field" type="number" name="qq" th:value="${detail.qq}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">居住地址</label>
+                        <input class="form-control login-field" type="text" name="address" th:value="${detail.address}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">地址邮编</label>
+                        <input class="form-control login-field" type="number" name="postcode" th:value="${detail.postcode}"/>
                     </div>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control login-field" placeholder="输入新密码" id="target-pass" name="targetPass"/>
-                        <label class="login-field-icon fui-lock" for="target-pass"></label>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control login-field" placeholder="新密码确认" id="target-pass-sure" name="targetPassSure"/>
-                        <label class="login-field-icon fui-lock" for="target-pass-sure"></label>
-                    </div>
-
-                    <div class="form-group" th:classappend="${resultMsg == '原密码不正确!'} ? has-error : has-success">
-                        <label class="form-control login-field" id="error-message" th:text="${resultMsg}"></label>
+                    <div class="form-group has-success" th:if="${resultMsg}">
+                        <label class="form-control login-field" th:text="${resultMsg}"></label>
                         <label class="login-field-icon fui-alert-circle"></label>
                     </div>
 
-                    <a class="btn btn-primary btn-lg btn-block" id="password-change">提交保存</a>
+                    <button class="btn btn-primary btn-block" type="submit">保存修改</button>
                 </form>
             </div>
         </div>
@@ -63,6 +76,5 @@
 <script src="../static/dist/js/vendor/jquery.cookie.js" th:src="@{/dist/js/vendor/jquery.cookie.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 <script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
-<script src="../static/js/management_password.js" th:src="@{/js/management_password.js}"></script>
 </body>
 </html>

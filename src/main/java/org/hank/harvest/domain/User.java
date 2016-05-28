@@ -19,6 +19,14 @@ public class User implements Serializable {
     private Set<Message> messages;
     private Set<Process> processes;
 
+    public User() {
+
+    }
+
+    public User(String email) {
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }

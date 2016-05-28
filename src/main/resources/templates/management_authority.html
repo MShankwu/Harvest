@@ -12,7 +12,7 @@
           th:href="@{/sb-admin2/dist/css/sb-admin-2.css}"/>
     <link rel="stylesheet" href="../static/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css"
           th:href="@{/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css}"/>
-    <title>Harvest——管理中心/修改密码</title>
+    <title>Harvest——管理中心/授权中心</title>
     <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
           th:href="@{/dist/img/harvest.ico}"/>
     <link rel="stylesheet" href="../static/css/font.css"
@@ -20,40 +20,17 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="container">
+<div class="container" style="margin-bottom: 60px">
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">管理中心</h3>
         </div>
-
         <div class="panel-body">
             <div class="col-md-4">
                 <div th:include="fragments/side_navigation :: side_navigation"></div>
             </div>
             <div class="col-md-8">
-                <form class="login-form" action="/action/management/password" method="post" id="password-change-form">
-                    <div class="form-group">
-                        <input type="password" class="form-control login-field" placeholder="输入原密码" id="origin-pass" name="originPass"/>
-                        <label class="login-field-icon fui-lock" for="origin-pass"></label>
-                    </div>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control login-field" placeholder="输入新密码" id="target-pass" name="targetPass"/>
-                        <label class="login-field-icon fui-lock" for="target-pass"></label>
-                    </div>
-
-                    <div class="form-group">
-                        <input type="password" class="form-control login-field" placeholder="新密码确认" id="target-pass-sure" name="targetPassSure"/>
-                        <label class="login-field-icon fui-lock" for="target-pass-sure"></label>
-                    </div>
-
-                    <div class="form-group" th:classappend="${resultMsg == '原密码不正确!'} ? has-error : has-success">
-                        <label class="form-control login-field" id="error-message" th:text="${resultMsg}"></label>
-                        <label class="login-field-icon fui-alert-circle"></label>
-                    </div>
-
-                    <a class="btn btn-primary btn-lg btn-block" id="password-change">提交保存</a>
-                </form>
             </div>
         </div>
     </div>
@@ -63,6 +40,5 @@
 <script src="../static/dist/js/vendor/jquery.cookie.js" th:src="@{/dist/js/vendor/jquery.cookie.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 <script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
-<script src="../static/js/management_password.js" th:src="@{/js/management_password.js}"></script>
 </body>
 </html>

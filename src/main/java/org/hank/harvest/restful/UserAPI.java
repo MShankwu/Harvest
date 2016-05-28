@@ -1,8 +1,11 @@
 package org.hank.harvest.restful;
 
+import org.hank.harvest.domain.Message;
 import org.hank.harvest.domain.User;
+import org.hank.harvest.domain.UserDetail;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +54,21 @@ public class UserAPI {
     @RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
     public User putOne(@RequestBody User user) {
         return userService.editOne(user);
+    }
+
+    @RequestMapping(value = "/{id}/userDetails", method = RequestMethod.PUT, consumes = "application/json")
+    public UserDetail postOneDetail(@RequestBody UserDetail userDetail, @PathVariable("id") Integer id) {
+        return userService.saveOneDetail(id, userDetail);
+    }
+
+    @RequestMapping(value = "/{id}/receiveMessages", method = RequestMethod.GET)
+    public List<Message> getAllReceiveMessages(@PathVariable("id") Integer id) {
+        return userService.findAllReceiveMessagesByID(id);
+    }
+
+    @RequestMapping(value = "/{id}/sendMessages", method = RequestMethod.GET)
+    public List<Message> getAllSendMessages(@PathVariable("id") Integer id) {
+        return userService.findAllSendMessagesByID(id);
     }
 
 }

@@ -21,6 +21,8 @@ public interface UserMapper {
 
     void insertOne(User user);
 
+    void updateUserDetail(@Param("id") Integer id, @Param("userDetailID") Integer userDetailID);
+
     void updateOne(User user);
 
 }

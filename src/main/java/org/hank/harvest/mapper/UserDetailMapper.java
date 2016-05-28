@@ -14,4 +14,8 @@ public interface UserDetailMapper {
 
     UserDetail selectOneIndirectByUserID(@Param("userID") Integer userID);
 
+    Integer insertOne(UserDetail userDetail);
+
+    void updateOne(UserDetail userDetail);
+
 }

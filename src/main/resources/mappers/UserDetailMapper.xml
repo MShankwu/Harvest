@@ -13,13 +13,31 @@
     </resultMap>
 
     <sql id="basicColumns">
-        Age,
-        Sex,
-        Phone,
-        QQ,
-        Address,
-        Postcode
+        user_detail.Age,
+        user_detail.Sex,
+        user_detail.Phone,
+        user_detail.QQ,
+        user_detail.Address,
+        user_detail.Postcode
     </sql>
+
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.UserDetail" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_detail(<include refid="basicColumns"/>)
+        VALUES (#{age}, #{sex}, #{phone}, #{qq}, #{address}, #{postcode})
+    </insert>
+
+    <update id="updateOne" parameterType="org.hank.harvest.domain.UserDetail">
+        UPDATE user_detail
+        <set>
+            <if test="age != null">Age = #{age},</if>
+            <if test="sex != null">Sex = #{sex},</if>
+            <if test="phone != null">Phone = #{phone},</if>
+            <if test="qq != null">QQ = #{qq},</if>
+            <if test="address != null">Address = #{address},</if>
+            <if test="postcode != null">Postcode = #{postcode}</if>
+        </set>
+        WHERE ID = #{id}
+    </update>
 
     <select id="selectOne" resultMap="basicMap">
         SELECT ID, <include refid="basicColumns"/>
@@ -28,7 +46,7 @@
     </select>
 
     <select id="selectOneIndirectByUserID" resultMap="basicMap">
-        SELECT user.ID, <include refid="basicColumns"/>
+        SELECT user_detail.ID, <include refid="basicColumns"/>
         FROM user, user_detail
         WHERE user.Detail_ID = user_detail.ID
         AND user.ID = #{userID}

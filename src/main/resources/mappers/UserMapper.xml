@@ -46,9 +46,17 @@
         VALUES (#{email}, #{password}, #{name}, #{authority.id})
     </insert>
 
+
+
     <update id="updateOne" parameterType="org.hank.harvest.domain.User">
         UPDATE user
         SET Password = #{password}
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateUserDetail">
+        UPDATE user
+        SET Detail_ID = #{userDetailID}
         WHERE ID = #{id}
     </update>
 

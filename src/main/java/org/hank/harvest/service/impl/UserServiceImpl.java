@@ -1,7 +1,10 @@
 package org.hank.harvest.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.hank.harvest.domain.Message;
 import org.hank.harvest.domain.User;
+import org.hank.harvest.domain.UserDetail;
+import org.hank.harvest.mapper.MessageMapper;
 import org.hank.harvest.mapper.ResumeMapper;
 import org.hank.harvest.mapper.UserDetailMapper;
 import org.hank.harvest.mapper.UserMapper;
@@ -23,6 +26,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     private ResumeMapper resumeMapper;
     private UserDetailMapper userDetailMapper;
+    private MessageMapper messageMapper;
 
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
@@ -37,6 +41,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setUserDetailMapper(UserDetailMapper userDetailMapper) {
         this.userDetailMapper = userDetailMapper;
+    }
+
+    @Autowired
+    public void setMessageMapper(MessageMapper messageMapper) {
+        this.messageMapper = messageMapper;
     }
 
     @Override
@@ -77,9 +86,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDetail saveOneDetail(Integer id, UserDetail userDetail) {
+        UserDetail thisDetail = userDetailMapper.selectOneIndirectByUserID(id);
+        if (thisDetail == null) {
+            Integer userDetailID = userDetailMapper.insertOne(userDetail);
+            userMapper.updateUserDetail(id, userDetailID);
+            return userDetailMapper.selectOne(userDetailID);
+        } else {
+            userDetail.setId(thisDetail.getId());
+            userDetailMapper.updateOne(userDetail);
+            return userDetailMapper.selectOne(thisDetail.getId());
+        }
+    }
+
+    @Override
     public User editOne(User user) {
         userMapper.updateOne(user);
         return userMapper.selectOne(user.getId());
+    }
+
+    @Override
+    public List<Message> findAllReceiveMessagesByID(Integer id) {
+        return messageMapper.selectAllByReceiverID(id);
+    }
+
+    @Override
+    public List<Message> findAllSendMessagesByID(Integer id) {
+        return messageMapper.selectAllBySenderID(id);
     }
 
 }

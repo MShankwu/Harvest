@@ -51,7 +51,7 @@ public class AccountAction {
             Cookie cookie = new Cookie("currentUserID", currentUser.getId().toString());
             cookie.setPath("/");
             response.addCookie(cookie);
-            return "redirect:/index";
+            return "redirect:/management/password";
         }
     }
 

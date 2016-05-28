@@ -1,6 +1,8 @@
 package org.hank.harvest.service;
 
+import org.hank.harvest.domain.Message;
 import org.hank.harvest.domain.User;
+import org.hank.harvest.domain.UserDetail;
 import org.hank.harvest.utils.CompanyConditionUtil;
 import org.hank.harvest.utils.TalentConditionUtil;
 
@@ -19,6 +21,12 @@ public interface UserService {
 
     User saveOne(User user);
 
+    UserDetail saveOneDetail(Integer id, UserDetail userDetail);
+
     User editOne(User user);
+
+    List<Message> findAllReceiveMessagesByID(Integer id);
+
+    List<Message> findAllSendMessagesByID(Integer id);
 
 }

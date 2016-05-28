@@ -9,4 +9,10 @@ public interface UserDetailService {
 
     UserDetail findOne(Integer id);
 
+    UserDetail findOneByUserID(Integer userID);
+
+    Integer saveOne(UserDetail userDetail);
+
+    UserDetail editOne(UserDetail userDetail);
+
 }

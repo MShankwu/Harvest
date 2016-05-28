@@ -27,4 +27,22 @@ public class UserDetailServiceImpl implements UserDetailService {
         return userDetailMapper.selectOne(id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetail findOneByUserID(Integer userID) {
+        return userDetailMapper.selectOneIndirectByUserID(userID);
+    }
+
+    @Override
+    public Integer saveOne(UserDetail userDetail) {
+        userDetailMapper.insertOne(userDetail);
+        return userDetail.getId();
+    }
+
+    @Override
+    public UserDetail editOne(UserDetail userDetail) {
+        userDetailMapper.updateOne(userDetail);
+        return userDetailMapper.selectOne(userDetail.getId());
+    }
+
 }

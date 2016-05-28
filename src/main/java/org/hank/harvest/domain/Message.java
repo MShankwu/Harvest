@@ -10,9 +10,21 @@ public class Message implements Serializable {
 
     private Integer id;
     private String title;
-    private Date createTime;
     private String content;
-    private User user;
+    private Date createTime;
+    private User receiver;
+    private User sender;
+
+    public Message() {
+
+    }
+
+    public Message(String title, String content, User receiver, User sender) {
+        this.title = title;
+        this.content = content;
+        this.receiver = receiver;
+        this.sender = sender;
+    }
 
     public Integer getId() {
         return id;
@@ -30,14 +42,6 @@ public class Message implements Serializable {
         this.title = title;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public String getContent() {
         return content;
     }
@@ -46,12 +50,28 @@ public class Message implements Serializable {
         this.content = content;
     }
 
-    public User getUser() {
-        return user;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
 }
