@@ -45,7 +45,8 @@
                     <h4 class="font_orange" th:text="|工作性质 ：${job.category}|"></h4>
                     <h4 class="font_orange" th:text="|工作经验要求 ：${job.experience}|"></h4>
                     <h4 class="font_orange" th:text="|最低学历要求 ：${job.graduation}|"></h4>
-                    <a class="btn btn-primary btn-block">投递简历</a>
+                    <a th:href="@{/action/management/resume/send(jobID = ${job.id})}" class="btn btn-primary btn-block">投递简历</a>
+                    <label class="font_red form-control login-field" th:if="${resultMsg}" th:text="${resultMsg}"></label>
                 </div>
             </div>
             <div class="col-md-12">

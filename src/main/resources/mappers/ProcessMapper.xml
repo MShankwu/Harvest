@@ -24,11 +24,23 @@
         job.Name as Job_Name
     </sql>
 
-    <select id="findIndirectByUserID" resultMap="wholeMap">
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Process" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO process(Status, User_ID, Job_ID)
+        VALUES (#{status}, #{user.id}, #{job.id})
+    </insert>
+
+    <select id="selectIndirectByUserID" resultMap="wholeMap">
         SELECT <include refid="wholeColumns"/>
-        FROM process LEFT JOIN user ON user.ID = process.User_ID
-        LEFT JOIN job On job.ID = process.Job_ID
-        AND user.ID = #{userID}
+        FROM process, user, job
+        WHERE process.User_ID = user.ID AND process.Job_ID = job.ID
+        AND process.User_ID = #{userID}
+    </select>
+
+    <select id="selectOneIndirect" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM process, user, job
+        WHERE process.User_ID = user.ID AND process.Job_ID = job.ID
+        AND process.User_ID = #{userID} AND process.Job_ID = #{jobID}
     </select>
 
 </mapper>

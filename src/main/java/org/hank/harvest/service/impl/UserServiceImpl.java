@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Process> findAllProcessesByID(Integer id) {
-        return processMapper.findIndirectByUserID(id);
+        return processMapper.selectIndirectByUserID(id);
     }
 
 }

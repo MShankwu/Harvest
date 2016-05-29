@@ -1,10 +1,10 @@
 package org.hank.harvest.controller;
 
-import org.hank.harvest.domain.Message;
-import org.hank.harvest.domain.Resume;
-import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserDetail;
+import org.hank.harvest.domain.*;
+import org.hank.harvest.domain.Process;
+import org.hank.harvest.service.JobService;
 import org.hank.harvest.service.MessageService;
+import org.hank.harvest.service.ProcessService;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/5/27.
@@ -28,6 +26,8 @@ public class ManagementAction {
 
     private UserService userService;
     private MessageService messageService;
+    private ProcessService processService;
+    private JobService jobService;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -37,6 +37,16 @@ public class ManagementAction {
     @Autowired
     public void setMessageService(MessageService messageService) {
         this.messageService = messageService;
+    }
+
+    @Autowired
+    public void setProcessService(ProcessService processService) {
+        this.processService = processService;
+    }
+
+    @Autowired
+    public void setJobService(JobService jobService) {
+        this.jobService = jobService;
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.POST)
@@ -84,6 +94,26 @@ public class ManagementAction {
         userService.saveOneResume(currentUserID, resume);
         redirect.addFlashAttribute("resultMsg", "保存成功！");
         return "redirect:/management/authority/resume";
+    }
+
+    @RequestMapping(value = "/resume/send", method = RequestMethod.GET)
+    public String doSendResume(Integer jobID, HttpSession httpSession, RedirectAttributes redirect) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        Process process = processService.findOneIndirect(currentUserID, jobID);
+        if (process != null) {
+            redirect.addFlashAttribute("resultMsg", "已经投递过这个岗位啦！");
+            return "redirect:/job/" + jobID;
+        } else {
+            User user = userService.findOne(currentUserID);
+            Job job = jobService.findOne(jobID);
+            process = new Process();
+            process.setUser(user);
+            process.setJob(job);
+            process.setStatus("简历待处理");
+            processService.saveProcess(process);
+            redirect.addFlashAttribute("resultMsg", "投递成功！");
+            return "redirect:/management/authority/process";
+        }
     }
 
 }

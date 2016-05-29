@@ -111,6 +111,7 @@ public class ManagementPageController {
         Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
         Authority authority = userService.findOne(currentUserID).getAuthority();
         model.addAttribute("authority", authority);
+        model.addAttribute("processes", userService.findAllProcessesByID(currentUserID));
         return "management_authority_process";
     }
 

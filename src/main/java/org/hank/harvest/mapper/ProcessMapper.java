@@ -12,6 +12,10 @@ import java.util.List;
 @Mapper
 public interface ProcessMapper {
 
-    List<Process> findIndirectByUserID(@Param("userID") Integer userID);
+    List<Process> selectIndirectByUserID(@Param("userID") Integer userID);
+
+    Process selectOneIndirect(@Param("userID") Integer userID, @Param("jobID") Integer jobID);
+
+    void insertOne(Process process);
 
 }
