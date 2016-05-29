@@ -23,6 +23,8 @@ public interface UserMapper {
 
     void updateUserDetail(@Param("id") Integer id, @Param("userDetailID") Integer userDetailID);
 
+    void updateResume(@Param("id") Integer id, @Param("resumeID") Integer resumeID);
+
     void updateOne(User user);
 
 }

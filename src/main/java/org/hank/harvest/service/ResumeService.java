@@ -9,4 +9,6 @@ public interface ResumeService {
 
     Resume findOne(Integer id);
 
+    Resume findOneByUserID(Integer userID);
+
 }

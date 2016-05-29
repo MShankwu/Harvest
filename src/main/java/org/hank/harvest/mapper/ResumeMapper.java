@@ -14,4 +14,8 @@ public interface ResumeMapper {
 
     Resume selectOneIndirectByUserID(@Param("userID") Integer userID);
 
+    void insertOne(Resume resume);
+
+    void updateOne(Resume resume);
+
 }

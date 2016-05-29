@@ -1,9 +1,7 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.Message;
-import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserDetail;
-import org.hank.harvest.utils.CompanyConditionUtil;
+import org.hank.harvest.domain.*;
+import org.hank.harvest.domain.Process;
 import org.hank.harvest.utils.TalentConditionUtil;
 
 import java.util.List;
@@ -23,10 +21,14 @@ public interface UserService {
 
     UserDetail saveOneDetail(Integer id, UserDetail userDetail);
 
+    Resume saveOneResume(Integer id, Resume resume);
+
     User editOne(User user);
 
     List<Message> findAllReceiveMessagesByID(Integer id);
 
     List<Message> findAllSendMessagesByID(Integer id);
+
+    List<Process> findAllProcessesByID(Integer id);
 
 }

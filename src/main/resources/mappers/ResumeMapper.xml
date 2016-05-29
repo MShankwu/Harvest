@@ -32,6 +32,22 @@
         resume.Remark
     </sql>
 
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Resume" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO resume(Graduation, School, Job_Intention, Type, Experience, Category,
+        Education_Experience, Intern_Experience, Project_Experience, Skills, Remark)
+        VALUES (#{graduation}, #{school}, #{jobIntention}, #{type}, #{experience}, #{category},
+        #{educationExperience}, #{internExperience}, #{projectExperience}, #{skills}, #{remark})
+    </insert>
+
+    <update id="updateOne" parameterType="org.hank.harvest.domain.Resume">
+        UPDATE resume
+        SET Graduation = #{graduation}, School = #{school}, Job_Intention = #{jobIntention},
+        Type = #{type}, Experience = #{experience}, Category = #{category},
+        Education_Experience = #{educationExperience}, Intern_Experience = #{internExperience},
+        Project_Experience = #{projectExperience}, Skills = #{skills}, Remark = #{remark}
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectOne" resultMap="basicMap">
         SELECT *
         FROM resume

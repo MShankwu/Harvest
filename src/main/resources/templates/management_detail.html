@@ -31,7 +31,7 @@
                 <div th:include="fragments/side_navigation :: side_navigation"></div>
             </div>
             <div class="col-md-8">
-                <form class="login-form" action="/action/management/userDetail" method="post">
+                <form class="login-form" action="/action/management/userDetail" method="post" th:object="${detail}">
                     <div class="form-group">
                         <label class="label label-default">年龄</label>
                         <input class="form-control login-field" type="number" name="age" th:value="${detail.age}"/>

@@ -70,4 +70,5 @@ public class UserDetail implements Serializable {
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
+
 }

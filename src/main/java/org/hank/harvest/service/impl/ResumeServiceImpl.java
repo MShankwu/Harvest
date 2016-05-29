@@ -27,4 +27,10 @@ public class ResumeServiceImpl implements ResumeService {
         return resumeMapper.selectOne(id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Resume findOneByUserID(Integer userID) {
+        return resumeMapper.selectOneIndirectByUserID(userID);
+    }
+
 }

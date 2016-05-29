@@ -1,11 +1,9 @@
 package org.hank.harvest.restful;
 
-import org.hank.harvest.domain.Message;
-import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserDetail;
+import org.hank.harvest.domain.*;
+import org.hank.harvest.domain.Process;
 import org.hank.harvest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +55,7 @@ public class UserAPI {
     }
 
     @RequestMapping(value = "/{id}/userDetails", method = RequestMethod.PUT, consumes = "application/json")
-    public UserDetail postOneDetail(@RequestBody UserDetail userDetail, @PathVariable("id") Integer id) {
+    public UserDetail putOneDetail(@RequestBody UserDetail userDetail, @PathVariable("id") Integer id) {
         return userService.saveOneDetail(id, userDetail);
     }
 
@@ -69,6 +67,16 @@ public class UserAPI {
     @RequestMapping(value = "/{id}/sendMessages", method = RequestMethod.GET)
     public List<Message> getAllSendMessages(@PathVariable("id") Integer id) {
         return userService.findAllSendMessagesByID(id);
+    }
+
+    @RequestMapping(value = "/{id}/resumes", method = RequestMethod.PUT, consumes = "application/json")
+    public Resume putOneResume(@RequestBody Resume resume, @PathVariable("id") Integer id) {
+        return userService.saveOneResume(id, resume);
+    }
+
+    @RequestMapping(value = "/{id}/processes", method = RequestMethod.GET)
+    public List<Process> getAllProcessesByID(@PathVariable("id") Integer id) {
+        return userService.findAllProcessesByID(id);
     }
 
 }

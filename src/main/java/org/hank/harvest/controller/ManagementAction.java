@@ -1,6 +1,7 @@
 package org.hank.harvest.controller;
 
 import org.hank.harvest.domain.Message;
+import org.hank.harvest.domain.Resume;
 import org.hank.harvest.domain.User;
 import org.hank.harvest.domain.UserDetail;
 import org.hank.harvest.service.MessageService;
@@ -75,6 +76,14 @@ public class ManagementAction {
             redirect.addFlashAttribute("resultMsg", "发送成功！");
         }
         return "redirect:/management/message";
+    }
+
+    @RequestMapping(value = "/resume", method = RequestMethod.POST)
+    public String doSaveResume(@ModelAttribute Resume resume, HttpSession httpSession, RedirectAttributes redirect) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        userService.saveOneResume(currentUserID, resume);
+        redirect.addFlashAttribute("resultMsg", "保存成功！");
+        return "redirect:/management/authority/resume";
     }
 
 }

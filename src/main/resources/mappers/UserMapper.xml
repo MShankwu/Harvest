@@ -60,6 +60,12 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateResume">
+        UPDATE user
+        SET Resume_ID = #{resumeID}
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectOneIndirect" resultMap="basicMap">
         SELECT ID, <include refid="basicColumns"/>
         FROM user

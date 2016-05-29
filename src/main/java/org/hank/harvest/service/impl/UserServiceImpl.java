@@ -1,13 +1,9 @@
 package org.hank.harvest.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import org.hank.harvest.domain.Message;
-import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserDetail;
-import org.hank.harvest.mapper.MessageMapper;
-import org.hank.harvest.mapper.ResumeMapper;
-import org.hank.harvest.mapper.UserDetailMapper;
-import org.hank.harvest.mapper.UserMapper;
+import org.hank.harvest.domain.*;
+import org.hank.harvest.domain.Process;
+import org.hank.harvest.mapper.*;
 import org.hank.harvest.service.UserService;
 import org.hank.harvest.utils.TalentConditionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +23,7 @@ public class UserServiceImpl implements UserService {
     private ResumeMapper resumeMapper;
     private UserDetailMapper userDetailMapper;
     private MessageMapper messageMapper;
+    private ProcessMapper processMapper;
 
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
@@ -46,6 +43,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setMessageMapper(MessageMapper messageMapper) {
         this.messageMapper = messageMapper;
+    }
+
+    @Autowired
+    public void setProcessMapper(ProcessMapper processMapper) {
+        this.processMapper = processMapper;
     }
 
     @Override
@@ -89,13 +91,29 @@ public class UserServiceImpl implements UserService {
     public UserDetail saveOneDetail(Integer id, UserDetail userDetail) {
         UserDetail thisDetail = userDetailMapper.selectOneIndirectByUserID(id);
         if (thisDetail == null) {
-            Integer userDetailID = userDetailMapper.insertOne(userDetail);
+            userDetailMapper.insertOne(userDetail);
+            Integer userDetailID = userDetail.getId();
             userMapper.updateUserDetail(id, userDetailID);
             return userDetailMapper.selectOne(userDetailID);
         } else {
             userDetail.setId(thisDetail.getId());
             userDetailMapper.updateOne(userDetail);
             return userDetailMapper.selectOne(thisDetail.getId());
+        }
+    }
+
+    @Override
+    public Resume saveOneResume(Integer id, Resume resume) {
+        Resume thisResume = resumeMapper.selectOneIndirectByUserID(id);
+        if (thisResume == null) {
+            resumeMapper.insertOne(resume);
+            Integer resumeID = resume.getId();
+            userMapper.updateResume(id, resumeID);
+            return resumeMapper.selectOne(resumeID);
+        } else {
+            resume.setId(thisResume.getId());
+            resumeMapper.updateOne(resume);
+            return resumeMapper.selectOne(thisResume.getId());
         }
     }
 
@@ -113,6 +131,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Message> findAllSendMessagesByID(Integer id) {
         return messageMapper.selectAllBySenderID(id);
+    }
+
+    @Override
+    public List<Process> findAllProcessesByID(Integer id) {
+        return processMapper.findIndirectByUserID(id);
     }
 
 }
