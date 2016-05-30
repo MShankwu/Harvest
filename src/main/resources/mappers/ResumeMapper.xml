@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.ResumeMapper">
+
+    <resultMap id="basicMap" type="org.hank.harvest.domain.Resume">
+        <id property="id" column="ID"/>
+        <result property="graduation" column="Graduation"/>
+        <result property="school" column="School"/>
+        <result property="jobIntention" column="Job_Intention"/>
+        <result property="type" column="Type"/>
+        <result property="experience" column="Experience"/>
+        <result property="category" column="Category"/>
+        <result property="educationExperience" column="Education_Experience"/>
+        <result property="internExperience" column="Intern_Experience"/>
+        <result property="projectExperience" column="Project_Experience"/>
+        <result property="skills" column="Skills"/>
+        <result property="remark" column="Remark"/>
+    </resultMap>
+
+    <sql id="basicColumns">
+        resume.ID,
+        resume.Graduation,
+        resume.School,
+        resume.Job_Intention,
+        resume.Type,
+        resume.Experience,
+        resume.Category,
+        resume.Education_Experience,
+        resume.Intern_Experience,
+        resume.Project_Experience,
+        resume.Skills,
+        resume.Remark
+    </sql>
+
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Resume" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO resume(Graduation, School, Job_Intention, Type, Experience, Category,
+        Education_Experience, Intern_Experience, Project_Experience, Skills, Remark)
+        VALUES (#{graduation}, #{school}, #{jobIntention}, #{type}, #{experience}, #{category},
+        #{educationExperience}, #{internExperience}, #{projectExperience}, #{skills}, #{remark})
+    </insert>
+
+    <update id="updateOne" parameterType="org.hank.harvest.domain.Resume">
+        UPDATE resume
+        SET Graduation = #{graduation}, School = #{school}, Job_Intention = #{jobIntention},
+        Type = #{type}, Experience = #{experience}, Category = #{category},
+        Education_Experience = #{educationExperience}, Intern_Experience = #{internExperience},
+        Project_Experience = #{projectExperience}, Skills = #{skills}, Remark = #{remark}
+        WHERE ID = #{id}
+    </update>
+
+    <select id="selectOne" resultMap="basicMap">
+        SELECT *
+        FROM resume
+        WHERE ID = #{id}
+    </select>
+
+    <select id="selectOneIndirectByUserID" resultMap="basicMap">
+        SELECT <include refid="basicColumns"/>
+        FROM resume, user
+        WHERE resume.ID = user.Resume_ID
+        AND user.ID = #{userID}
+    </select>
+
+</mapper>

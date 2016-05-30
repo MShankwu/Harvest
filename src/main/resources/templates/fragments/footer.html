@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+</head>
+<body>
+<footer class="footer navbar-fixed-bottom" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="https://github.com/MShankwu/Harvest">
+                    <h5 class="fui-github">开源项目</h5>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="https://www.facebook.com/ms.hankwu">
+                    <h5 class="fui-facebook">关注我</h5>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="../../static/img/wechat.png" th:href="@{/img/wechat.png}" target="_blank">
+                    <h5 class="fui-chat">联系我</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.MessageMapper">
+
+    <resultMap id="wholeMap" type="org.hank.harvest.domain.Message">
+        <id property="id" column="ID"/>
+        <result property="title" column="Title"/>
+        <result property="content" column="Content" jdbcType="LONGVARCHAR"/>
+        <result property="createTime" column="Create_Time"/>
+        <association property="receiver" javaType="org.hank.harvest.domain.User">
+            <id property="id" column="Receiver_ID"/>
+            <result property="email" column="Receiver_Email"/>
+            <result property="name" column="Receiver_Name"/>
+        </association>
+        <association property="sender" javaType="org.hank.harvest.domain.User">
+            <id property="id" column="Sender_ID"/>
+            <result property="email" column="Sender_Email"/>
+            <result property="name" column="Sender_Name"/>
+        </association>
+    </resultMap>
+
+    <sql id="wholeColumns">
+        message.ID as ID,
+        message.Title as Title,
+        message.Content as Content,
+        message.Create_Time as Create_Time,
+        receiver.ID as Receiver_ID,
+        receiver.Email as Receiver_Email,
+        receiver.Name as Receiver_Name,
+        sender.ID as Sender_ID,
+        sender.Email as Sender_Email,
+        sender.Name as Sender_Name
+    </sql>
+
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Message" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO message(Title, Create_Time, Content, Receiver_ID, Sender_ID)
+        VALUES(#{title}, NOW(), #{content}, #{receiver.id}, #{sender.id})
+    </insert>
+
+    <select id="selectAllByReceiverID" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM message, user as receiver, user as sender
+        WHERE message.Receiver_ID = receiver.ID AND message.Sender_ID = sender.ID
+        AND receiver.ID = #{receiverID}
+    </select>
+
+    <select id="selectAllBySenderID" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM message, user as receiver, user as sender
+        WHERE message.Receiver_ID = receiver.ID AND message.Sender_ID = sender.ID
+        AND sender.ID = #{senderID}
+    </select>
+
+    <select id="selectOne" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM message, user as receiver, user as sender
+        WHERE message.Receiver_ID = receiver.ID AND message.Sender_ID = sender.ID
+        AND message.ID = #{id}
+    </select>
+
+</mapper>

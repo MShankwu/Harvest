@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/dist/css/sb-admin-2.css"
+          th:href="@{/sb-admin2/dist/css/sb-admin-2.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css}"/>
+    <title>Harvest——求职者/简历管理</title>
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container" style="margin-bottom: 60px">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">管理中心</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-4">
+                <div th:include="fragments/side_navigation :: side_navigation"></div>
+            </div>
+
+            <div class="col-md-8">
+                <form class="login-form" action="/action/management/resume" method="post">
+                    <div class="form-group">
+                        <label class="label label-default">学历</label>
+                        <select class="form-control login-field" name="graduation">
+                            <option value="大专" th:selected="${resume.graduation} == '大专'">大专</option>
+                            <option value="本科" th:selected="${resume.graduation} == '本科'">本科</option>
+                            <option value="硕士" th:selected="${resume.graduation} == '硕士'">硕士</option>
+                            <option value="博士" th:selected="${resume.graduation} == '博士'">博士</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">毕业高校</label>
+                        <input class="form-control login-field" type="text" name="school" th:value="${resume.school}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">岗位意向</label>
+                        <input class="form-control login-field" type="text" name="jobIntention" th:value="${resume.jobIntention}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">求职类别</label>
+                        <select class="form-control login-field" name="type">
+                            <option value="校招" th:selected="${resume.type} == '校招'">校招</option>
+                            <option value="社招" th:selected="${resume.type} == '社招'">社招</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">求职职位性质</label>
+                        <select class="form-control login-field" name="category">
+                            <option value="找实习" th:selected="${resume.category} == '找实习'">找实习</option>
+                            <option value="找兼职" th:selected="${resume.category} == '找兼职'">找兼职</option>
+                            <option value="找全职" th:selected="${resume.category} == '找全职'">找全职</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">工作经验</label>
+                        <select class="form-control login-field" name="experience">
+                            <option value="应届毕业生" th:selected="${resume.experience} == '应届毕业生'">应届毕业生</option>
+                            <option value="1年以下" th:selected="${resume.experience} == '1年以下'">1年以下</option>
+                            <option value="1-3年" th:selected="${resume.experience} == '1-3年'">1-3年</option>
+                            <option value="3-5年" th:selected="${resume.experience} == '3-5年'">3-5年</option>
+                            <option value="5-10年" th:selected="${resume.experience} == '5-10年'">5-10年</option>
+                            <option value="10年以上" th:selected="${resume.experience} == '10年以上'">10年以上</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">教育经历</label>
+                        <textarea class="form-control login-field" name="educationExperience" th:text="${resume.educationExperience}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">实习经历</label>
+                        <textarea class="form-control login-field" name="internExperience" th:text="${resume.internExperience}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">项目经历</label>
+                        <textarea class="form-control login-field" name="projectExperience" th:text="${resume.projectExperience}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">掌握技能</label>
+                        <textarea class="form-control login-field" name="skills" th:text="${resume.skills}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">备注</label>
+                        <textarea class="form-control login-field" name="remark" th:text="${resume.remark}"></textarea>
+                    </div>
+
+                    <div class="form-group has-success" th:if="${resultMsg}">
+                        <label class="form-control login-field" th:text="${resultMsg}"></label>
+                        <label class="login-field-icon fui-alert-circle"></label>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">保存修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/vendor/jquery.cookie.js" th:src="@{/dist/js/vendor/jquery.cookie.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

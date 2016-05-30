@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/dist/css/sb-admin-2.css"
+          th:href="@{/sb-admin2/dist/css/sb-admin-2.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css}"/>
+    <title>Harvest——招聘者/公司认证</title>
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container" style="margin-bottom: 60px">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">管理中心</h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-4">
+                <div th:include="fragments/side_navigation :: side_navigation"></div>
+            </div>
+            <div class="col-md-8">
+                <div th:if="${company}">
+                    <h3 class="font_green">您已经通过了公司认证！</h3>
+                    <a class="font_blue" th:href="@{/company/{id}/(id = ${company.id})}" th:text="|所属公司 : ${company.name}|"></a>
+                </div>
+                <div th:unless="${company}">
+                    <h3 class="font_red">您还未通过所属公司认证！</h3>
+                    <div class="" th:if="${companyAuthentication}">
+                        <span class="font_red">
+                            您已经提交了
+                            <a th:href="@{/company/{id}/(id = ${companyAuthentication.company.id})}" th:text="${companyAuthentication.company.name}"></a>
+                            公司的认证审核，请静候结果！
+                        </span>
+                    </div>
+                    <div class="login-form" th:unless="${companyAuthentication}">
+                        <label class="label label-default">选择您的所属公司 ：</label>
+                        <form action="/action/management/company/authentication" method="post">
+                            <select class="form-group form-control login-field" name="companyID">
+                                <option th:each="choice : ${choices}" th:value="${choice.id}" th:text="${choice.name}"></option>
+                            </select>
+                            <div class="form-group" th:if="${resultMsg}" th:classappend="(${resultMsg} == '已提交认证！' ? has-success : has-error)">
+                                <label class="form-control login-field" th:text="${resultMsg}"></label>
+                                <label class="login-field-icon fui-alert-circle"></label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">认证</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/vendor/jquery.cookie.js" th:src="@{/dist/js/vendor/jquery.cookie.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

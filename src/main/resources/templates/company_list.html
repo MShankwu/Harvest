@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div class="col-md-12" th:each="company : ${companyList}">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title" th:text="|公司名称 ：${company.name}|"></h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-6">
+                <p>
+                    <span th:text="|公司类别 ：${company.type}|"></span><br/>
+                    <span class="font_red" th:text="|在招职位个数 ：| + ((${company.jobs} == null)? '0' : ${company.jobs.size()})"></span><br/>
+                    <a class="btn btn-primary btn-block" th:href="@{/company/{id}/(id = ${company.id})}">查看详情</a>
+                </p>
+            </div>
+            <div class="col-md-6">
+                <p>
+                    <span class="font_blue">分布城市 ：</span><br/>
+                    <label class="label label-info" th:each="city : ${company.cities}" th:text="${city.name}"></label>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

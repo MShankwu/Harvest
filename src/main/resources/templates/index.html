@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+
+    <title>Harvest——收获你的职场人生</title>
+
+    <link rel="stylesheet" href="../static/css/index.css"
+          th:href="@{/css/index.css}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container" id="index">
+    <div id="indexCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">
+        <ol class="carousel-indicators">
+            <li data-target="#indexCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#indexCarousel" data-slide-to="1"></li>
+            <li data-target="#indexCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="../static/img/first.jpg" th:src="@{/img/first.jpg}" width="100%" alt="First slide"/>
+            </div>
+            <div class="item">
+                <img src="../static/img/second.jpg" th:src="@{/img/second.jpg}" width="100%" alt="Second slide"/>
+            </div>
+            <div class="item">
+                <img src="../static/img/third.jpg" th:src="@{/img/third.jpg}" width="100%" alt="Third slide"/>
+            </div>
+        </div>
+        <a class="carousel-control left" href="#indexCarousel"
+           data-slide="prev">&lsaquo;</a>
+        <a class="carousel-control right" href="#indexCarousel"
+           data-slide="next">&rsaquo;</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">最新职位</h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="col-md-6" th:each="job : ${latestJobs}">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h3 class="panel-title" th:text="|职位名称 ：${job.name}|"></h3>
+                            </div>
+
+                            <div class="panel-body">
+                                <p>
+                                    <span th:text="|发布公司 ：${job.company.name}|"></span><br/>
+                                    <span class="font_red" th:text="|月薪范围 ：| + ((${job.originSalary} != null)? |${job.originSalary}K ~ ${job.terminalSalary}K| : '面议')"></span><br/>
+                                    <span class="font_green" th:text="|发布日期 ：${#dates.format(job.publish, 'yyyy-MM-dd')}|"></span><br/>
+                                    <span class="font_green" th:text="|截止日期 ：| + ((${job.deadline} != null)? |${#dates.format(job.deadline, 'yyyy-MM-dd')}| : '暂无')"></span><br/>
+                                    <span class="font_blue" th:text="|所在城市 ：${job.city.name}|"></span><br/>
+                                </p>
+                                <a class="btn btn-primary btn-block" th:href="@{/job/{id}/(id = ${job.id})}">查看详情</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">热门公司</h3>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th class="font_red">序号</th>
+                            <th class="font_red">热门公司排行榜</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="company : ${topRatingCompanies}">
+                            <th th:text="${companyStat.count}"></th>
+                            <th th:class="${companyStat.first}? font_red">
+                                <a th:href="@{/company/{id}(id = ${company.id})}" th:text="${company.name}"></a>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">热门职位标签</h3>
+                </div>
+
+                <div class="panel-body">
+                    <table class="table table-responsive">
+                        <thead>
+                        <tr>
+                            <th class="font_red">序号</th>
+                            <th class="font_red">热门职位标签</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="tag : ${topRatingTags}">
+                            <th th:text="${tagStat.count}"></th>
+                            <th th:text="${tag.name}"></th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+
+<script src="../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
+<script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

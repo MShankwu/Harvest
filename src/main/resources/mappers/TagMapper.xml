@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.TagMapper">
+
+    <resultMap id="basicMap" type="org.hank.harvest.domain.Tag">
+        <id property="id" column="ID"/>
+        <result property="name" column="Name"/>
+        <result property="rating" column="Rating"/>
+    </resultMap>
+
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Tag" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tag(Name, Rating)
+        VALUES (#{name}, #{rating})
+    </insert>
+
+    <select id="selectTopRating" resultMap="basicMap">
+        SELECT ID, Name, Rating
+        FROM tag
+        ORDER BY Rating DESC
+        LIMIT #{topNum}
+    </select>
+
+    <select id="selectByJobID" resultMap="basicMap">
+        SELECT tag.ID as ID, tag.Name as Name, tag.Rating as Rating
+        FROM tag, job_tag, job
+        WHERE tag.ID = job_tag.Tag_ID AND job.ID = job_tag.Job_ID AND job.ID = #{jobID}
+    </select>
+
+    <select id="selectOneIndirectByName" resultMap="basicMap">
+        SELECT ID, Name, Rating
+        FROM tag
+        WHERE Name = #{name}
+    </select>
+
+</mapper>

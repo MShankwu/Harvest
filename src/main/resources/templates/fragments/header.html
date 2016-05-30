@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-lg navbar-static-top" role="navigation" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            </button>
+            <a class="navbar-brand">Harvest Online</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul id="navbar" class="nav navbar-nav">
+                <li><a href="../index.html" th:href="@{/index}">首页</a></li>
+                <li><a href="../job.html" th:href="@{/job}">职位</a></li>
+                <li><a href="../company.html" th:href="@{/company}">公司</a></li>
+                <li><a href="../talent.html" th:href="@{/talent}">人才</a></li>
+            </ul>
+
+            <div class="nav navbar-nav navbar-form navbar-right" th:unless="${session.currentUser}">
+                <a class="btn" href="../login.html" th:href="@{/login}">登录</a>
+                <a class="btn" href="../register.html" th:href="@{/register}">注册</a>
+            </div>
+
+            <div class="nav navbar-nav navbar-form navbar-right" th:if="${session.currentUser}">
+                <a class="btn" href="/management/password" th:text="|您好, ${session.currentUser.getName()}|"></a>
+                <a class="btn" th:href="@{/action/logout}">注销</a>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

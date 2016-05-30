@@ -1,0 +1,17 @@
+#job-id {
+    margin-bottom: 60px;
+}
+
+#job-id-body {
+    padding-left: 50px;
+}
+
+#job-description {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
