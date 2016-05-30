@@ -13,4 +13,10 @@
         WHERE ID = #{id}
     </select>
 
+    <select id="selectOneIndirect" resultMap="basicMap">
+        SELECT ID, Name
+        FROM city
+        WHERE Name = #{name}
+    </select>
+
 </mapper>

@@ -62,6 +62,11 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    public List<Job> findAll() {
+        return jobMapper.selectAll();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Tag> findAllTagsByID(Integer id) {
         return tagMapper.selectByJobID(id);

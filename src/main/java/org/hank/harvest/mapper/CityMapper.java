@@ -12,4 +12,6 @@ public interface CityMapper {
 
     City selectOne(@Param("id") Integer id);
 
+    City selectOneIndirect(@Param("name") String name);
+
 }

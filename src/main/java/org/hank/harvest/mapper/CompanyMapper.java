@@ -21,4 +21,8 @@ public interface CompanyMapper {
 
     Company selectOne(@Param("id") Integer id);
 
+    void insertOne(Company company);
+
+    void insertOneCity(@Param("id") Integer id, @Param("cityID") Integer cityID);
+
 }

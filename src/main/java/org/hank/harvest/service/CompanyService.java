@@ -19,4 +19,6 @@ public interface CompanyService {
 
     Company findOne(Integer id);
 
+    void saveOne(Company company);
+
 }

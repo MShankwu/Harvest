@@ -17,6 +17,8 @@ public interface UserMapper {
 
     List<User> selectByConditions(@Param("talentConditions") TalentConditionUtil talentConditions);
 
+    List<User> selectAll();
+
     User selectOne(@Param("id") Integer id);
 
     void insertOne(User user);
@@ -26,5 +28,7 @@ public interface UserMapper {
     void updateResume(@Param("id") Integer id, @Param("resumeID") Integer resumeID);
 
     void updateOne(User user);
+
+    void updateCompany(@Param("id") Integer id, @Param("companyID") Integer companyID);
 
 }

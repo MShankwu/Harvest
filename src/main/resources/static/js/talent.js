@@ -19,15 +19,15 @@
         });
     }
 
-    $(function(data) {
-        loadTalentList(1, 4);
+    $(function() {
+        loadTalentList(1, 10);
 
         $("#talent-choices-submit").click(function() {
-            loadTalentList(1, 4);
+            loadTalentList(1, 10);
         });
 
         $("#talent-keyword-submit").click(function() {
-            loadTalentList(1, 4);
+            loadTalentList(1, 10);
         });
 
     });

@@ -73,6 +73,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userMapper.selectAll();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User findOne(Integer id) {
         User user = userMapper.selectOne(id);
@@ -136,6 +141,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Process> findAllProcessesByID(Integer id) {
         return processMapper.selectIndirectByUserID(id);
+    }
+
+    @Override
+    public void editCompany(Integer id, Integer companyID) {
+        userMapper.updateCompany(id, companyID);
     }
 
 }

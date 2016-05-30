@@ -16,6 +16,16 @@ public class Company implements Serializable {
     private Set<City> cities;
     private Set<Job> jobs;
 
+    public Company() {
+    }
+
+    public Company(String name, String type, String description, Set<City> cities) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.cities = cities;
+    }
+
     public Integer getId() {
         return id;
     }

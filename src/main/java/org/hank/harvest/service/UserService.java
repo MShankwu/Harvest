@@ -15,6 +15,8 @@ public interface UserService {
 
     List<User> findByConditions(TalentConditionUtil talentConditionUtil, Integer pageNum, Integer pageSize);
 
+    List<User> findAll();
+
     User findOne(Integer id);
 
     User saveOne(User user);
@@ -30,5 +32,7 @@ public interface UserService {
     List<Message> findAllSendMessagesByID(Integer id);
 
     List<Process> findAllProcessesByID(Integer id);
+
+    void editCompany(Integer id, Integer companyID);
 
 }

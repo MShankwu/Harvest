@@ -1,8 +1,10 @@
 package org.hank.harvest.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.hank.harvest.domain.City;
 import org.hank.harvest.domain.Company;
 import org.hank.harvest.domain.Job;
+import org.hank.harvest.mapper.CityMapper;
 import org.hank.harvest.mapper.CompanyMapper;
 import org.hank.harvest.service.CompanyService;
 import org.hank.harvest.utils.CompanyConditionUtil;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/17.
@@ -20,10 +23,16 @@ import java.util.List;
 public class CompanyServiceImpl implements CompanyService {
 
     private CompanyMapper companyMapper;
+    private CityMapper cityMapper;
 
     @Autowired
     public void setCompanyMapper(CompanyMapper companyMapper) {
         this.companyMapper = companyMapper;
+    }
+
+    @Autowired
+    public void setCityMapper(CityMapper cityMapper) {
+        this.cityMapper = cityMapper;
     }
 
     @Override
@@ -54,6 +63,16 @@ public class CompanyServiceImpl implements CompanyService {
     @Transactional(readOnly = true)
     public Company findOne(Integer id) {
         return companyMapper.selectOne(id);
+    }
+
+    @Override
+    public void saveOne(Company company) {
+        companyMapper.insertOne(company);
+        Set<City> cities = company.getCities();
+        for (City city : cities) {
+            City result = cityMapper.selectOneIndirect(city.getName());
+            companyMapper.insertOneCity(company.getId(), result.getId());
+        }
     }
 
 }

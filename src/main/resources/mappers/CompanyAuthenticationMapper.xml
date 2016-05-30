@@ -29,11 +29,30 @@
         VALUES(#{status}, #{user.id}, #{company.id})
     </insert>
 
+    <update id="updateStatus">
+        UPDATE company_authentication
+        SET Status = #{status}
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectOneIndirectByUserID" resultMap="wholeMap">
         SELECT <include refid="wholeColumns"/>
         FROM company_authentication, user, company
         WHERE company_authentication.User_ID = user.ID AND company_authentication.Company_ID = company.ID
         AND company_authentication.User_ID = #{userID}
+    </select>
+
+    <select id="selectAll" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM company_authentication, user, company
+        WHERE company_authentication.User_ID = user.ID AND company_authentication.Company_ID = company.ID
+    </select>
+
+    <select id="selectOne" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM company_authentication, user, company
+        WHERE company_authentication.User_ID = user.ID AND company_authentication.Company_ID = company.ID
+        AND company_authentication.ID = #{id}
     </select>
 
 </mapper>

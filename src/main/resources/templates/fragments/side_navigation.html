@@ -33,10 +33,21 @@
                 <a href="/management/authority"><i class="fa fa-certificate fa-fw"></i>个人权限</a>
                 <div th:if="${authority}" th:switch="${authority.id}">
                     <ul class="nav" th:case="1" style="padding-left: 37px">
-                        <li><a>公司管理</a></li>
-                        <li><a>备份数据库</a></li>
-                        <li><a>员工管理</a></li>
-                        <li><a>职位管理</a></li>
+                        <li>
+                            <a href="/management/admin/companyAuthentication"><i class="fa fa-camera fa-fw"></i>招聘者鉴定</a>
+                        </li>
+                        <li>
+                            <a href="/management/admin/company"><i class="fa fa-desktop fa-fw"></i>公司管理</a>
+                        </li>
+                        <li>
+                            <a href="/management/admin/user"><i class="fa fa-users fa-fw"></i>用户监控</a>
+                        </li>
+                        <li>
+                            <a href="/management/admin/job"><i class="fa fa-gavel fa-fw"></i>职位监控</a>
+                        </li>
+                        <li>
+                            <a href="/management/admin/database"><i class="fa fa-database fa-fw"></i>备份数据库</a>
+                        </li>
                     </ul>
                     <ul class="nav" th:case="2" style="padding-left: 37px">
                         <li>

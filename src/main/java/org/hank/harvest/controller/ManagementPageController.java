@@ -2,6 +2,7 @@ package org.hank.harvest.controller;
 
 import org.hank.harvest.domain.*;
 import org.hank.harvest.service.*;
+import org.hank.harvest.utils.CompanyConditionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ public class ManagementPageController {
     private CompanyService companyService;
     private CompanyAuthenticationService companyAuthenticationService;
     private ProcessService processService;
+    private JobService jobService;
 
     @Autowired
     public void setUserDetailService(UserDetailService userDetailService) {
@@ -61,6 +63,11 @@ public class ManagementPageController {
     @Autowired
     public void setProcessService(ProcessService processService) {
         this.processService = processService;
+    }
+
+    @Autowired
+    public void setJobService(JobService jobService) {
+        this.jobService = jobService;
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.GET)
@@ -174,6 +181,51 @@ public class ManagementPageController {
         }
         model.addAttribute("processes", processService.findIndirectByCompanyID(company.getId()));
         return "management_authority_process_hr";
+    }
+
+    @RequestMapping(value = "/admin/company", method = RequestMethod.GET)
+    public String showAdminCompany(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        model.addAttribute("companies", companyService.findAll());
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        model.addAttribute("authority", authority);
+        model.addAttribute("types", CompanyConditionUtil.TYPES);
+        return "admin_company";
+    }
+
+    @RequestMapping(value = "/admin/companyAuthentication", method = RequestMethod.GET)
+    public String showAdminCompanyAuthentication(HttpSession httpSession, Model model) {
+        model.addAttribute("companyAuthentications", companyAuthenticationService.findAll());
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        model.addAttribute("authority", authority);
+        return "admin_company_authentication";
+    }
+
+    @RequestMapping(value = "/admin/database", method = RequestMethod.GET)
+    public String showAdminDatabase(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        model.addAttribute("authority", authority);
+        return "admin_database";
+    }
+
+    @RequestMapping(value = "/admin/job", method = RequestMethod.GET)
+    public String showAdminJob(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        model.addAttribute("jobs", jobService.findAll());
+        model.addAttribute("authority", authority);
+        return "admin_job";
+    }
+
+    @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
+    public String showAdminUser(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        model.addAttribute("authority", authority);
+        model.addAttribute("users", userService.findAll());
+        return "admin_user";
     }
 
 }

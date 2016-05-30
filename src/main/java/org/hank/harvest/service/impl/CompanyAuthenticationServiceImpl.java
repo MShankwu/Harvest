@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/5/30.
  */
@@ -30,6 +32,21 @@ public class CompanyAuthenticationServiceImpl implements CompanyAuthenticationSe
     @Override
     public CompanyAuthentication findOneIndirectByUserID(Integer userID) {
         return companyAuthenticationMapper.selectOneIndirectByUserID(userID);
+    }
+
+    @Override
+    public List<CompanyAuthentication> findAll() {
+        return companyAuthenticationMapper.selectAll();
+    }
+
+    @Override
+    public CompanyAuthentication findOne(Integer id) {
+        return companyAuthenticationMapper.selectOne(id);
+    }
+
+    @Override
+    public void pass(Integer id) {
+        companyAuthenticationMapper.updateStatus(id, "认证通过");
     }
 
 }

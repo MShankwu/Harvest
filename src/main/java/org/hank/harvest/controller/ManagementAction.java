@@ -3,6 +3,7 @@ package org.hank.harvest.controller;
 import org.hank.harvest.domain.*;
 import org.hank.harvest.domain.Process;
 import org.hank.harvest.service.*;
+import org.hank.harvest.utils.CitiesParserUtil;
 import org.hank.harvest.utils.TagsParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/27.
@@ -200,6 +202,30 @@ public class ManagementAction {
     public String doChangeProcess(Integer processID, String status) {
         processService.editOne(processID, status);
         return "redirect:/management/authority/process/hr";
+    }
+
+    @RequestMapping(value = "/admin/authentication", method = RequestMethod.GET)
+    public String doAdminAuthentication(Integer authenticationID) {
+        CompanyAuthentication companyAuthentication = companyAuthenticationService.findOne(authenticationID);
+        companyAuthenticationService.pass(authenticationID);
+        userService.editCompany(companyAuthentication.getUser().getId(), companyAuthentication.getCompany().getId());
+        return "redirect:/management/admin/companyAuthentication";
+    }
+
+    @RequestMapping(value = "/admin/company", method = RequestMethod.POST)
+    public String doCreateCompany(String name, String type, String description, String cities, RedirectAttributes redirect) {
+        Set<City> cityList = CitiesParserUtil.parse(cities);
+        Company company = new Company(name, type, description, cityList);
+        companyService.saveOne(company);
+        redirect.addFlashAttribute("resultMsg", "创建成功！");
+        return "redirect:/management/admin/company";
+    }
+
+    @RequestMapping(value = "/admin/database", method = RequestMethod.GET)
+    public String doBackupDatabase(RedirectAttributes redirect) {
+        // TODO
+        redirect.addFlashAttribute("resultMsg", "备份成功！");
+        return "redirect:/management/admin/database";
     }
 
 }

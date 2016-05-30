@@ -54,6 +54,16 @@
         city.Name as City_Name
     </sql>
 
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Company" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO company(Name, Type, Description)
+        VALUES (#{name}, #{type}, #{description})
+    </insert>
+
+    <insert id="insertOneCity" useGeneratedKeys="true">
+        INSERT INTO company_city(Company_ID, City_ID)
+        VALUES (#{id}, #{cityID})
+    </insert>
+
     <select id="selectTopRating" resultMap="summaryMap">
         SELECT ID, Name, Rating
         FROM company

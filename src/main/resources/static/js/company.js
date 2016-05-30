@@ -16,14 +16,14 @@
     }
 
     $(function() {
-        loadCompanyList(1, 4);
+        loadCompanyList(1, 10);
 
         $("#company-choices-submit").click(function() {
-            loadCompanyList(1, 4);
+            loadCompanyList(1, 10);
         });
 
         $("#company-keyword-submit").click(function() {
-            loadCompanyList(1, 4);
+            loadCompanyList(1, 10);
         });
 
     });

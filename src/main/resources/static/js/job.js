@@ -20,7 +20,7 @@
 
     $(function () {
 
-        loadJobList(1, 3);
+        loadJobList(1, 10);
 
         $("#job-choices-submit").click(function() {
             loadJobList(1, 10);

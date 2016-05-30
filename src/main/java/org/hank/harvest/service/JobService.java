@@ -18,6 +18,8 @@ public interface JobService {
 
     List<Job> findAll(Integer pageNum, Integer pageSize);
 
+    List<Job> findAll();
+
     List<Tag> findAllTagsByID(Integer id);
 
     Job findOne(Integer id);

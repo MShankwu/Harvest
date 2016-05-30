@@ -66,6 +66,12 @@
         WHERE ID = #{id}
     </update>
 
+    <update id="updateCompany">
+        UPDATE user
+        SET Company_ID = #{companyID}
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectOneIndirect" resultMap="basicMap">
         SELECT ID, <include refid="basicColumns"/>
         FROM user
@@ -108,6 +114,13 @@
             user LEFT JOIN company ON user.Company_ID = company.ID, authority
         WHERE user.Authority_ID = authority.ID
         AND user.ID = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM
+        user LEFT JOIN company ON user.Company_ID = company.ID, authority
+        WHERE user.Authority_ID = authority.ID
     </select>
 
 </mapper>
