@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/16.
@@ -57,7 +56,7 @@ public class JobAPI {
     }
 
     @RequestMapping(value = "/{id}/tags", method = RequestMethod.GET)
-    public Set<Tag> getAllTags(@PathVariable("id") Integer id) {
+    public List<Tag> getAllTags(@PathVariable("id") Integer id) {
         return jobService.findAllTagsByID(id);
     }
 

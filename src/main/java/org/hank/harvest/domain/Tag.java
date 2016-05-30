@@ -1,6 +1,7 @@
 package org.hank.harvest.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -11,7 +12,7 @@ public class Tag implements Serializable {
     private Integer id;
     private String name;
     private Integer rating;
-    private Set<Job> jobs;
+    private List<Job> jobs;
 
     public Integer getId() {
         return id;
@@ -37,12 +38,11 @@ public class Tag implements Serializable {
         this.rating = rating;
     }
 
-    public Set<Job> getJobs() {
+    public List<Job> getJobs() {
         return jobs;
     }
 
-    public void setJobs(Set<Job> jobs) {
+    public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
     }
-
 }

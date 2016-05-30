@@ -16,6 +16,10 @@ public interface ProcessMapper {
 
     Process selectOneIndirect(@Param("userID") Integer userID, @Param("jobID") Integer jobID);
 
+    List<Process> selectIndirectByCompanyID(@Param("companyID") Integer companyID);
+
     void insertOne(Process process);
+
+    void updateOne(@Param("id") Integer id, @Param("status") String status);
 
 }

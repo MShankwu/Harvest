@@ -25,6 +25,8 @@ public class ManagementPageController {
     private MessageService messageService;
     private ResumeService resumeService;
     private CompanyService companyService;
+    private CompanyAuthenticationService companyAuthenticationService;
+    private ProcessService processService;
 
     @Autowired
     public void setUserDetailService(UserDetailService userDetailService) {
@@ -49,6 +51,16 @@ public class ManagementPageController {
     @Autowired
     public void setCompanyService(CompanyService companyService) {
         this.companyService = companyService;
+    }
+
+    @Autowired
+    public void setCompanyAuthenticationService(CompanyAuthenticationService companyAuthenticationService) {
+        this.companyAuthenticationService = companyAuthenticationService;
+    }
+
+    @Autowired
+    public void setProcessService(ProcessService processService) {
+        this.processService = processService;
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.GET)
@@ -120,16 +132,48 @@ public class ManagementPageController {
     public String showManagementAuthorityCompanyAuthentication(HttpSession httpSession, Model model) {
         Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
         User currentUser = userService.findOne(currentUserID);
-        Authority authority = userService.findOne(currentUserID).getAuthority();
+        Authority authority = currentUser.getAuthority();
         model.addAttribute("authority", authority);
         Company company = currentUser.getCompany();
+        CompanyAuthentication companyAuthentication = companyAuthenticationService.findOneIndirectByUserID(currentUserID);
         if (company != null) {
             model.addAttribute("company", company);
+        } else if (companyAuthentication != null) {
+            model.addAttribute("companyAuthentication", companyAuthentication);
         } else {
             List<Company> choices = companyService.findAll();
             model.addAttribute("choices", choices);
         }
         return "management_authority_company_authentication";
+    }
+
+    @RequestMapping(value = "/authority/job", method = RequestMethod.GET)
+    public String showManagementAuthorityJob(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        User currentUser = userService.findOne(currentUserID);
+        Authority authority = currentUser.getAuthority();
+        Company company = currentUser.getCompany();
+        model.addAttribute("authority", authority);
+        if (company == null) {
+            return "redirect:/management/authority/companyAuthentication";
+        }
+        company = companyService.findOne(company.getId());
+        model.addAttribute("company", company);
+        return "management_authority_job";
+    }
+
+    @RequestMapping(value = "/authority/process/hr", method = RequestMethod.GET)
+    public String showManagementAuthorityProcessHR(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        User currentUser = userService.findOne(currentUserID);
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        Company company = currentUser.getCompany();
+        model.addAttribute("authority", authority);
+        if (company == null) {
+            return "redirect:/management/authority/companyAuthentication";
+        }
+        model.addAttribute("processes", processService.findIndirectByCompanyID(company.getId()));
+        return "management_authority_process_hr";
     }
 
 }

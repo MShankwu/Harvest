@@ -72,6 +72,20 @@
         city.Name as City_Name
     </sql>
 
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.Job" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO job(Name, Category, Origin_Salary, Terminal_Salary,
+        Graduation, Experience, Description,
+        Publish, Deadline, City_ID, Company_ID)
+        VALUES (#{name}, #{category}, #{originSalary}, #{terminalSalary},
+        #{graduation}, #{experience}, #{description},
+        #{publish}, #{deadline}, #{city.id}, #{company.id})
+    </insert>
+
+    <insert id="insertOneTag" useGeneratedKeys="true">
+        INSERT INTO job_tag(Job_ID, Tag_ID)
+        VALUES(#{jobID}, #{tagID})
+    </insert>
+
     <select id="selectLatest" resultMap="summaryMap">
         SELECT <include refid="summaryColumns"/>
         FROM job, company, city

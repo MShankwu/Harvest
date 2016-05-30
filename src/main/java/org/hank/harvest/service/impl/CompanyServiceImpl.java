@@ -2,6 +2,7 @@ package org.hank.harvest.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import org.hank.harvest.domain.Company;
+import org.hank.harvest.domain.Job;
 import org.hank.harvest.mapper.CompanyMapper;
 import org.hank.harvest.service.CompanyService;
 import org.hank.harvest.utils.CompanyConditionUtil;

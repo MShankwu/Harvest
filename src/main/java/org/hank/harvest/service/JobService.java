@@ -18,8 +18,10 @@ public interface JobService {
 
     List<Job> findAll(Integer pageNum, Integer pageSize);
 
-    Set<Tag> findAllTagsByID(Integer id);
+    List<Tag> findAllTagsByID(Integer id);
 
     Job findOne(Integer id);
+
+    Integer saveOne(Job job);
 
 }

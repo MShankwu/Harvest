@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Administrator on 2016/5/16.
@@ -64,7 +63,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     @Transactional(readOnly = true)
-    public Set<Tag> findAllTagsByID(Integer id) {
+    public List<Tag> findAllTagsByID(Integer id) {
         return tagMapper.selectByJobID(id);
     }
 
@@ -74,6 +73,24 @@ public class JobServiceImpl implements JobService {
         Job job = jobMapper.selectOne(id);
         job.setTags(tagMapper.selectByJobID(job.getId()));
         return job;
+    }
+
+    @Override
+    public Integer saveOne(Job job) {
+        jobMapper.insertOne(job);
+        Integer jobID = job.getId();
+        List<Tag> tags = job.getTags();
+        for (Tag tag : tags) {
+            Tag result = tagMapper.selectOneIndirectByName(tag.getName());
+            if (result == null) {
+                tag.setRating(0);
+                tagMapper.insertOne(tag);
+            } else {
+                tag.setId(result.getId());
+            }
+            jobMapper.insertOneTag(jobID, tag.getId());
+        }
+        return jobID;
     }
 
 }

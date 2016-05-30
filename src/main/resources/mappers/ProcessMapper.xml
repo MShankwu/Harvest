@@ -29,6 +29,12 @@
         VALUES (#{status}, #{user.id}, #{job.id})
     </insert>
 
+    <update id="updateOne">
+        UPDATE process
+        SET Status = #{status}
+        WHERE ID = #{id}
+    </update>
+
     <select id="selectIndirectByUserID" resultMap="wholeMap">
         SELECT <include refid="wholeColumns"/>
         FROM process, user, job
@@ -41,6 +47,14 @@
         FROM process, user, job
         WHERE process.User_ID = user.ID AND process.Job_ID = job.ID
         AND process.User_ID = #{userID} AND process.Job_ID = #{jobID}
+    </select>
+
+    <select id="selectIndirectByCompanyID" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM process, user, job, company
+        WHERE process.User_ID = user.ID AND process.Job_ID = job.ID
+        AND company.ID = job.Company_ID
+        AND company.ID = #{companyID}
     </select>
 
 </mapper>

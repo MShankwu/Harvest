@@ -1,6 +1,7 @@
 package org.hank.harvest.service;
 
 import org.hank.harvest.domain.Company;
+import org.hank.harvest.domain.Job;
 import org.hank.harvest.utils.CompanyConditionUtil;
 
 import java.util.List;

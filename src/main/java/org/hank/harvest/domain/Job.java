@@ -2,7 +2,7 @@ package org.hank.harvest.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/16.
@@ -21,7 +21,23 @@ public class Job implements Serializable {
     private Date deadline;
     private Company company;
     private City city;
-    private Set<Tag> tags;
+    private List<Tag> tags;
+
+    public Job() {
+
+    }
+
+    public Job(String name, String category, Integer originSalary, Integer terminalSalary, String graduation, String experience, String description, Date publish, Date deadline) {
+        this.name = name;
+        this.category = category;
+        this.originSalary = originSalary;
+        this.terminalSalary = terminalSalary;
+        this.graduation = graduation;
+        this.experience = experience;
+        this.description = description;
+        this.publish = publish;
+        this.deadline = deadline;
+    }
 
     public Integer getId() {
         return id;
@@ -119,11 +135,12 @@ public class Job implements Serializable {
         this.city = city;
     }
 
-    public Set<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(Set<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
+
 }
