@@ -15,6 +15,8 @@ public interface CompanyMapper {
 
     List<Company> selectTopRating(@Param("topNum") Integer topNum);
 
+    List<Company> selectAll();
+
     List<Company> selectByConditions(@Param("companyConditions") CompanyConditionUtil companyConditions);
 
     Company selectOne(@Param("id") Integer id);

@@ -32,6 +32,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
+    public List<Company> findAll() {
+        return companyMapper.selectAll();
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Company> findByConditions(CompanyConditionUtil companyConditions, Integer pageNum, Integer pageSize) {
         if (pageNum != null) {

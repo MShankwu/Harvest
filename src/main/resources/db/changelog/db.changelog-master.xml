@@ -669,4 +669,28 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="62" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `company_authentication` (
+            `ID` INT NOT NULL AUTO_INCREMENT,
+            `Status` VARCHAR(20) NULL,
+            `User_ID` INT NULL,
+            `Company_ID` INT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="63" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company_authentication`
+            ADD INDEX `User_ID_idx` (`User_ID` ASC),
+            ADD INDEX `Company_ID_idx` (`Company_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

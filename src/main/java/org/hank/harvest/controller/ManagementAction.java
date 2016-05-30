@@ -2,10 +2,7 @@ package org.hank.harvest.controller;
 
 import org.hank.harvest.domain.*;
 import org.hank.harvest.domain.Process;
-import org.hank.harvest.service.JobService;
-import org.hank.harvest.service.MessageService;
-import org.hank.harvest.service.ProcessService;
-import org.hank.harvest.service.UserService;
+import org.hank.harvest.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +25,8 @@ public class ManagementAction {
     private MessageService messageService;
     private ProcessService processService;
     private JobService jobService;
+    private CompanyService companyService;
+    private CompanyAuthenticationService companyAuthenticationService;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -47,6 +46,16 @@ public class ManagementAction {
     @Autowired
     public void setJobService(JobService jobService) {
         this.jobService = jobService;
+    }
+
+    @Autowired
+    public void setCompanyService(CompanyService companyService) {
+        this.companyService = companyService;
+    }
+
+    @Autowired
+    public void setCompanyAuthenticationService(CompanyAuthenticationService companyAuthenticationService) {
+        this.companyAuthenticationService = companyAuthenticationService;
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.POST)
@@ -114,6 +123,25 @@ public class ManagementAction {
             redirect.addFlashAttribute("resultMsg", "投递成功！");
             return "redirect:/management/authority/process";
         }
+    }
+
+    @RequestMapping(value = "/company/authentication", method = RequestMethod.POST)
+    public String doCompanyAuthentication(Integer companyID, HttpSession httpSession, RedirectAttributes redirect) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        CompanyAuthentication thisCompanyAuthentication = companyAuthenticationService.findOneIndirectByUserID(currentUserID);
+        if (thisCompanyAuthentication != null) {
+            redirect.addFlashAttribute("resultMsg", "您已提交过认证，请静待审核！");
+        } else {
+            User currentUser = userService.findOne(currentUserID);
+            Company company = companyService.findOne(companyID);
+            CompanyAuthentication companyAuthentication = new CompanyAuthentication();
+            companyAuthentication.setUser(currentUser);
+            companyAuthentication.setCompany(company);
+            companyAuthentication.setStatus("待认证");
+            companyAuthenticationService.saveCompanyAuthentication(companyAuthentication);
+            redirect.addFlashAttribute("resultMsg", "已提交认证！");
+        }
+        return "redirect:/management/authority/companyAuthentication";
     }
 
 }

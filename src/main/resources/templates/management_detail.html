@@ -44,8 +44,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                            <label class="label label-default">手机号码</label>
-                            <input class="form-control login-field" type="number" name="phone" th:value="${detail.phone}"/>
+                        <label class="label label-default">手机号码</label>
+                        <input class="form-control login-field" type="number" name="phone" th:value="${detail.phone}"/>
                     </div>
                     <div class="form-group">
                         <label class="label label-default">QQ号码</label>
@@ -53,18 +53,18 @@
                     </div>
                     <div class="form-group">
                         <label class="label label-default">居住地址</label>
-                        <input class="form-control login-field" type="text" name="address" th:value="${detail.address}"/>
+                        <input class="form-control login-field" type="text" name="address"
+                               th:value="${detail.address}"/>
                     </div>
                     <div class="form-group">
                         <label class="label label-default">地址邮编</label>
-                        <input class="form-control login-field" type="number" name="postcode" th:value="${detail.postcode}"/>
+                        <input class="form-control login-field" type="number" name="postcode"
+                               th:value="${detail.postcode}"/>
                     </div>
-
                     <div class="form-group has-success" th:if="${resultMsg}">
                         <label class="form-control login-field" th:text="${resultMsg}"></label>
                         <label class="login-field-icon fui-alert-circle"></label>
                     </div>
-
                     <button class="btn btn-primary btn-block" type="submit">保存修改</button>
                 </form>
             </div>

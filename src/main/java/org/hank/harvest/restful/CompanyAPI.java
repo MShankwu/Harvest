@@ -43,7 +43,7 @@ public class CompanyAPI {
                     break;
             }
         }
-        return null;
+        return companyService.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

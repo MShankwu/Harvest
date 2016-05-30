@@ -84,4 +84,10 @@
         AND company.ID = #{id}
     </select>
 
+    <select id="selectAll" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM company LEFT JOIN job ON company.ID = job.Company_ID, city, company_city
+        WHERE company.ID = company_city.Company_ID AND city.ID = company_city.City_ID
+    </select>
+
 </mapper>

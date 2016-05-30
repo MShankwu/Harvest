@@ -12,6 +12,8 @@ public interface CompanyService {
 
     List<Company> findTopRating(Integer topNum);
 
+    List<Company> findAll();
+
     List<Company> findByConditions(CompanyConditionUtil companyConditions, Integer pageNum, Integer pageSize);
 
     Company findOne(Integer id);

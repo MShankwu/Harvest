@@ -1,13 +1,7 @@
 package org.hank.harvest.controller;
 
-import org.hank.harvest.domain.Authority;
-import org.hank.harvest.domain.Resume;
-import org.hank.harvest.domain.User;
-import org.hank.harvest.domain.UserDetail;
-import org.hank.harvest.service.MessageService;
-import org.hank.harvest.service.ResumeService;
-import org.hank.harvest.service.UserDetailService;
-import org.hank.harvest.service.UserService;
+import org.hank.harvest.domain.*;
+import org.hank.harvest.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/5/26.
@@ -29,6 +24,7 @@ public class ManagementPageController {
     private UserService userService;
     private MessageService messageService;
     private ResumeService resumeService;
+    private CompanyService companyService;
 
     @Autowired
     public void setUserDetailService(UserDetailService userDetailService) {
@@ -48,6 +44,11 @@ public class ManagementPageController {
     @Autowired
     public void setResumeService(ResumeService resumeService) {
         this.resumeService = resumeService;
+    }
+
+    @Autowired
+    public void setCompanyService(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     @RequestMapping(value = "/password", method = RequestMethod.GET)
@@ -113,6 +114,22 @@ public class ManagementPageController {
         model.addAttribute("authority", authority);
         model.addAttribute("processes", userService.findAllProcessesByID(currentUserID));
         return "management_authority_process";
+    }
+
+    @RequestMapping(value = "/authority/companyAuthentication", method = RequestMethod.GET)
+    public String showManagementAuthorityCompanyAuthentication(HttpSession httpSession, Model model) {
+        Integer currentUserID = ((User) httpSession.getAttribute("currentUser")).getId();
+        User currentUser = userService.findOne(currentUserID);
+        Authority authority = userService.findOne(currentUserID).getAuthority();
+        model.addAttribute("authority", authority);
+        Company company = currentUser.getCompany();
+        if (company != null) {
+            model.addAttribute("company", company);
+        } else {
+            List<Company> choices = companyService.findAll();
+            model.addAttribute("choices", choices);
+        }
+        return "management_authority_company_authentication";
     }
 
 }
