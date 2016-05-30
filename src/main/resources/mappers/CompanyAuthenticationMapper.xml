@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.CompanyAuthenticationMapper">
+
+    <resultMap id="wholeMap" type="org.hank.harvest.domain.CompanyAuthentication">
+        <id property="id" column="ID"/>
+        <result property="status" column="Status"/>
+        <association property="user" javaType="org.hank.harvest.domain.User">
+            <id property="id" column="User_ID"/>
+            <result property="name" column="User_Name"/>
+        </association>
+        <association property="company" javaType="org.hank.harvest.domain.Company">
+            <id property="id" column="Company_ID"/>
+            <result property="name" column="Company_Name"/>
+        </association>
+    </resultMap>
+
+    <sql id="wholeColumns">
+        company_authentication.ID as ID,
+        company_authentication.Status as Status,
+        user.ID as User_ID,
+        user.Name as User_Name,
+        company.ID as Company_ID,
+        company.Name as Company_Name
+    </sql>
+
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.CompanyAuthentication" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO company_authentication(Status, User_ID, Company_ID)
+        VALUES(#{status}, #{user.id}, #{company.id})
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE company_authentication
+        SET Status = #{status}
+        WHERE ID = #{id}
+    </update>
+
+    <select id="selectOneIndirectByUserID" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM company_authentication, user, company
+        WHERE company_authentication.User_ID = user.ID AND company_authentication.Company_ID = company.ID
+        AND company_authentication.User_ID = #{userID}
+    </select>
+
+    <select id="selectAll" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM company_authentication, user, company
+        WHERE company_authentication.User_ID = user.ID AND company_authentication.Company_ID = company.ID
+    </select>
+
+    <select id="selectOne" resultMap="wholeMap">
+        SELECT <include refid="wholeColumns"/>
+        FROM company_authentication, user, company
+        WHERE company_authentication.User_ID = user.ID AND company_authentication.Company_ID = company.ID
+        AND company_authentication.ID = #{id}
+    </select>
+
+</mapper>

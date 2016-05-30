@@ -1,12 +1,22 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.authority.AuthorityEntity;
+import org.hank.harvest.domain.Authority;
+
+import java.util.List;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/16.
  */
 public interface AuthorityService {
 
-    AuthorityEntity findById(Integer id);
+    Authority findOne(Integer id);
+
+    List<Authority> findAll();
+
+    Integer saveOne(Authority authority);
+
+    Authority updateOne(Authority authority);
+
+    void deleteOne(Integer id);
 
 }

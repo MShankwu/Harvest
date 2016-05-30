@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/dist/css/sb-admin-2.css"
+          th:href="@{/sb-admin2/dist/css/sb-admin-2.css}"/>
+    <link rel="stylesheet" href="../static/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/sb-admin2/bower_components/font-awesome/css/font-awesome.min.css}"/>
+    <title>Harvest——管理中心/个人信息</title>
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container" style="margin-bottom: 60px">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">管理中心</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="col-md-4">
+                <div th:include="fragments/side_navigation :: side_navigation"></div>
+            </div>
+            <div class="col-md-8">
+                <form class="login-form" action="/action/management/userDetail" method="post" th:object="${detail}">
+                    <div class="form-group">
+                        <label class="label label-default">年龄</label>
+                        <input class="form-control login-field" type="number" name="age" th:value="${detail.age}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">性别</label>
+                        <select class="form-control login-field" name="sex">
+                            <option value="男" th:selected="${detail.sex} == '男'">男</option>
+                            <option value="女" th:selected="${detail.sex} == '女'">女</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">手机号码</label>
+                        <input class="form-control login-field" type="number" name="phone" th:value="${detail.phone}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">QQ号码</label>
+                        <input class="form-control login-field" type="number" name="qq" th:value="${detail.qq}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">居住地址</label>
+                        <input class="form-control login-field" type="text" name="address"
+                               th:value="${detail.address}"/>
+                    </div>
+                    <div class="form-group">
+                        <label class="label label-default">地址邮编</label>
+                        <input class="form-control login-field" type="number" name="postcode"
+                               th:value="${detail.postcode}"/>
+                    </div>
+                    <div class="form-group has-success" th:if="${resultMsg}">
+                        <label class="form-control login-field" th:text="${resultMsg}"></label>
+                        <label class="login-field-icon fui-alert-circle"></label>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit">保存修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/vendor/jquery.cookie.js" th:src="@{/dist/js/vendor/jquery.cookie.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

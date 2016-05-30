@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+
     <title>Harvest——登录</title>
 
-    <!-- Loading Bootstrap -->
-    <link href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
-          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-
-    <link href="../static/dist/css/demo.css"
-          th:href="@{/dist/css/demo.css}" rel="stylesheet"/>
-
-    <!-- Loading Flat UI -->
-    <link href="../static/dist/css/flat-ui.min.css"
-          th:href="@{/dist/css/flat-ui.min.css}" rel="stylesheet"/>
-
-    <link href="../static/dist/img/harvest.ico"
-          th:href="@{/dist/img/harvest.ico}" rel="shortcut icon"/>
-
-    <style>
-        .login {
-            margin-top: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/dist/css/demo.css"
+          th:href="@{/dist/css/demo.css}"/>
+    <link rel="stylesheet" href="../static/css/login.css"
+          th:href="@{/css/login.css}"/>
 </head>
 <body>
 <div class="container">
-    <div class="login">
+    <div class="login move-down-100">
         <div class="login-screen">
             <div class="login-icon">
                 <img src="../static/dist/img/harvest.ico"
@@ -36,37 +31,36 @@
                 </h4>
             </div>
 
-            <form class="login-form" id="login" action="/login.do" method="get">
+            <form class="login-form" id="login" action="/action/login" method="get">
                 <div class="form-group">
-                    <input type="text" class="form-control login-field" th:value="${userEmail}"
-                           placeholder="输入邮箱" id="login-mail" name="userEmail" />
+                    <input type="text" class="form-control login-field" th:value="${email}"
+                           placeholder="输入邮箱" id="login-mail" name="email" />
                     <label class="login-field-icon fui-mail" for="login-mail"></label>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control login-field" th:value="${userPassword}"
-                           placeholder="输入密码" id="login-pass" name="userPassword" />
+                    <input type="password" class="form-control login-field" th:value="${password}"
+                           placeholder="输入密码" id="login-pass" name="password" />
                     <label class="login-field-icon fui-lock" for="login-pass"></label>
                 </div>
 
-                <div class="form-group has-error" th:if="${errorMessage}">
-                    <label class="form-control login-field" th:text="${errorMessage}"></label>
+                <div class="form-group has-error" th:if="${loginError}">
+                    <label class="form-control login-field" th:text="${loginError}"></label>
                     <label class="login-field-icon fui-alert-circle"></label>
                 </div>
 
-                <a class="btn btn-primary btn-lg btn-block" href="#" id="login-submit">登录</a>
+                <button class="btn btn-primary btn-lg btn-block" type="submit">登录</button>
                 <a class="login-link" href="#">忘记密码?</a>
             </form>
         </div>
     </div>
 </div>
 
-<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+
 <script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+
 <script src="../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
 <script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
-<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
-<script src="../static/js/login.js" th:src="@{/js/login.js}"></script>
 </body>
 </html>

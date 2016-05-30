@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.hank.harvest.mapper.UserDetailMapper">
+
+    <resultMap id="basicMap" type="org.hank.harvest.domain.UserDetail">
+        <id property="id" column="ID"/>
+        <result property="age" column="Age"/>
+        <result property="sex" column="Sex"/>
+        <result property="phone" column="Phone"/>
+        <result property="qq" column="QQ"/>
+        <result property="address" column="Address"/>
+        <result property="postcode" column="Postcode"/>
+    </resultMap>
+
+    <sql id="basicColumns">
+        user_detail.Age,
+        user_detail.Sex,
+        user_detail.Phone,
+        user_detail.QQ,
+        user_detail.Address,
+        user_detail.Postcode
+    </sql>
+
+    <insert id="insertOne" parameterType="org.hank.harvest.domain.UserDetail" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_detail(<include refid="basicColumns"/>)
+        VALUES (#{age}, #{sex}, #{phone}, #{qq}, #{address}, #{postcode})
+    </insert>
+
+    <update id="updateOne" parameterType="org.hank.harvest.domain.UserDetail">
+        UPDATE user_detail
+        <set>
+            <if test="age != null">Age = #{age},</if>
+            <if test="sex != null">Sex = #{sex},</if>
+            <if test="phone != null">Phone = #{phone},</if>
+            <if test="qq != null">QQ = #{qq},</if>
+            <if test="address != null">Address = #{address},</if>
+            <if test="postcode != null">Postcode = #{postcode}</if>
+        </set>
+        WHERE ID = #{id}
+    </update>
+
+    <select id="selectOne" resultMap="basicMap">
+        SELECT ID, <include refid="basicColumns"/>
+        FROM user_detail
+        WHERE ID = #{id}
+    </select>
+
+    <select id="selectOneIndirectByUserID" resultMap="basicMap">
+        SELECT user_detail.ID, <include refid="basicColumns"/>
+        FROM user, user_detail
+        WHERE user.Detail_ID = user_detail.ID
+        AND user.ID = #{userID}
+    </select>
+
+</mapper>

@@ -1,12 +1,29 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.job.JobEntity;
+import org.hank.harvest.domain.Job;
+import org.hank.harvest.domain.Tag;
+import org.hank.harvest.utils.JobConditionUtil;
+
+import java.util.List;
+import java.util.Set;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/16.
  */
 public interface JobService {
 
-    JobEntity findById(Integer id);
+    List<Job> findLatest(Integer latest);
+
+    List<Job> findByConditions(JobConditionUtil jobConditions, Integer pageNum, Integer pageSize);
+
+    List<Job> findAll(Integer pageNum, Integer pageSize);
+
+    List<Job> findAll();
+
+    List<Tag> findAllTagsByID(Integer id);
+
+    Job findOne(Integer id);
+
+    Integer saveOne(Job job);
 
 }

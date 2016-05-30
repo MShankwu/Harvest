@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+
+    <title>Harvest——职位</title>
+
+    <link rel="stylesheet" href="../static/css/job.css"
+          th:href="@{/css/job.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container" id="job">
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">条件筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="panel panel-success" th:each="jobChoice : ${jobChoices}">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse"
+                               th:href="@{'#' + ${jobChoicesIDs[__${jobChoiceStat.index}__]}}"
+                               th:text="${jobChoice}">
+                            </a>
+                        </h4>
+                    </div>
+
+                    <div th:id="${jobChoicesIDs[__${jobChoiceStat.index}__]}" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <label class="radio"
+                                   th:each="jobChoicesContent : ${jobChoicesContents[__${jobChoiceStat.index}__]}">
+                                <input type="radio" th:name="${jobChoicesIDs[__${jobChoiceStat.index}__]}"
+                                       th:value="${jobChoicesContentStat.index}" data-toggle="radio"/>
+                                <span th:text="${jobChoicesContent}"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-default btn-block" href="/job">重置条件</a>
+                <a class="btn btn-primary btn-block" id="job-choices-submit">开始检索</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">关键字筛选</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="input-group">
+                    <input id="keyword" class="form-control" type="search" placeholder="输入关键字：比如职位名称、职位类别或职位所在城市"/>
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn" id="job-keyword-submit"><span class="fui-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">职位列表</h3>
+            </div>
+
+            <div class="panel-body" id="job-list">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+
+<script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+<script src="../static/js/job.js" th:src="@{/js/job.js}"></script>
+</body>
+</html>

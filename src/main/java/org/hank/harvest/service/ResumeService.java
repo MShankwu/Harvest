@@ -1,12 +1,14 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.resume.ResumeEntity;
+import org.hank.harvest.domain.Resume;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/22.
  */
 public interface ResumeService {
 
-    ResumeEntity findById(Integer id);
+    Resume findOne(Integer id);
+
+    Resume findOneByUserID(Integer userID);
 
 }

@@ -1,12 +1,18 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.userdetail.UserDetailEntity;
+import org.hank.harvest.domain.UserDetail;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/19.
  */
 public interface UserDetailService {
 
-    UserDetailEntity findById(Integer id);
+    UserDetail findOne(Integer id);
+
+    UserDetail findOneByUserID(Integer userID);
+
+    Integer saveOne(UserDetail userDetail);
+
+    UserDetail editOne(UserDetail userDetail);
 
 }

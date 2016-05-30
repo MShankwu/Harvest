@@ -350,4 +350,347 @@
             ]]>
         </sql>
     </changeSet>
+
+    <changeSet id="30" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD COLUMN `Publish_Date` DATE NULL AFTER `Description`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="31" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD COLUMN `Deadline` DATE NULL AFTER `Company_ID`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="32" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            CHANGE COLUMN `Deadline` `Deadline` DATE NULL DEFAULT NULL AFTER `Publish_Date`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="33" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company`
+            ADD COLUMN `Rating` INT NULL DEFAULT 0 AFTER `Description`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="34" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag`
+            ADD COLUMN `Rating` INT NULL DEFAULT 0 AFTER `Name`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="35" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            DROP COLUMN `Salary`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="36" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD COLUMN `Salary` INT NULL AFTER `Category`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="37" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `city` (
+            `ID` INT NOT NULL AUTO_INCREMENT,
+            `Name` VARCHAR(30) NULL,
+            PRIMARY KEY (`ID`));
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="38" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            DROP COLUMN `City`,
+            ADD COLUMN `City_ID` INT NULL AFTER `Company_ID`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="39" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company`
+            ADD COLUMN `City_ID` INT NULL AFTER `Rating`,
+            ADD INDEX `City_ID_idx` (`City_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="40" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `authority`
+            CHANGE COLUMN `Type` `Name` VARCHAR(20) NULL DEFAULT NULL;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="41" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            CHANGE COLUMN `Graduation_Level` `Graduation` VARCHAR(50) NULL DEFAULT NULL ,
+            CHANGE COLUMN `Experience_Level` `Experience` VARCHAR(50) NULL DEFAULT NULL ,
+            CHANGE COLUMN `Publish_Date` `Publish` DATE NULL DEFAULT NULL ,
+            ADD INDEX `City_ID_idx` (`City_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="42" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user`
+            ADD COLUMN `Resume_ID` INT NULL AFTER `Company_ID`,
+            ADD INDEX `Resume_ID_idx` (`Resume_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="43" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `resume`
+            DROP COLUMN `User_ID`,
+            DROP INDEX `User_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="44" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user_detail`
+            ADD COLUMN `Address` VARCHAR(250) NULL AFTER `QQ`,
+            ADD COLUMN `Postcode` VARCHAR(45) NULL AFTER `Address`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="45" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company`
+            DROP COLUMN `City_ID`,
+            DROP INDEX `City_ID_idx` ;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="46" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            DROP COLUMN `City_ID`,
+            DROP INDEX `City_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="47" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company`
+            ADD COLUMN `City_ID` INT NULL AFTER `Rating`,
+            ADD INDEX `City_ID_idx` (`City_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="48" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag_mark`
+            ADD COLUMN `ID` INT NOT NULL AUTO_INCREMENT FIRST,
+            ADD PRIMARY KEY (`ID`);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="49" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company`
+            DROP COLUMN `City_ID`,
+            DROP INDEX `City_ID_idx`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="50" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD COLUMN `City_ID` INT NULL AFTER `Company_ID`,
+            ADD INDEX `City_ID_idx` (`City_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="51" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `tag_mark`
+            RENAME TO `job_tag`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="52" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `company_city` (
+            `ID` INT NOT NULL AUTO_INCREMENT,
+            `Company_ID` INT NULL,
+            `City_ID` INT NULL,
+            PRIMARY KEY (`ID`));
+            ]]>
+        </sql>
+    </changeSet>
+    
+    <changeSet id="53" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company_city`
+            ADD INDEX `Company_ID_idx` (`Company_ID` ASC),
+            ADD INDEX `City_ID_idx` (`City_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="54" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            DROP COLUMN `Salary`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="55" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `job`
+            ADD COLUMN `Origin_Salary` INT NULL AFTER `Category`,
+            ADD COLUMN `Terminal_Salary` INT NULL AFTER `Origin_Salary`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="56" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `user_detail`
+            ADD COLUMN `Age` INT NULL AFTER `ID`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="57" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `resume`
+            DROP COLUMN `Name`,
+            CHANGE COLUMN `Education` `School` VARCHAR(50) NULL DEFAULT NULL ,
+            CHANGE COLUMN `Job_Intention` `Job_Intention` VARCHAR(100) NULL ,
+            CHANGE COLUMN `Experience` `Experience` VARCHAR(100) NULL DEFAULT NULL ,
+            ADD COLUMN `Category` VARCHAR(100) NULL AFTER `Experience`,
+            ADD COLUMN `Education_Experience` TEXT NULL AFTER `Category`,
+            ADD COLUMN `Intern_Experience` TEXT NULL AFTER `Education_Experience`,
+            ADD COLUMN `Project_Experience` TEXT NULL AFTER `Intern_Experience`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="58" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `resume`
+            ADD COLUMN `Type` VARCHAR(20) NULL AFTER `Job_Intention`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="59" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            CHANGE COLUMN `Create_Time` `Create_Time` DATETIME NULL DEFAULT NULL ,
+            CHANGE COLUMN `User_ID` `Receieve_ID` INT(11) NULL DEFAULT NULL ,
+            ADD COLUMN `Sent_ID` INT NULL AFTER `Receieve_ID`;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="60" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            ADD INDEX `Sent_ID_idx` (`Sent_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="61" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `message`
+            CHANGE COLUMN `Receieve_ID` `Receiver_ID` INT(11) NULL DEFAULT NULL ,
+            CHANGE COLUMN `Sent_ID` `Sender_ID` INT(11) NULL DEFAULT NULL ;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="62" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            CREATE TABLE `company_authentication` (
+            `ID` INT NOT NULL AUTO_INCREMENT,
+            `Status` VARCHAR(20) NULL,
+            `User_ID` INT NULL,
+            `Company_ID` INT NULL,
+            PRIMARY KEY (`ID`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="63" author="Hank Wu">
+        <sql>
+            <![CDATA[
+            ALTER TABLE `company_authentication`
+            ADD INDEX `User_ID_idx` (`User_ID` ASC),
+            ADD INDEX `Company_ID_idx` (`Company_ID` ASC);
+            ]]>
+        </sql>
+    </changeSet>
 </databaseChangeLog>

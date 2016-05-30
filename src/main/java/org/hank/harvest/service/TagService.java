@@ -1,12 +1,14 @@
 package org.hank.harvest.service;
 
-import org.hank.harvest.domain.tag.TagEntity;
+import org.hank.harvest.domain.Tag;
+
+import java.util.List;
 
 /**
- * Created by Administrator on 2016/5/6.
+ * Created by Administrator on 2016/5/17.
  */
 public interface TagService {
 
-    TagEntity findById(Integer id);
+    List<Tag> findTopRating(Integer topNum);
 
 }

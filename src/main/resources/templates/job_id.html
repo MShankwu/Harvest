@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+
+    <title th:text="|Harvest——职位/${job.name}|"></title>
+
+    <link rel="stylesheet" href="../static/css/job_id.css"
+          th:href="@{/css/job_id.css}"/>
+    <link rel="stylesheet" href="../static/css/font.css"
+          th:href="@{/css/font.css}"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container" id="job-id">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">职位档案</h3>
+        </div>
+
+        <div class="panel-body" id="job-id-body">
+            <h1 th:text="${job.name}"></h1>
+            <label class="label label-info" th:each="tag : ${job.tags}" th:text="${tag.name}"></label>
+            <div>
+                <div class="col-md-6">
+                    <h4>发布公司 ：<a th:href="@{/company/{id}/(id = ${job.company.id})}" th:text="|${job.company.name}(${job.company.type})|"></a></h4>
+                    <h4 class="font_red"
+                        th:text="|月薪范围 ：| + ((${job.originSalary} != null)? |${job.originSalary}K ~ ${job.terminalSalary}K| : '面议')"></h4>
+                    <h4 class="font_green"
+                        th:text="|发布日期 ：${#dates.format(job.publish, 'yyyy-MM-dd')}|"></h4>
+                    <h4 class="font_green"
+                        th:text="|截止日期 ：| + ((${job.deadline} != null)? |${#dates.format(job.deadline, 'yyyy-MM-dd')}| : '暂无')"></h4>
+                    <h4 class="font_blue" th:text="|所在城市 ：${job.city.name}|"></h4>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="font_orange" th:text="|工作性质 ：${job.category}|"></h4>
+                    <h4 class="font_orange" th:text="|工作经验要求 ：${job.experience}|"></h4>
+                    <h4 class="font_orange" th:text="|最低学历要求 ：${job.graduation}|"></h4>
+                    <a th:href="@{/action/management/resume/send(jobID = ${job.id})}" class="btn btn-primary btn-block">投递简历</a>
+                    <label class="font_red form-control login-field" th:if="${resultMsg}" th:text="${resultMsg}"></label>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <h4>职位要求 ：</h4>
+                <pre class="panel panel-info panel-body" id="job-description" th:text="${job.description}"></pre>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
+<script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
+<script src="../static/js/harvest.js" th:src="@{/js/harvest.js}"></script>
+</body>
+</html>

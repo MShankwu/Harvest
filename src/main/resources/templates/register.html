@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
+          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/dist/css/flat-ui.min.css"
+          th:href="@{/dist/css/flat-ui.min.css}"/>
+
+    <link rel="shortcut icon" href="../static/dist/img/harvest.ico"
+          th:href="@{/dist/img/harvest.ico}"/>
+
     <title>Harvest——注册</title>
 
-    <!-- Loading Bootstrap -->
-    <link href="../static/dist/css/vendor/bootstrap/css/bootstrap.min.css"
-          th:href="@{/dist/css/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-
-    <link href="../static/dist/css/demo.css"
-          th:href="@{/dist/css/demo.css}" rel="stylesheet"/>
-
-    <!-- Loading Flat UI -->
-    <link href="../static/dist/css/flat-ui.min.css"
-          th:href="@{/dist/css/flat-ui.min.css}" rel="stylesheet"/>
-
-    <link href="../static/dist/img/harvest.ico"
-          th:href="@{/dist/img/harvest.ico}" rel="shortcut icon"/>
-
-    <style>
-        .login {
-            margin-top: 100px;
-        }
-        .login-form {
-            margin-top: -50px;
-        }
-        .margin-top {
-            margin-top: 30px;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/dist/css/demo.css"
+          th:href="@{/dist/css/demo.css}"/>
+    <link rel="stylesheet" href="../static/css/register.css"
+          th:href="@{/css/register.css}"/>
 </head>
 <body>
 <div class="container">
-    <div class="login">
+    <div class="login move-down-100">
         <div class="login-screen">
             <div class="login-icon">
                 <img src="../static/dist/img/harvest.ico"
@@ -42,7 +31,7 @@
                 </h4>
             </div>
 
-            <div class="login-form margin-top" th:if="${hasRegisted}">
+            <div class="login-form move-down-30" th:if="${hasRegistered}">
                 <div class="form-group has-success">
                     <label class="form-control login-field">恭喜你，注册成功！</label>
                     <label class="login-field-icon fui-star"></label>
@@ -51,29 +40,29 @@
                 <a class="btn btn-primary btn-lg btn-block" href="/">返回首页</a>
             </div>
 
-            <form class="login-form" id="register" action="/register.do" method="post" th:unless="${hasRegisted}">
+            <form class="login-form move-up-50" id="register" action="/action/register" method="post" th:unless="${hasRegistered}">
                 <div class="form-group">
                     <input type="text" class="form-control login-field" value="" placeholder="邮箱地址"
-                           id="login-email" name="userEmail"/>
+                           id="login-email" name="email"/>
                     <label class="login-field-icon fui-mail" for="login-email"></label>
                 </div>
 
                 <div class="form-group">
                     <input type="password" class="form-control login-field" value="" placeholder="输入密码"
-                           id="login-pass" name="userPassword"/>
+                           id="login-pass" name="password"/>
                     <label class="login-field-icon fui-lock" for="login-pass"></label>
                 </div>
 
                 <div class="form-group">
                     <input type="text" class="form-control login-field" value="" placeholder="真实姓名"
-                           id="login-user" name="userName"/>
+                           id="login-user" name="name"/>
                     <label class="login-field-icon fui-user" for="login-user"></label>
                 </div>
 
                 <div class="form-group">
-                    <select class="form-control login-field" id="login-type" name="userType">
-                        <option value="0">求职</option>
-                        <option value="1">招聘</option>
+                    <select class="form-control login-field" id="login-type" name="type">
+                        <option value="2">求职</option>
+                        <option value="3">招聘</option>
                     </select>
                     <label class="login-field-icon fui-star" for="login-type"></label>
                 </div>
@@ -83,16 +72,16 @@
                     <label class="login-field-icon fui-alert-circle"></label>
                 </div>
 
-                <a class="btn btn-primary btn-lg btn-block" href="#" id="login-submit">注册</a>
+                <button class="btn btn-primary btn-lg btn-block" type="button" id="login-submit">注册</button>
             </form>
         </div>
     </div>
 </div>
 
-<!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+
 <script src="../static/dist/js/vendor/jquery.min.js" th:src="@{/dist/js/vendor/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../static/dist/js/vendor/video.js" th:src="@{/dist/js/vendor/video.js}"></script>
+
 <script src="../static/dist/js/vendor/application.js" th:src="@{/dist/js/vendor/application.js}"></script>
 <script src="../static/dist/js/flat-ui.min.js" th:src="@{/dist/js/flat-ui.min.js}"></script>
 <script src="../static/js/register.js" th:src="@{/js/register.js}"></script>

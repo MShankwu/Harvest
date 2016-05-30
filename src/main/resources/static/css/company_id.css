@@ -1,0 +1,17 @@
+#company-id {
+    margin-bottom: 60px;
+}
+
+#company-id-body {
+    padding-left: 50px;
+}
+
+#company-description {
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
