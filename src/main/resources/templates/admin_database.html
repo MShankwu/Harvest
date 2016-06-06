@@ -31,13 +31,12 @@
             </div>
             <div class="col-md-8">
                 <form class="login-form" action="/action/management/admin/database" method="get">
-                    <div class="form-group">
-                        <label class="label label-default">选择路径</label>
-                        <input class="form-control login-field" type="file"/>
-                    </div>
                     <div class="form-group has-success" th:if="${resultMsg}">
                         <label class="form-control login-field" th:text="${resultMsg}"></label>
                         <label class="login-field-icon fui-alert-circle"></label>
+                    </div>
+                    <div class="form-group has-success" th:if="${resultMsg}">
+                        <a th:href="@{/database/harvest.sql}">数据库备份文件.sql</a>
                     </div>
                     <button class="btn btn-primary btn-block">备份</button>
                 </form>
